@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ES5中的bind方法， 用来改变Function执行时候的上下文
+    // （ 函数主体本身不执行， 与call / apply直接执行并改变不同）
+    //  本质上就是延迟执行。 例如：
+
+    var obj = {
+            "name": "currying"
+        },
+        fun = function () {
+            console.log(this.name);
+        }.bind(obj);
+
+    fun(); // currying
+
+    // 从IE6~8 的自定义扩展来看， 其实现的机制就是柯里化（ 不考虑执行时的新增参数）：
+    if (! function () {}.bind) {
+        Function.prototype.bind = function (context) {
+            var self = this,
+                args = Array.prototype.slice.call(arguments);
+
+            return function () {
+                return self.apply(context, args.slice(1));
+            }
+        };
+    }
+</script>
+
+</html>

@@ -119,7 +119,18 @@
     addWeight(2.5);
     addWeight(); //  这里才计算
 
-    console.log(averageWeight); // 3.125 */
+    console.log(averageWeight); // 3.125 
+    */
+
+    // 虽然延迟计算听上去很高级，但是，恕我愚钝，我想破了脑袋也没想出哪种情况非要柯里化延迟计算实现才能显著提高性能。
+    // 能想到的好处就是参数个数随意，比方说：
+    addWeight(2.3, 6.5);
+    addWeight(1.2, 2.5);
+
+    // 也是可以的。
+    addWeight(); //  这里才计算
+    console.log(fishWeight); // 12.5
+    console.log(averageWeight); // 3.125
 </script>
 
 </html>
