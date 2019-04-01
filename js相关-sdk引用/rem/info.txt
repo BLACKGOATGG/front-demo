@@ -1,0 +1,14 @@
+index.js        //个人练习
+	clientWidth==750px:1rem == 100px?1rem ==1 clientWidth/750
+
+rem100.js          //工程用：
+        var b = f.getBoundingClientRect().width;
+		b / i > 540 && (b = 540 * i);
+		var c = b / 10;
+		f.style.fontSize = c + "px", k.rem = a.rem = c
+
+rem75.js          //工程用：
+        var b = f.getBoundingClientRect().width;
+		b / i > 540 && (b = 540 * i);
+		var c = b / 7.5;
+		f.style.fontSize = c + "px", k.rem = a.rem = c
