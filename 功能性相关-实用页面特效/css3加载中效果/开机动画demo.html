@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style>
+			#box {
+				width: 0;
+				height: 0;
+				position: relative;
+				top: 200px;
+				left: 200px;
+			}
+			
+			.shan {
+				width: 30px;
+				height: 10px;
+				position: absolute;
+				transform-origin: left 50%;
+				display: flex;
+				justify-content: flex-end;
+				transition: all 0.3s linear;
+			}
+			
+			.yuan {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: blue;
+			}
+			
+			.loadEffect {width: 100px; height: 100px;position: absolute;z-index: 999;top: 50%;left: 50%;right: 50%;bottom: 50%;margin-left: -50px;}
+		    .loadEffect div{width: 100%;height: 100%;position: absolute;-webkit-animation: load 2.08s linear infinite; }
+		    .loadEffect div span{display: inline-block;width: 20px; height: 20px;border-radius: 50%;background: #FEE334;position: absolute;left: 50%;margin-top: -10px;margin-left: -10px; }
+		     @-webkit-keyframes load{
+		        0%{-webkit-transform: rotate(0deg);}
+		        10%{-webkit-transform: rotate(45deg);}
+		        50%{opacity: 1;-webkit-transform: rotate(160deg);}
+		        62%{opacity: 0;}
+		        65%{opacity: 0;-webkit-transform: rotate(200deg);}
+		        90%{-webkit-transform: rotate(340deg);}
+		        100%{-webkit-transform: rotate(360deg);}
+			}
+		    .loadEffect div:nth-child(1){-webkit-animation-delay:0.2s;}
+		    .loadEffect div:nth-child(2){-webkit-animation-delay:0.4s;}
+		    .loadEffect div:nth-child(3){-webkit-animation-delay:0.6s;}
+		    .loadEffect div:nth-child(4){-webkit-animation-delay:0.8s;}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+			<div class="shan"><div class="yuan"></div></div>
+		</div>
+		
+		<div class="loadEffect" v-show="loadEffect_hide">
+			<div><span></span></div>
+			<div><span></span></div>
+			<div><span></span></div>
+			<div><span></span></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript">
+		let item = 1;
+		let deg = 360 / $(".shan").length;
+
+		$(".shan").each(function(a, b) {
+			$(this).find(".yuan").css({opacity: 1 / $(".shan").length * (a + 1)});
+			$(this).css({transform: "rotateZ(" + (a + item) * deg + "deg)"})
+		})
+		item++;
+		setInterval(function() {
+			xuanzhuan()
+		}, 300)
+
+		function xuanzhuan() {
+			$(".shan").each(function(a, b) {
+				$(this).css({transform: "rotateZ(" + (a + item) * deg + "deg)"})
+			})
+			item++;
+		}
+	</script>
+
+</html>

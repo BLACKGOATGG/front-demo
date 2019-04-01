@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+<title>随鼠标滚动的广告图片</title>
+<style type="text/css">
+#main{text-align:center; width: 1014px; margin: 0 auto;}
+#adver{
+	position:absolute;
+	left:10px;
+	top:30px;
+	z-index:2;
+}
+</style>
+
+</head>
+<body>
+<div id="adver"><img src="images/adv.jpg"/></div>
+<div id="main"><img src="images/main1.jpg"/><img src="images/main2.jpg"/><img src="images/main3.jpg"/></div>
+
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	$(document).ready(function(){
+		var adverTop=parseInt($("#adver").css("top"));
+		var adverLeft=parseInt($("#adver").css("left"));
+		$(window).scroll(function(){
+			var scrollTop = parseInt($(this).scrollTop());//获取滚动条翻上去的距离
+			var scrollLeft = parseInt($(this).scrollLeft());//获取滚动条向右的距离
+			$("#adver").offset({top:scrollTop+adverTop});
+			$("#adver").offset({left:scrollLeft+adverLeft});
+		});
+	})
+</script>
+</body>
+</html>

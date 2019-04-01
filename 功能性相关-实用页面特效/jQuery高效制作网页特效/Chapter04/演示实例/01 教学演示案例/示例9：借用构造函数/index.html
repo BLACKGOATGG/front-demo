@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>借用构造函数</title>
+</head>
+<body>
+<script>
+    function Humans(){
+        this.clothing=["trousers","dress","jacket"];
+    }
+    function Man(){
+        Humans.call(this);   //继承了Humans
+    }
+    var man1=new Man();
+    man1.clothing.push("coat");
+    alert(man1.clothing);
+    var man2=new Man();
+    alert(man2.clothing);
+</script>
+</body>
+</html>

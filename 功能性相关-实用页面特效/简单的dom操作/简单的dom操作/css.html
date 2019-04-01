@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="jquery-1.9.1.js"></script> 
+		<link href="exercise.css"  rel="stylesheet" />
+		<style type="text/css">
+			h1{
+				color: red;
+			}
+		</style>
+		 <script>
+			   window.onload=function(){
+			   	console.log("window.onload");
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<h1>red</h1>
+			<h1>red</h1>
+			<h1>red</h1>
+			<h1>red</h1>
+			<h1>red</h1>
+		</div>
+		<div>
+			<input  type="text" id="text1" value="1"/>
+			<input  type="text" id="text2" value="2"/>
+			<input  type="text" id="text3" value="3"/>
+			<input  type="button" id="text4" value="4"/>
+		</div>
+		  <p>你好！</p> 
+		<ul> 
+		    <li title="苹果">苹果</li> 
+		    <li title="橘子">橘子</li> 
+		    <li title="菠萝">菠萝</li> 
+		</ul> 
+	</body>
+	    <script>
+			 $(function (){
+			 	  var lenght=$("h1").length;
+			      console.log(lenght);
+			      var  val=$("#text1").val();
+			      console.log(val);
+			      var  val2=$(":input[type!='text']").length;
+			      console.log(val2);
+			      var  val3=$("input[id=text3]").val();
+			      console.log(val3);
+			      var  val3=$("input[id=text3]").attr("value");
+			      console.log(val3);
+			      
+			      
+			      $(":input[type=text]").each(function(){
+			      	console.log(this.value);
+			      })
+			 });
+			elementoperate();
+			 deleteElement();
+			/*元素的插入,复制、替换和删除节点*/
+			 function elementoperate(){
+			 	 //$("p").append("<b>你好吗？</b>");//向p元素中追加《b》 
+			    //$("<b>你好吗？</b>").appendTo("p");//将《b》追加到p元素中 
+			    //$("p").prepend("<b>你好吗？</b>");//向p中前置《b》 
+			    //$("<b>你好吗？</b>").prependTo("p");//将《b》前置到p元素中 
+			    //$("p").after("<b>你好吗？</b>");//向p元素后插入《b》 
+			    //$("<b>你好吗？</b>").insertAfter("p");//将《b》插入到p元素后边 
+			    //$("p").before("<b>你好吗？</b>");//在p元素之前添加《b》 
+			    //$("<b>你好吗？</b>").insertBefore("p");//将《b》插入到p元素前面 
+			 }
+			 
+			 /*删除节点的方法*/
+			 function  deleteElement(){
+			 	    var $li=$("ul li:eq(1)").remove();//删除ul节点中第2个元素节点 
+				    $("ul").append($li);//把刚删除的元素节点从新添加到ul元素中去 
+				    $("ul li").remove("li[title!=菠萝]");//将ul元素下title属性不等于"菠萝"的li元素删除 
+				    $("ul li:eq(0)").empty();//清空ul节点下第2个li元素的内容 
+			 }
+	    </script>
+</html>

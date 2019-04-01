@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		
+		<ul id="ul"></ul>
+		
+	</body>
+	<script src="js/jquery-1.9.1.js"></script>
+	<script>
+		$.ajax({
+			url: "http://127.0.0.1:8080/",
+			success: function(data) {
+				var Data = JSON.parse(data).name; //将文本类型的字符串转成json
+				console.log(Data);
+				var ul = document.getElementById("ul");
+				var html = "";
+				for(var i = 0; i < Data.length; i++) {
+					html += "<li>" + Data[i].firstName + '    ' + Data[i].lastName + "</li>";
+				}
+				console.log(html);
+				$(ul).append(html);
+			}
+		})
+
+		var xmlHttp;
+		/*原生ajax请求方法*/
+		if(window.XMLHttpRequest) {
+			xmlHttp = new XMLHttpRequest();
+		} else {
+			xmlHttp = new ActiveXObject();
+		}
+		xmlHttp.open("GET", "http://127.0.0.1:8080/", true);
+
+		xmlHttp.onreadystatechange = function() {
+			//xmlhttp.status 有4种
+			//readystate  有5 种状态码   0-4
+			if(xmlHttp.status == 200 && xmlHttp.readyState == 4) {
+				//xmlhttp.responseText请求返回内容
+				var Data = JSON.parse(xmlHttp.responseText).name; //将文本类型的字符串转成json
+				console.log(Data);
+				var ul = document.getElementById("ul");
+				var html = "";
+				for(var i = 0; i < Data.length; i++) {
+					html += "<li>" + Data[i].firstName + '    ' + Data[i].lastName + "</li>";
+				}
+				console.log(html);
+				$(ul).append(html);
+			}
+		}
+		xmlHttp.send();
+
+		$.ajax({
+			url: urlparent + "pay/get",
+			method: "POST",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			data: jso,
+			cache: false,
+			async: true,
+			timeout: 30000,
+			beforeSend: function() {},
+			success: function(data) {
+				if(data.resCode == 10000) {
+					//console.log(data);
+					returnurlpath = data.returnUrl;
+					productName = data.productName;
+					userId = data.userId;
+					merNo = data.merNo;
+					merOrderNo = data.merOrderNo;
+
+					orderAmt = data.orderAmt.toFixed(2);
+					orderAmt1 = fmoney(orderAmt, 2);
+					name = data.userName;
+					certType = data.certType;
+					certNo = data.certNo;
+					productDes = data.productDes;
+					platFlowNo = data.platFlowNo;
+					/*商品名称*/
+					/*$("#productName").text(productName);*/
+					/*定单钱数*/
+					$("#merAmt").text(orderAmt1);
+					/*查询富友账户*/
+					queryWithdraCard();
+				} else if(data.resCode == 10001) {
+					failstate(data);
+				} else {
+					opacitydisplay(data.resCode, data);
+				}
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				if(XMLHttpRequest.status == 0) {
+					opacitydisplay("E301102100006");
+				}
+			},
+			complete: function(jqXHR, textStatus) {
+				if(textStatus == "timeout") {
+					opacitydisplay("E301102100006");
+				}
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,9 @@
+{
+"arrayy": [
+			{ "picture":"img/1.jpg","is":"false","name":"Casio/kaxio","price":300,"num":1},
+			{ "picture":"img/2.jpg","is":"false","name":"jianeng","price":200,"num":1},
+			{ "picture":"img/3.jpg","is":"false","name":"suoyi","price":700,"num":1},
+			{ "picture":"img/4.jpg","is":"false","name":"fushi","price":400,"num":1}
+			
+		]
+}

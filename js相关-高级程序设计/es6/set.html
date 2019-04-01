@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var set = new Set([1,1,4, 2, 3, 4, 4]);
+        console.log(set);
+        set.add(7);
+        console.log(set);
+        set.delete(4);
+        console.log(set);
+        console.log(set.has(2));
+        console.log(set);
+        set.clear();
+         console.log(set);
+       /* add(value)：添加某个值，返回Set结构本身。
+		delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+		has(value)：返回一个布尔值，表示该值是否为Set的成员。
+		clear()：清除所有成员，没有返回值
+		set内部的元素可以遍历for...of...*/
+	</script>
+</html>

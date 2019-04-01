@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/iscroll-probe.js"></script>
+		<script src="js/zepto.js"></script>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				list-style: none;
+			}
+			
+			#box{
+				border:1px solid red;
+				height:300px;
+				overflow: hidden;
+			}
+			#box li{
+				line-height:50px;
+				border:1px solid #000;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<!--html结构
+			
+			1，有最外层容器
+			2，第一个子元素并且  子元素的宽或者搞大于父元素    给父元素设置overflow：hidden;
+		--->
+		
+		<div id="box">
+			
+			<!--第一个子元素-->
+			<ul id="boxUl">
+				<!--<li></li>-->
+			</ul>
+		</div>
+		
+		<script>
+			var str = "";
+			//创建一个ul
+			//var  ul = document.createElement("ul")
+			//循环添加
+			for(var i=0 ;i<10;i++){
+				// 第一种 拼接字符串
+				// 创建标签     js初级的时候
+//				var li = document.createElement("li");
+//				li.innerHTML = "这是li ," + i;
+//				ul.appendChild(li)
+
+				str += '<li>这是li ,'+ i+'</li>'
+			}
+			//将ul添加到box
+			boxUl.innerHTML = str;
+			
+			//iscroll 初始化
+			
+			function loaded(){
+				
+				//初始化一个指令
+				var flag = 0; //如是0代表不满足条件 ，如果是1表示满足下拉添加，如果是2表示满足上拉条件
+				//计时器   间隔200毫秒后初始化 iscroll
+				setTimeout(function(){
+					myIscroll = new IScroll("#box",{
+						//设置横屏滚动  横轴
+						scrollX:true,
+						//滚动条显示   如果不需要就不设置
+						scrollbars:true,
+						//下拉刷新   scroll  每滚动一像素触发
+						probeType:3
+					})
+					
+					//滚动开始的时候触发
+					//滚动中触发
+					myIscroll.on("scroll",function(){
+						//当前位置
+						//console.log(this.y)
+						//滚动大于80的时候添加
+						if(this.y>80){
+							//满足下拉条件
+							flag=1
+						}
+					})
+					//滚动结束
+					myIscroll.on("scrollEnd",function(){
+						//判断满足下拉条件的时候  
+						if(flag==1){
+							//dom添加    boxUl
+							$("#boxUl").prepend("<li>213123</li>");
+							//指令初始化
+							flag=0;
+						}				
+						// "12a" + 123
+					})
+				},200)
+			}
+			//当页面加载完成去执行 loaded函数
+			window.addEventListener("load",loaded,false)
+		</script>
+	</body>
+</html>

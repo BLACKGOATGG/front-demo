@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第一个vue</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<style>
+		.class1{
+			color: red;
+		}
+	</style>
+	<body>
+		<div id="app">
+		  <label for="r1">修改颜色</label>
+		  <input type="checkbox" v-model="color" id="r1">
+		  <br><br>
+		 <div v-bind:class="{'class1': color}">
+		    directiva v-bind:class
+		  </div>
+		</div>
+	</body>
+	<script>
+		new Vue({
+		    el: '#app',
+		    data:{
+		      color: true
+		  },
+		  methods:{
+		  	
+		  }
+		});
+</script>
+</html>
+

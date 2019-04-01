@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+
+<body>
+</body>
+<script>
+	// console.group()作用Web控制台上创建一个新的分组.随后输出到控制台上的内容都会被添加一个缩进,表示该内容属于当前分组
+	console.group('beforeCreate 创建前状态 >>>>>>>>>>');
+	console.log(111111111111);
+	console.log(222222222);
+	console.log(33333333333)
+	console.groupEnd()
+
+	//调用console.groupEnd() 之后,当前分组结束
+	console.group('beforeCreate 创建前状态 >>>>>>>>>>');
+	console.log(4444444444);
+	console.log(55555555555555);
+	console.log(666666666666666)
+	console.groupEnd()
+
+
+	function parent() {
+		for (var i = 0; i < 10000; i++) {
+			childA()
+		}
+	}
+
+	function childA(j) {
+		for (var i = 0; i < j; i++) {}
+	}
+
+	console.profile('性能分析'); //可用于做性能分析
+	parent();
+	console.profileEnd(); //性能分析结束
+	//然后我们可以在 Profiles 面板下看到上述代码运行过程中的消耗时间。
+	//页面加载过程的性能优化是前端开发的一个重要部分，使用控制台的 profiles 面板可以监控所有 JS 的运行情况使用方法就像录像机一样，控制台会把运行过程录制下来。
+
+
+	//console.time(name);计时器，可以将成对的console.time()和console.timeEnd()之间代码的运行时间输出到控制台上，name参数可作为标签名。
+	console.time('计时器');
+	for (var i = 0; i < 500; i++) {
+		for (var j = 0; j < 500; j++) {}
+	}
+	console.timeEnd('计时器');
+
+	console.log("%c░░░░░░░█▐▓▓░████▄▄▄█▀▄▓▓▓▌█ ", "color:#fff;background-color:#000");
+	console.log("%c░░░░░▄█▌▀▄▓▓▄▄▄▄▀▀▀▄▓▓▓▓▓▌█ ", "color:#fff;background-color:#000");
+	console.log("%c░░░▄█▀▀▄▓█▓▓▓▓▓▓▓▓▓▓▓▓▀░▓▌█ ", "color:#fff;background-color:#000");
+	console.log("%c░░█▀▄▓▓▓███▓▓▓███▓▓▓▄░░▄▓▐█▌ ", "color:#fff;background-color:#000");
+	console.log("%c░█▌▓▓▓▀▀▓▓▓▓███▓▓▓▓▓▓▓▄▀▓▓▐█ ", "color:#fff;background-color:#000");
+	console.log("%c▐█▐██▐░▄▓▓▓▓▓▀▄░▀▓▓▓▓▓▓▓▓▓▌█▌ ", "color:#fff;background-color:#000");
+	console.log("%c█▌███▓▓▓▓▓▓▓▓▐░░▄▓▓███▓▓▓▄▀▐█ ", "color:#fff;background-color:#000");
+	console.log("%c█▐█▓▀░░▀▓▓▓▓▓▓▓▓▓██████▓▓▓▓▐█ ", "color:#fff;background-color:#000");
+	console.log("%c▌▓▄▌▀░▀░▐▀█▄▓▓██████████▓▓▓▌█▌ ", "color:#fff;background-color:#000");
+	console.log("%c▌▓▓▓▄▄▀▀▓▓▓▀▓▓▓▓▓▓▓▓█▓█▓█▓▓▌█▌ ", "color:#fff;background-color:#000");
+	console.log("%c█▐▓▓▓▓▓▓▄▄▄▓▓▓▓▓▓█▓█▓█▓█▓▓▓▐█▌ ", "color:#fff;background-color:#000");
+	console.log("%c河东黑哥，千秋万载，一统江湖 ", "color:#fff;background-color:#000");
+</script>
+
+</html>

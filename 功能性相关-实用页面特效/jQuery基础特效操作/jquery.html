@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	   <script src="jquery-1.9.1.js"></script>
+	</head>
+	<body>
+		<input   type="text" onblur="fun()" oninput="fun1(this)" value="    xifaxia    " style="width: 100px;height: 200px;" name="in" placeholder="请填写名字" />
+		<div id="div">
+			<a>
+				
+			</a>
+			<a>
+				
+			</a>
+			<a>
+				
+			</a>
+		</div>
+		<div class="div2"></div>
+		<label>lop</label>
+		<p onclick="javascript:alert('哈哈哈哈')">安达市多</p>
+	
+	</body>
+	<script>
+	$(document).ready(function(){
+		$("#div").click(function(){
+			alert("div");
+		})
+	})
+	/*var divo=document.getElementById("div");//原生写法*/
+	$(document.getElementById("div")).html("今天老子高兴");//jquery写法
+/*	$('input[name=first]').html("今天老子高兴");*/
+	/*console.log(document);*/
+//	$('div a:first').html("今天老子bu高兴");
+//	console.log($('div').has('a'));
+//	　$('div').filter('.myClass');
+//	 $('div .myclass')
+　/*console.log($('#div').next());*/
+　//console.log($('a').parents()); //选择div元素的父元素
+/*console.log($('#div').children());*/ //选择div的所有下一几子元素
+/*console.log($('#div').siblings()); //选择div的同级元素
+
+var div =$('#div');
+var a=$(div).find('a');
+$(a).eq(2).html('Hello');*/
+
+/*$('div')
+　　　.find('a')
+　　　.eq(2)
+　　　.html('Hello')
+　　　.end() 
+　　　.eq(0) 
+　　　.html('World'); 
+console.log($("input").attr("parent"));
+console.log($("label").text());*/
+
+/*　$("<div>asdasd</div>").insertAfter($('p'));*/
+　　/*$('p').before($('<div>asdasd</div>'));*/
+$('p').append("<label>我是追加进来的1</label>");
+$('p').append("<label>我是追加进来的2</label>");
+$('p').append("<label>我是追加进来的3</label>");
+$("<label>我是追加进来的4</label>").appendTo('p');
+console.log($('p').append($('p').clone(true)));
+/*console.log($('p').empty());*/
+console.log($('input').val());
+
+/*
+$(arr).each( function( index, value ) {
+  alert( index + ": " + value );
+});*/
+/*var obj = {
+  "flammable": "inflammable",
+  "duh": "no duh"
+};
+$.each( obj, function( key, value) {
+  alert( key + ": " + value );
+});*/
+
+/*var arr=[52,78,90,90,89,76];
+console.log($.inArray(90,arr));*/
+/*var arr = [ 1, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1 ];
+ 
+arr = $.grep(arr, function( n, i ) {
+	console.log(n);  //值
+	console.log(i);  //索引
+    return ( n !== 5 && i > 4 );
+});*/
+/*var object1 = {
+  apple: 0,
+  banana: { weight: 52, price: 100 },
+  cherry: 97
+};
+var object2 = {
+  banana: { price: 200 },
+  durian: 100
+};
+
+console.log($.extend( object1, object2 ));*/
+var object2 = {
+  banana: { price: 200 },
+  durian: 100
+};
+var arr = jQuery.makeArray( object2 );
+console.log(arr);
+
+console.log($.type([1,2,3]));
+console.log($.type({}));
+console.log($.type("123"));
+console.log($.type(null));
+console.log($.type(undefined));
+console.log($.type(function(){}));
+
+console.log($.isArray({}));
+
+console.log(jQuery.isEmptyObject({})); 
+console.log(jQuery.isEmptyObject({ foo: "bar" })) ;
+var li=new Object();
+console.log(jQuery.isPlainObject({})); // true
+console.log(jQuery.isPlainObject(li)); // true
+console.log(jQuery.isPlainObject( "test" )); // false
+function  fun1(thi){
+	if($(thi).val().length==16){
+		
+	}
+}
+$("div").hover(function(){},function(){})
+
+
+
+
+	</script>
+</html>

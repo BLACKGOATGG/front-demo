@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="filelist">
+        <li>Mac电脑系统登录SSL VPN指导-Ver1.0.pdf</li>
+        <li>Vpn用户使用教程V2.1版.pdf</li>
+        <li>公司内网异常惩罚性断网剖析以及应对策略.pdf</li>
+    </ul>
+    <iframe id="myframe" src="http://localhost/data/demo/js读取本地文件--pdfjs/pdfjs/web/viewer.html" width="886" height="990"></iframe>
+    <script>
+        let ulObj=document.getElementById("filelist");
+        let myframe=document.getElementById("myframe");
+		ulObj.onclick=function(event){
+			let e=event.target|| window.event;
+			if(e.nodeName.toLowerCase()=="li"){
+                alert(e.innerText);
+                myframe.src="http://localhost/data/demo/js读取本地文件--pdfjs/pdfjs/web/viewer.html?file="+e.innerText;
+			}
+		}
+    </script>
+</body>
+</html>

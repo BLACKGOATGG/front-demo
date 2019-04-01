@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.input{
+			font-size: 50px;
+			letter-spacing:50px;
+			line-height: 100px;
+			padding: 100px;
+		}
+	</style>
+</head>
+
+<body>
+	<input class="input" type="text" placeholder="请输入">
+</body>
+<script>
+	let a = 0,
+		b = 1,
+		c,
+		arra = [],
+		arrb = [],
+		arrc = [];
+
+	function fn(n) {
+		for (let i = 0; i < n; i++) {
+			c = a + b;
+			arrc.push(c);
+			a = b;
+			arra.push(a);
+			b = c;
+			arrb.push(b);
+		}
+		return c
+	}
+	console.log(fn(10));
+	console.log(`a==> [${arra}]`);
+	console.log(`b==> [${arrb}]`);
+	console.log(`c==> [${arrc}]`);
+	//console.log(arr)
+	//
+	//c1 a0 b1 
+	//c1 a1 b1
+	//c2 a1 b2
+	//c3 a2 b3
+	//c5 a3 b5
+	//c8 a5 b8
+	//c13 a8 b13
+	//c21 a13 b21
+	//c34 a21 b34
+	//c55 a34 b55
+	//c89 a55 b89
+	//
+	//
+	console.info(
+		'%cthis text is styled1!',
+		'color:red;background:yellow;font-size:24px'
+	)
+	console.log(
+		'%cthis text is styled2!',
+		'color:red;background:yellow;font-size:24px'
+	)
+	console.count("a");
+	console.count("a");
+	console.count("b");
+
+	//判断一个对象是数组还是对象
+	const obj = []
+	console.log(Object.prototype.toString.call(obj)) //对象返回[object object]数组返回[object array]
+
+	const arr = [1, "1", 1, "asd", 2, 3, 3];
+	const newarr = new Set(arr);
+	console.group('newarr >>>>>>>>>>');
+	console.log(newarr);
+	console.log([...newarr])
+	console.log(newarr.size);
+	console.log(newarr.add("sss"));
+	console.log(newarr.delete("sss"));
+	console.log(newarr.has("sss"));
+	//console.log(newarr.clear());
+	const newnewarr = Array.from(newarr)
+	console.log(newnewarr)
+	console.groupEnd()
+
+
+
+	let promise = new Promise(function (resolve, reject) {
+		resolve();
+		console.log('创建Promise');
+		//reject();
+
+
+	});
+
+	promise.then(function () {
+		console.log('这是promise成功后的回调函数');
+	}, function () {
+		console.log('这是promise失败后的回调函数');
+	});
+
+	console.log('Hi!');
+</script>
+
+</html>

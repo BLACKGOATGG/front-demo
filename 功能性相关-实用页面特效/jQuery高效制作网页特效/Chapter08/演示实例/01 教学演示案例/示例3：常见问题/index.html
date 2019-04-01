@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>常见问题</title>
+    <link rel="stylesheet" href="css/problem.css">
+</head>
+<body>
+<section>
+    <span>×</span>
+    <h1>常见问题</h1>
+    <div class="proList"></div>
+<div class="img"><img src="images/boy.png"></div>
+</section>
+<script src="js/jquery-1.12.4.js" ></script>
+<script>
+    /*$(document).ready(function(){
+       $("h1").click(function(){
+           var str="<ul><li>买了商品后，查不到物流信息怎么办？</li><li>申请退款后，交易退款成功，钱到哪里？</li><li>卖家拒绝退款，怎么办？</li><li>投诉发生的时间和条件是什么？</li><li>如何申请淘宝客服介入？</li></ul>";
+           $(".proList").html(str);
+       });
+        $("span").click(function(){
+            $(".proList").html("");
+        })
+    });*/
+
+     $(document).ready(function(){
+        $("h1").click(function(){
+            var str="<ul><li>买了商品后，查不到物流信息怎么办？</li><li>申请退款后，交易退款成功，钱到哪里？</li><li>卖家拒绝退款，怎么办？</li><li>投诉发生的时间和条件是什么？</li><li>如何申请淘宝客服介入？</li></ul>";
+            $(".proList").text(str);
+        });
+        $("span").click(function(){
+            $(".proList").text("");
+        })
+    });
+
+</script>
+</body>
+</html>

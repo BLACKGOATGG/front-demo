@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>百度一下,你就知道</title>
+		<link rel="stylesheet" type="text/css" href="css/baidu.css" />
+
+	</head>
+
+	<body>
+		<nav>
+			<a href="#" class="mnav">新闻</a>
+			<a href="#" class="mnav">hao123</a>
+			<a href="#" class="mnav">地图</a>
+			<a href="#" class="mnav">视频</a>
+			<a href="#" class="mnav">贴吧</a>
+			<a href="#" class="mnav">学术</a>
+			<a href="#" class="dl">登录</a>
+			<a href="#" class="sz">设置</a>
+			<a href="#" class="gd">更多产品</a>
+		</nav>
+
+		<div class="logobox">
+			<img src="img/bd_logo1.png" class="logo" />
+		</div>
+		<div class="sousuobox">
+			<input type="text" id="ss_text" v-model="value" @keyup="get()" @input="jianting()" @keydown.down="xia()" @keydown.up="shang()" @keydown.13="huiche()" /><input type="button" id="ss_btn" @click="ss_btn_down()" value="百度一下" />
+		</div>
+		<div class="mainbox">
+			<ul>
+				<li v-for="x in myData" :class="{gray:$index==num}" @click="clicks($index)" @dblclick="dblclicks($index)">{{x}}</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/baidu.js"></script>
+
+</html>

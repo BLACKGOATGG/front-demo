@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script>
+/*		第一种（函数声明）：*/ 
+function sum1(num1,num2){
+   return num1+num2;
+}
+/*第二种（函数表达式）：*/
+var sum2 = function(num1,num2){
+   return num1+num2;
+}
+/*第三种（函数对象方式）：*/
+var sum3 = new Function("num1","num2","return num1+num2");
+	</script>
+</html>

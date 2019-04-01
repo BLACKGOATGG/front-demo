@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="resourse/js/angular.js"></script>
+	</head>
+	<body ng-app="app">
+		<div ng-controller="myControllerParent">
+			<div>{{name}}</div>
+			<button ng-click="setName1('今天我们学习了控制器传递数据')">父控制器的点击</button>
+			<div ng-controller="myControllerChilden">
+				<div>{{name}}</div>
+				<button ng-click="setName2('Childen location  name')">子控制器的点击</button>
+			</div>
+		</div>
+	</body>
+
+  
+<script>  
+      var app=angular.module("app",[]);
+      app.controller("myControllerParent",function ($scope){
+      	    $scope.name="parent"
+      	    $scope.$on("parn",function(e,obj){//$scope.$on是固定的一个监听
+      	    	 console.log(obj);
+      	    	 $scope.name=obj.name;
+      	    })
+      	    
+      	    $scope.setName1=function(study){
+      	    	$scope.$broadcast("parentCallChilden",study);//向下传递
+      	    }
+      	    
+      	    
+      })
+      app.controller("myControllerChilden",function ($scope){
+      	   
+	      	$scope.setName2=function (name){
+	      		var obj={name:"魏晓亮",age:20}//可以去获取服务器的数据
+	      		$scope.$emit("parn",obj); //emit   是向上传递
+	      	}
+	      	$scope.$on("parentCallChilden",function(e,obj){//$scope.$on是固定的一个监听
+      	    	 console.log(obj);
+      	    	 $scope.name=obj
+      	    })
+      }) 
+</script>  
+</html>

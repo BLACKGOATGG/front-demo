@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: url(img/1.jpg);
+        }
+        *{
+            font-family: "微软雅黑";
+        }
+        #div{
+
+            margin:50px auto;
+            width:350px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+        table{
+            margin:0 auto;
+        }
+        button{
+            background: greenyellow;
+            padding:5px;
+            border:none;
+            border-top:2px solid #ddd;
+            border-right:2px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div id="div">
+    <h2>信息登记表</h2>
+    姓名：<input type="text" id="sname"><br><br>
+    年龄：<input type="text" id="age"><br><br>
+    专业：<input type="text" id="skill"><br><br>
+    <button id="btn1">添加</button>  &nbsp;&nbsp;<button id="btn2">全部删除</button>&nbsp;&nbsp; <button id="btn3">选中删除</button>
+    &nbsp;&nbsp; <button id="bji">编辑</button>
+    &nbsp;&nbsp;<button id="wcheng">完成</button>
+    <br><br>
+    <input type="text" id="chaz" value="请输入查找姓名"> &nbsp;&nbsp;<button id="sous">搜索</button>
+    <br>
+    <br>
+</div>
+<table id="tab" border="1px solid #ddd" width="800px" cellspacing="0" cellpadding="10">
+    <tr>
+        <th><input type="checkbox" id="quanx">全选</th>
+        <th style="width:120px;">姓名</th>
+        <th style="width:120px;">年龄</th>
+        <th style="width:120px;">专业</th>
+        <th>登记时间</th>
+        <th>操作</th>
+    </tr>
+</table>
+
+<script>
+    //获取元素
+    var oBtn1=document.getElementById("btn1");
+    var oBtn2=document.getElementById("btn2");
+    var oTab=document.getElementById("tab");
+    var oSname=document.getElementById("sname");
+    var oAge=document.getElementById("age");
+    var oKill=document.getElementById("skill");
+    var oBji=document.getElementById("bji");
+    var oWc=document.getElementById("wcheng");
+    var oChaz=document.getElementById("chaz");
+    var oSous=document.getElementById("sous");
+
+    //给“添加”按钮 增加功能
+    oBtn1.onclick=function(){//给按钮绑定单击事件
+        var oTr=document.createElement("tr");//创建新节点 tr
+           oTr.setAttribute("class","newtr")
+        for(var i=0;i<6;i++){//创建4个td
+            var oTd=document.createElement("td");
+
+            if(i==0){//当创建第一个td的时候
+                var oInput=document.createElement("input");//创建一个input
+                oInput.type="checkbox";
+                oInput.setAttribute("name","name1");
+                oTd.appendChild(oInput);//追加
+
+            }
+            if(i==1){
+                oTd.innerHTML=oSname.value;
+                oTd.setAttribute("class","allname");
+                oSname.value="";
+            }
+            if(i==2){
+                oTd.innerHTML=oAge.value;
+                oAge.value="";
+            }
+            if(i==3){
+                oTd.innerHTML=oKill.value;
+                oAge.value="";
+            }
+            if(i==4){
+                var now=new Date();
+                oTd.innerHTML=now.getFullYear()+"年"+now.getMonth()+1+"月"+now.getDate()+"日 "+
+                now.getHours()+"时"+now.getMinutes()+"分";
+            }
+            if(i==5){
+                var oBtn3=document.createElement("button");
+                oBtn3.innerHTML="删除";
+                oTd.appendChild(oBtn3);
+                oBtn3.onclick=function(){
+                    oTab.removeChild(oBtn3.parentNode.parentNode);
+                    change();
+                }
+            }
+            oTr.appendChild(oTd);//追加
+        }
+        oTab.appendChild(oTr);//追加
+
+        change();
+    }
+
+    //给“全部删除”按钮 添加功能
+    var allinput=document.getElementsByName("name1");
+    oBtn2.onclick=function(){
+        for(var i=0;i<allinput.length;i++){
+            oTab.removeChild(allinput[i].parentNode.parentNode);
+            i--;
+        }
+        oQx.checked=false;
+    }
+    //给全选添加功能
+    var oQx=document.getElementById("quanx");
+    oQx.onclick=function() {
+        if (oQx.checked == true) {
+            for (var i = 0; i < allinput.length; i++) {
+                allinput[i].checked = true;
+            }
+        }else{
+            for (var i = 0; i < allinput.length; i++) {
+                allinput[i].checked = false;
+            }
+        }
+    }
+
+    //隔行变色
+    function change(){
+        var oAlltr=document.getElementsByClassName("newtr");
+        for(var i=0;i<oAlltr.length;i++){
+            if(i%2!=0){
+                oAlltr[i].style.backgroundColor="#efe";
+            }else{
+                oAlltr[i].style.backgroundColor="#fee";
+            }
+        }
+    }
+
+    //给选中删除添加功能
+    var oBtn3=document.getElementById("btn3");
+    oBtn3.onclick=function(){
+        for(var i=0;i<allinput.length;i++){
+            if(allinput[i].checked==true){
+                oTab.removeChild(allinput[i].parentNode.parentNode);
+                i--;
+            }
+        }
+        oQx.checked=false;
+        change();
+    }
+    //给编辑添加功能
+    oBji.onclick=function(){
+        var oTds=document.getElementsByTagName("td");
+        //遍历所有的td
+        for(var i=0;i<oTds.length;i++){
+            //给当前td绑定双击事件
+            oTds[i].ondblclick=function(){
+                //获取当前的文本
+                var oText=this.innerText;
+                var input=document.createElement("input");
+                input.style.width="100px"
+                input.value=oText;
+                input.name="bianj"
+                  //替换
+                this.replaceChild(input,this.lastChild)
+            }
+        }
+    }
+    //给完成按钮 添加功能
+    oWc.onclick=function(){
+        var allBji=document.getElementsByName("bianj")
+        for(var i=0;i<allBji.length;i++){
+            var oValue=allBji[i].value;
+              //创建文本节点
+            var td=document.createTextNode(oValue);
+            allBji[i].parentElement.replaceChild(td,allBji[i]);
+            i--;
+        }
+    }
+    oChaz.onfocus=function(){
+        oChaz.value="";
+    }
+    //给搜索绑定单击事件
+    oSous.onclick=function () {
+        var allstu=document.getElementsByClassName("allname");
+     console.log(oChaz.value)
+         for(var i=0;i<allstu.length;i++){
+             if((allstu[i].innerHTML==oChaz.value)&&(oChaz.value!="")){
+                 console.log(allstu[i].innerHTML)
+                 allstu[i].parentNode.style.backgroundColor="red";
+
+             }
+             if((oChaz.value=="")||(oChaz.value=="请输入查找姓名")){
+                 alert("请输入查找的姓名");
+                 break;
+             }
+
+         }
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

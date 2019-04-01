@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/iscroll-probe.js"></script>
+		<script src="js/zepto.js"></script>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				list-style: none;
+			}
+			
+			#box{
+				border:1px solid red;
+				height:300px;
+				overflow: hidden;
+					background: #f1f1f1;
+			}
+			#box li{
+				line-height:50px;
+				border:1px solid #000;
+				text-align: center;
+				background: #fff;
+			}
+			#box p{
+				line-height: 60px;
+				background: #f1f1f1;
+				color:#000;
+				text-align: center;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+
+		
+		<div id="box">
+			
+			<!--第一个子元素-->
+			<div class="boxCon">
+				<p>松开加载</p>
+				<ul id="boxUl">
+			
+					<!--<li></li>-->
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+				
+				</ul>
+			</div>
+			
+		</div>
+		
+		<script>
+		
+			//iscroll 初始化
+			
+			function loaded(){
+				
+				//初始化一个指令
+				var flag = 0; //如是0代表不满足条件 ，如果是1表示满足下拉添加，如果是2表示满足上拉条件
+				//计时器   间隔200毫秒后初始化 iscroll
+				setTimeout(function(){
+					myIscroll = new IScroll("#box",{
+						//设置横屏滚动  横轴
+						scrollX:true,
+						//滚动条显示   如果不需要就不设置
+						scrollbars:true,
+						//下拉刷新   scroll  每滚动一像素触发
+						probeType:3
+					})
+					
+					
+					//console.log(myIscroll)
+					//滚动开始的时候触发
+					//滚动中触发
+					myIscroll.on("scroll",function(){
+						//当前位置
+						console.log(this.y)
+						//滚动大于80的时候添加
+						
+						if(this.y>80){
+							//p标签显示
+							$("#box p").show()
+							//满足下拉条件
+							flag=1
+						}
+						
+						//上拉到最底部的时候 maxSrcollY 他是变的
+						if(this.y-this.maxScrollY+80<=0){
+							flag=2
+						}
+					})
+					//滚动结束
+					myIscroll.on("scrollEnd",function(){
+						console.log(this)
+						//判断满足下拉条件的时候  
+						if(flag==1){
+							$("#box p").text("正在刷新。。。")
+							//设置一次性计时器
+							setTimeout(function(){
+								//dom添加    boxU						
+								$("#boxUl").prepend("<li>213123</li>");
+								//指令初始化
+								flag=0;
+								//隐藏p标签
+								$("#box p").hide()								
+								//刷新iscroll
+								myIscroll.refresh()
+								
+							},2000)
+							
+						}	
+						
+						if(flag==2){
+							setTimeout(function(){
+								for(var i=0;i<10;i++){
+									$("#box ul").append("<li>上拉添加33333</li>")
+								}
+								//添加一下刷新
+								myIscroll.refresh();
+								//初始化
+								flag=0;
+							})
+						}
+						// "12a" + 123
+					})
+				},200)
+			}
+			//当页面加载完成去执行 loaded函数
+			window.addEventListener("load",loaded,false)
+		</script>
+	</body>
+</html>

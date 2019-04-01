@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>可见性过滤选择器</title>
+<style type="text/css">
+    #txt_show {display:none; color:#00C;}
+    #txt_hide {display:block; color:#F30;}
+</style>
+</head>
+<body>
+<p id="txt_hide">点击按钮，我会被隐藏哦~</p>
+<p id="txt_show">隐藏的我，被显示了，嘿嘿^^</p>
+<input name="show" type="button" value="显示隐藏的P元素"  id="show"/>
+<input name="hide" type="button" value="隐藏显示的P元素" id="hide" />
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#show").click(function(){
+            $("p:hidden").show();
+        })
+        $("#hide").click(function(){
+            $("p:visible").hide();
+        })
+    })
+</script>
+</body>
+</html>

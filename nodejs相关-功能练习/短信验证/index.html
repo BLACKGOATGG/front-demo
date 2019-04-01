@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-3.1.1.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<h2>短信验证</h2>
+			<p>手机号 ： <input type="text" name="phone"  id="phone"/></p>
+			<p><input type="text" name="yzm" id="yzm"/> <button id="send_yzm">发送验证码</button></p>
+			<p><button id="sub">提交</button></p>
+		</div>
+		
+		<script>
+			$("#send_yzm").click(function(){
+				$.ajax({
+					url:"http://127.0.0.1:7771/duxi",
+					data:{
+						phone:$("#phone").val()
+					},
+					success(res){
+						console.log(res)
+					}
+					
+				})
+			})
+			
+				$("#sub").click(function(){
+	
+				$.ajax({
+					url:"http://127.0.0.1:7771/yzm",
+					data:{
+						yzm:$("#yzm").val()
+					},
+					success(res){
+						alert(res)
+					}
+					
+				})
+			})
+			
+		</script>
+	</body>
+</html>

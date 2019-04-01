@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		 <div class="divName"></div> 
+		 <div class="divName"></div> 
+		 <div class="divName"></div> 
+		 <div class="divName"></div> 
+		 
+		 
+		 <div name="dif"></div>
+		 <div name="dif"></div>
+		 <div name="dif"></div>
+		 <div id="divIdParent1">
+		 	<p>asdsad</p>
+		 	<div id="divId">222</div>
+		 </div>
+		 <div id="divIdParent2" name="divIdParent3" style="font-size: 20px;">
+		 	<p>asdsad</p>
+		 	<div>222</div>
+		 </div>
+		 
+		 
+	</body>
+	<script>
+		/* var div=document.createElement("div")
+		 console.log(div);
+		 var body=document.getElementsByTagName("body")[0];
+		 console.log(body);
+		 body.appendChild(div);
+		 
+		 
+		 var label=document.createTextNode("hello word");
+		 console.log(label);
+		 div.appendChild(label);
+		 
+		 var divName=document.getElementsByClassName("divName");
+		  console.log(divName);
+		 var dif=document.getElementsByName("dif");
+		  console.log(dif);
+		 var divId=document.getElementById("divId");
+		  console.log(divId);
+		 var  tagname=document.getElementsByTagName("div");
+		  console.log(tagname);*/
+		 
+		 var divId=document.getElementById("divId");
+		 var divIdparent=divId.parentNode;//就是id名字为divIdParent 的节点
+		 console.log(divIdparent);
+		 
+		 var divchild=divIdparent.childNodes;
+		 console.log(divchild);
+		 
+		 var nextElem=divIdparent.nextElementSibling;//id名字为divIdParent2的节点
+		 console.log(nextElem.previousElementSibling);
+		 console.log(nextElem.attributes);
+	</script>
+</html>

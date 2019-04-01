@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script src="js/angular-route1.4.5.js"></script>
+	</head>
+	<body>
+		<ul >
+			<li><a href="#a" >aasdas</a></li>
+			<li><a href="#b" >badsasd</a></li>
+			<li><a href="#c" >casda</a></li>
+			<li><a href="#d" >dasdasd</a></li>
+			<li><a href="#e" >easda</a></li>
+			<li><a href="#f" >fasda</a></li>
+		</ul>
+		<div ng-view></div>
+	</body>
+	<script>
+		var app=angular.module("myapp",["ngRoute"]);
+		app.controller("mycontroller",function($scope){
+			$scope.name="马天宇";
+		})
+		app.controller("mycontroller2",function($scope){
+			$scope.name="马天宇2";
+		})
+		//添加app 配置文件   模块加载进行匹配
+		app.config(function($routeProvider){
+			//开始配置路由地址  (参数一  hash值   参数2  对象  对应配置页面)
+			$routeProvider
+			.when('/a',{
+				templateUrl:'hash.html',
+				controller:"mycontroller"
+				})
+			.when('/b',{
+				templateUrl:'hash2.html',
+				controller:"mycontroller2"
+			}).when('/c',{
+				template:"这个是c模块"
+			}).when('/d',{
+				template:"这个是d模块"
+			}).when('/e',{
+				template:"这个是e模块"
+			})
+			.when('/',{
+				template:"这个是初始化进来展示的页面"
+			})
+			.otherwise({redirectTo:"/b"})//重定向
+			.otherwise({redirectTo:"/a"})//重定向
+			
+		})
+	</script>
+</html>

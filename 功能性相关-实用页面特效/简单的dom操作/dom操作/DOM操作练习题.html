@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            background: powderblue;
+        }
+        table{
+            width:900px;
+        }
+        .btn{
+            height:30px;
+            width:80px;
+        }
+        #box{
+            width:900px;
+            margin:0 auto;
+        }
+        #big_box{
+            width:100%;
+            -background:rgba(182, 184, 242, 0.5);
+        }
+        form{
+            padding:30px;
+        }
+        #btn{
+
+        }
+        #content{
+            height:500px;
+            width:500px;
+            border:1px solid #ccc;
+            background: rgb(182, 184, 242);
+            position:absolute;
+            top:30px;
+            left:400px;
+            display: none;
+        }
+        td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="big_box">
+    <div id="box">
+        <h1 align="center">注册信息表</h1>
+        <input type="button"value="注册"id="btn"class="btn"/>
+        <input type="text"placeholder="按姓名搜索"id="ss"/>
+        <input type="button"value="搜索"class="btn"id="search"/>
+        <br/>
+        <br/>
+        <table border="1" cellspacing="0" id="tb"align="center">
+            <tr>
+                <th><input type="checkbox" id="qx">全选</th>
+                <th>昵称</th>
+                <th>邮箱</th>
+                <th>手机号</th>
+                <th>省份</th>
+                <th>城市</th>
+                <th>操作</th>
+            </tr>
+        </table>
+    </div>
+    <div id="content">
+        <form action="" name="form1" id="form11" onsubmit="return false">
+            <br />
+            <span>昵称：</span><input type="text" value="请输入姓名" id="name" />
+            <div style="color: red; font-size: 10px; padding-left: 100px; margin-top: 10px; margin-bottom: 10px">昵称不能为空 长度8-16位</div>
+
+            <span>密码：</span><input type="password" id="pwd"/>
+            <div style="color: red; font-size: 10px; padding-left: 100px; margin-top: 10px; margin-bottom: 10px">密码不能为空 长度6-12位</div>
+            <!--<div style="color:red;font-size:10px;padding-left: 100px;margin-top: 10px;margin-bottom: 10px">密码</div>-->
+            <span>确认密码：</span><input type="password" id="repwd"/>
+            <div style="color: red; font-size: 10px; padding-left: 100px; margin-top: 10px; margin-bottom: 10px">确认两次密码一样</div>
+
+            <span>邮箱：</span><input type="text" id="mail"/>
+            <br />
+            <div style="color: red; font-size: 10px; padding-left: 100px; margin-top: 10px; margin-bottom: 10px">邮箱里必须有@和.字符</div>
+            <span>手机号</span><input type="text" id="tel"/>
+
+            <br />
+            <div style="color: red; font-size: 10px; padding-left: 100px; margin-top: 10px; margin-bottom: 10px">手机号不能为空 以1开头的数字</div>
+            <span id="span">省:</span><select id="sheng">
+            <option value="-1">请选择省份</option>
+        </select>
+            市:<select id="shi">
+            <option value="">请选择城市</option>
+        </select>
+            <br/>
+            <br/>
+            <input type="button"value="添加"onclick="tianjia()"/>
+            <input type="button"value="关闭"id="close1"/>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    //获取注册按钮,获取对话框
+    var btn = document.getElementById("btn");
+    var content = document.getElementById("content");
+    //给注册按钮绑定事件
+    btn.onclick=function(){
+        content.style.display="block";
+    }
+    //给关闭按钮绑定事件
+    var close1 = document.getElementById("close1");
+    close1.onclick = function(){
+        content.style.display = "none";
+    }
+//添加
+    //获取tbody
+    var tby = document.getElementsByTagName("tbody");//数组
+    function tianjia(){
+        //创建元素
+        var tr = document.createElement("tr");
+        var td = new Array(7);
+        for(var i = 0;i<td.length;i++){
+            td[i]=document.createElement("td");
+        }
+            td[1].className="td2";
+        var chbox = document.createElement("input");
+        chbox.type = "checkbox";
+        chbox.name="dx";
+        var scbtn = document.createElement("input");
+        scbtn.type = "button";
+        scbtn.value = "删除";
+        scbtn.onclick=function(){
+            scbtn.parentNode.parentNode.parentNode.removeChild(scbtn.parentNode.parentNode)
+        }
+        //把创建好的元素添加到表格当中；
+        td[0].appendChild(chbox);
+        td[6].appendChild(scbtn);
+        for(var j = 0;j<td.length;j++){
+            tr.appendChild(td[j]);
+        }
+        tby[0].appendChild(tr);
+        //获取对话框中的值
+        var name1 = document.getElementById("name").value;
+        var mail = document.getElementById("mail").value;
+        var tel = document.getElementById("tel").value;
+        var sheng = document.getElementById("sheng").value;
+        var shi = document.getElementById("shi").value;
+        td[1].innerHTML = name1;
+        td[2].innerHTML = mail;
+        td[3].innerHTML = tel;
+        td[4].innerHTML = sheng;
+        td[5].innerHTML = shi;
+    }
+    //全选，全部选
+    var qx = document.getElementById("qx");
+    qx.onclick=function(){
+        var dxs = document.getElementsByName("dx");
+        for(var i = 0;i < dxs.length;i++){
+            dxs[i].checked = qx.checked;
+        }
+    }
+    //搜索
+    var search = document.getElementById("search");
+    search.onclick=function(){
+        var ss = document.getElementById("ss");
+        var tds = document.getElementsByClassName("td2");//姓名这一栏；
+        for(var i = 0;i<tds.length;i++){
+            if(ss.value==tds[i].innerText){
+                tds[i].parentNode.style.display="tabel-cell";
+            }else{
+                tds[i].parentNode.style.display="none";
+            }
+        }
+    }
+
+    //二级联动
+    var erji = [
+        ["山西","运城","太原","吕梁"],
+        ["山东","青岛","烟台"]
+    ];
+    //给省添加元素
+    for(var i = 0;i<erji.length;i++){
+        var opt = document.createElement("option");
+        opt.innerHTML = erji[i][0];
+        sheng.appendChild(opt);
+    }
+    //给省份添加事件
+    sheng.onchange = function(){
+        var sel = sheng.selectedIndex-1;//选中的下拉选项的序号；
+        shi.innerHTML = "<option>请选择市</option>";
+        //给市添加元素
+        for(var i = 1;i<erji[sel].length;i++){
+            var opt = document.createElement("option");
+            opt.innerHTML = erji[sel][i];
+            shi.appendChild(opt);
+        }
+    }
+
+</script>
+</html>

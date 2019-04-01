@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // this的指向，是在函数被调用的时候确定的。也就是执行上下文被创建时确定的。
+    var a = 10;
+    var obj = {
+        a: 20
+    }
+
+    function fn() {
+        console.log(this.a);
+    }
+
+    fn(); // 10
+    fn.call(obj); // 20
+</script>
+
+</html>

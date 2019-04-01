@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* 因为call/apply的存在，这让JavaScript变得十分灵活。因此就让call/apply拥有了很多有用处的场景。 */
+
+    // 1.将类数组对象转换为数组
+    function exam(a, b, c, d, e) {
+
+        // 先看看函数的自带属性 arguments 什么是样子的
+        console.log(arguments);
+
+        // 使用call/apply将arguments转换为数组, 返回结果为数组，arguments自身不会改变
+        var arg = [].slice.call(arguments);
+
+        console.log(arg);
+    }
+    exam(2, 8, 9, 10, 3);   // [ 2, 8, 9, 10, 3 ]
+
+    // result:
+    // { '0': 2, '1': 8, '2': 9, '3': 10, '4': 3 }
+    // [ 2, 8, 9, 10, 3 ]
+
+    // 也常常使用该方法将DOM中的nodelist转换为数组
+    // [].slice.call( document.getElementsByTagName('li') );
+</script>
+
+</html>

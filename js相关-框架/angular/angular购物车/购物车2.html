@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular-1.4.6.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body,html{
+				width: 100%;
+				height: 100%;
+			}
+			table{
+				width: 800px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body ng-controller="myCtrl">
+		<table border="1" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>编号</th>
+				<th><input type="checkbox" ng-model="model" ng-change="change()"/>全选</th>
+				<th>商品</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>小计</th>
+				<th>操作</th>
+			</tr>
+			<tr ng-repeat="i in data track by $index">
+				<td>{{i.nums}}</td>
+				<td><input type="checkbox" ng-model="i.check"/></td>
+				<td>{{i.name}}</td>
+				<td>{{i.price | currency:"￥":2}}</td>
+				<td>
+					<input type="button" value="-" ng-click="sub($index)" ng-style="{float:'left'}"/>
+					{{i.num}}
+					<input type="button" value="+" ng-click="add($index)" ng-style="{float:'right'}"/>
+					
+				</td>
+				<td>{{i.num*i.price | currency:"￥":2 }}</td>
+				<td><button ng-click="del($index)">删除</button></td>
+			</tr>
+		</table>
+		<input type="button" value="提交订单" ng-click="tj()"/>
+	</body>
+	<script type="text/javascript">
+		var myApp=angular.module("myApp",[]);
+		myApp.controller("myCtrl",["$scope","$http","$filter",function($scope,$http,$filter){
+			$http.get("date.json").success(function(datajson){
+				$scope.data=datajson.data;
+//				console.log($scope.data);
+				$scope.data=$filter("orderBy")($scope.data,"price");
+				
+				$scope.sub=function($index){
+					$scope.data[$index].num--;
+					if($scope.data[$index].num<=1){
+						$scope.data[$index].num=1;
+						alert("商品数量错误");
+					}
+				}
+				$scope.add=function($index){
+					$scope.data[$index].num++;					
+				}
+				$scope.del=function($index){
+					$scope.data.splice($index,1);
+				}
+				$scope.model="";
+				$scope.change=function(){
+					angular.forEach($scope.data,function(val,i){
+						val.check=$scope.model;
+					})
+				}
+				$scope.tj=function(){
+					var ischeck=false;
+					angular.forEach($scope.data,function(val,i){
+						if(val.check){
+							ischeck=true;
+						}						
+					})
+					if(!ischeck){
+						alert("请选中商品");
+					}else{
+						alert("订单提交成功")
+					}
+				}
+			})
+		}])
+	</script>
+</html>

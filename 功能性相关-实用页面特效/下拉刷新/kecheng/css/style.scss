@@ -1,0 +1,28 @@
+@charset "utf-8";
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+
+#box{
+    ul{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        li{
+            width:49%;
+            border:1px solid #000;
+            box-sizing: border-box;
+            height: 370px;
+            margin-top:10px;
+        }
+        
+        @for $i from 1 to 7{
+            li:nth-child(#{$i}){
+                background:url("../img/wq"+$i+".png") center no-repeat;
+                background-size:100% 100% ;
+            }
+        }
+    }
+}

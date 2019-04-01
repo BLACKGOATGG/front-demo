@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+     <script src="js/angular.js"></script>
+	<script src="js/angular-animate.min.js"></script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myController">
+		</div>
+	</body>
+	<script>
+	      var myApp=angular.module("myApp",[]);
+		  myApp.factory('MyInterceptor', function($q) {
+			  return {
+			    // 可选，拦截成功的请求
+			    request: function(config) {
+			         console.log("request");
+			         console.log(config);
+			         return config || $q.when(config);
+			    },
+			    // 可选，拦截失败的请求
+			    requestError: function(rejection) {
+			       console.log("requestError");
+			      if (canRecover(rejection)) {
+			        return responseOrNewPromise
+			      }
+			      return $q.reject(rejection);
+			   },
+			    // 可选，拦截成功的响应
+			    response: function(response) {
+			    	 console.log("response");
+			      // 进行预处理
+			      // ....
+			      console.log(response);
+			      return response || $q.when(reponse);
+			    },
+			    // 可选，拦截失败的响应
+			   responseError: function(rejection) {
+			   	 console.log("responseError");
+			      // 对失败的响应进行处理
+			      // ...
+			      if (canRecover(rejection)) {
+			        return responseOrNewPromise
+			      }
+			      return $q.reject(rejection);
+			    }
+			  };
+			});
+		myApp.config(function($httpProvider) {
+		    $httpProvider.interceptors.push("MyInterceptor");
+		});
+		myApp.controller("myController",function($scope,$http){
+			$http.get("http://127.0.0.1:8080/location").success(function(data){
+				console.log(data);
+			})
+		})
+	</script>
+</html>

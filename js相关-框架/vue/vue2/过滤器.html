@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第一个vue</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  {{ message | capitalize }}
+		</div>
+	</body>
+	<script>
+new Vue({
+  el: '#app',
+  data: {
+    message: 'runoob'
+  },
+  filters: {
+    capitalize:function (value) {
+      if (!value) return '';
+      value = value.toString();//转换成字符串
+     console.log(value.charAt(0));
+     console.log(value.charAt(0).toUpperCase());
+     console.log(value.slice(1,5));//slice   接受两个参数  第一个数从哪里开始截取   第二个截取的截取个数    左闭右开
+       return value.charAt(0).toUpperCase() + value.slice(1);
+     /*console.log(value);
+     return value.split('').reverse().join('');*/
+    }
+  }
+})
+	</script>
+</html>

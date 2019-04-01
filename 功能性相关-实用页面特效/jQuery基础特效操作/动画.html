@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.9.1.js"></script>
+	</head>
+	<body>
+		<button onclick="animat()"> fade</button>
+		<div style=" width: 100px ;height: 100px ; display:block;border: 1px solid red;background-color: yellow;">
+			
+		</div>
+	</body>
+	<script>
+		function fadei(){
+			$("div").fadeIn(5000,function(){
+				alert("显示完成");
+			});
+		}
+		function fadeo(){
+			$("div").fadeOut(2000,function(){
+				alert("消失完成");
+			});
+		}
+		function fadeto(){
+			$("div").fadeTo("slow",0.5,function(){
+				alert("渐变完成");
+			});
+		}
+		function hidd(){
+			/*$("div").hide(1000);//是根据宽高的变化从左上角进行显示和隐藏*/
+			$("div").show(1000);//是根据宽高的变化从左上角进行显示和隐藏
+			$("div").toggle(1000);
+			
+		}
+		function slide(){
+			/*$("div").slideDown(1000);*/
+			/*$("div").slideUp(1000);*/
+			/*$("div").slideToggle(1000);*/
+		}
+		function animat(){
+			$("div").animate({height:"500px",width:"500px"},500);
+			
+		}
+	</script>
+</html>

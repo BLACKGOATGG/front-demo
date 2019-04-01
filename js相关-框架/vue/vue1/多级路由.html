@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-router.js"></script>
+	</head>
+
+	<body>
+		<div id="box">
+			<ul>
+				<li>
+					<a v-link="{path:'/home'}">主页</a>
+				</li>
+				<li>
+					<a v-link="{path:'/reg'}">新闻</a>
+				</li>
+			</ul>
+			<div>
+				<router-view></router-view>
+			</div>
+		</div>
+
+		<template id="home">
+			<h2>这是home一级路由</h2>
+			<div>
+				<a v-link="{path:'/home/denglu'}">登录</a>
+				<a v-link="{path:'/home/zhuce'}">注册</a>
+			</div>
+			<div>
+				<router-view></router-view>
+			</div>
+		</template>
+
+	</body>
+	<script>
+		var App = Vue.extend();
+		var Home = Vue.extend({
+			template: "#home"
+		});
+		/*var Reg = Vue.extend({
+			template: "<h2>这是reg一级路由</h2>"
+		});*/
+
+		var router = new VueRouter();
+		router.map({
+			"home": {
+				component: Home,
+				subRoutes: {
+					"denglu": {
+						component: {
+							template: "<h2>这是登录二级路由</h2>"
+						}
+					},
+					"zhuce": {
+						component: {
+							template: "<h2>这是注册二级路由</h2>"
+						}
+					}
+				}
+			},
+			"reg": {
+				component: {
+					template: "<h2>这是r新闻一级路由</h2>"
+				}
+			},
+
+		})
+		router.start(App, "#box");
+
+		router.redirect({
+			"": "home"
+		})
+	</script>
+
+</html>

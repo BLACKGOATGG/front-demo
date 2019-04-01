@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车</title>
+		<script src="angular-1.4.6.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<table border="1" width="800" cellspacing="0" style="text-align: center;">
+			<tr>
+				<th>
+					<input type="checkbox" ng-model="model" ng-change="change()"/>
+				</th>
+				<th>产品名称</th>
+				<th>产品名字</th>
+				<th>购买数量</th>
+				<th>产品单价</th>
+				<th>产品总价</th>
+				<th>操作</th>
+			</tr>
+			<tr ng-repeat="i in data track by $index">					
+				<td>
+					<input type="checkbox"  ng-model="i.check"/>
+				</td>
+				<td>{{i.src}}</td>
+				<td>{{i.name}}</td>
+				<td>
+					<input type="button" value="-" ng-click="sub($index)" ng-style="{float:'left'}"/>
+					{{i.num}}
+					<input type="button" value="+" ng-click="add($index)" ng-style="{float:'right'}"/>
+				</td>
+				<td>
+					{{i.price }}
+				</td>					
+				<td>{{i.num*i.price}}</td>
+				<td><input type="button" value="删除" ng-click="del($index)"/></td>
+			</tr>
+			<tr>
+			   <td colspan="7">总计：{{sum()}}</td>	
+			</tr>
+			   
+			</table>
+		</div>
+		<script type="text/javascript">
+			var myApp = angular.module("myApp",[]);
+			myApp.controller("myCtrl",["$scope","$http",function($scope,$http){
+				$http.get("data.json").success(function(dataJson){
+					//获取数据
+					$scope.data = dataJson.data;
+					//数量减少
+					$scope.sub = function($index){
+						$scope.data[$index].num--;
+						if($scope.data[$index].num<=0){
+							$scope.data[$index].num = 0;
+						}
+					}
+					//数量增加
+					$scope.add = function($index){
+						$scope.data[$index].num++;
+					}
+					//删除
+					$scope.del = function($index){
+						$scope.data.splice($index,1);
+					}
+					//总计
+					$scope.sum = function(){
+						var sums = 0;
+						angular.forEach($scope.data,function(val,i){
+							if(val.check){
+								sums += val.price * val.num;
+							}
+						});
+						return sums;
+					}
+					//全选
+					$scope.model = "";
+					$scope.change = function(){
+						angular.forEach($scope.data,function(val,i){
+							val.check = $scope.model;
+						});
+					}					
+				});
+			}]);
+		</script>
+	</body>
+</html>

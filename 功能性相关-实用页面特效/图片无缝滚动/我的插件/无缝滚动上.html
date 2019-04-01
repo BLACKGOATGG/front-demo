@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+            position: absolute;
+        }
+        #box{
+            height:400px;
+            width:400px;
+            overflow: hidden;
+            position: relative;
+        }
+        li{
+            width:400px;
+            height:100px;
+        }
+    </style>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/滚动插件.js"></script>
+</head>
+<body>
+<div id="box">
+    <ul id="banner">
+        <li style="background:red">1</li>
+        <li style="background:pink">2</li>
+        <li style="background:deeppink">3</li>
+        <li style="background: darkcyan">4</li>
+        <li style="background:red">1</li>
+        <li style="background:pink">2</li>
+        <li style="background:deeppink">3</li>
+        <li style="background: darkcyan">4</li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        var timer = setInterval(move,10);
+        function move(){
+            $("#banner").css("top","-=1px");
+            if(-$("#banner").offset().top>$("#banner").innerHeight()/2){
+                $("#banner").css("top","0")
+            }
+        }
+    })
+</script>
+</body>
+</html>

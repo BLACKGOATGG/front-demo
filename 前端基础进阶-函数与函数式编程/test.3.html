@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 二、函数参数传递方式：按值传递
+        // 还记得基本数据类型与引用数据类型在复制上的差异吗？基本数据类型复制，是直接值发生了复制，因此改变后，各自相互不影响。
+        // 但是引用数据类型的复制，是保存在变量对象中的引用发生了复制，因此复制之后的这两个引用实际访问的实际是同一个堆内存中的值。
+        // 当改变其中一个时，另外一个自然也被改变。如下例。
+
+        /* var a = 20;
+        var b = a;
+        b = 10;
+        console.log(a); // 20
+
+        var m = {
+            a: 1,
+            b: 2
+        }
+        var n = m;
+        n.a = 5;
+        console.log(m.a) // 5 */
+
+
+
+        // 当值作为函数的参数传递进入函数内部时，也有同样的差异。
+        // 我们知道，函数的参数在进入函数后，实际是被保存在了函数的变量对象中
+        // 因此，这个时候相当于发生了一次复制。
+        // 如下例。
+        /* var a = 20;
+        function fn(a) {
+            a = a + 10; //此处只更改了实参的值，未改变window.a的值,所以fn执行完成后a依然是20
+            return a;
+        }
+        // function fn(b) {
+        //     b = b + 10;
+        //     a = 500;    // 此处改变了weindow.a的值,所以fn执行完成后a是500
+        //     return b;
+        // }
+        fn(a);
+        console.log(a); // 20 */
+
+
+        /* var a = {
+            m: 10,
+            n: 20
+        }
+
+        function fn(b) {
+            b.m = 20;
+            return b;
+        }
+
+        fn(a);
+        console.log(a); // { m: 20, n: 20 } */
+
+
+
+        // 正是由于这样的不同，导致了许多人在理解函数参数的传递方式时，就有许多困惑。
+        // 到底是按值传递还是按引用传递？
+        // 实际上结论仍然是按值传递，只不过当我们期望传递一个引用类型时，真正传递的，只是这个引用类型保存在变量对象中的引用而已。
+        // 为了说明这个问题，我们看看下面这个例子。
+
+        var person = {
+            name: 'Nicholas',
+            age: 20
+        }
+
+        function setName(obj) { // 传入一个引用
+            obj = {}; // 将传入的引用指向另外的值
+            obj.name = 'Greg'; // 修改引用的name属性
+        }
+
+        setName(person);
+        console.log(person.name); // Nicholas 未被改变
+        
+        // 在上面的例子中，如果person是按引用传递，那么person就会自动被修改为指向其name属性值为Gerg的新对象。
+        // 但是我们从结果中看到，person对象并未发生任何改变，因此只是在函数内部引用被修改而已。
+    </script>
+</body>
+
+</html>

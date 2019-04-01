@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>节点信息</title>
+</head>
+<body>
+<ul id="nodeList"><li>nodeName</li><li>nodeValue</li><li>nodeType</li></ul><p></p>
+<script>
+    var nodes=document.getElementById("nodeList");
+    var type1=nodes.firstChild.nodeType;
+    var type2=nodes.firstChild.firstChild.nodeType;
+    var name1=nodes.firstChild.firstChild.nodeName;
+    var str=nodes.firstChild.firstChild.nodeValue;
+    var con="type1："+type1+"<br/>type2："+type2+"<br/>name1："+name1+"<br/>str："+str;
+    document.getElementById("nodeList").nextSibling.innerHTML=con;
+</script>
+</body>
+</html>

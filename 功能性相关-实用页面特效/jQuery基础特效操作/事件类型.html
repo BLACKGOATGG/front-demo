@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>绑定事件</title>
+		<script src="jquery-1.9.1.js"></script>
+	</head>
+	<body>
+		<input type="text"  value="input" placeholder="" />
+	</body>
+	<script>
+$( "a" ).click(function( event ) {
+  alert( event.type ); // "click"
+});
+	</script>
+</html>

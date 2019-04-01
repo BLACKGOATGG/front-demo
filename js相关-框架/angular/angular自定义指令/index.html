@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!--
+        	作者：1007381814@qq.com
+        	时间：2017-07-21
+        	描述
+        -->
+        <script src="js/angular.js"  type="text/javascript"></script>
+        
+	</head>
+	<body ng-controller="myTwoController">
+		<my></my>
+		<div class="my"></div>
+		<div my></div>
+		<!--directive:my -->
+	</body>
+	<script>
+		var app=angular.module("myapp",[]);
+		app.controller("myTwoController",function($scope){
+			         $scope.name="刘元龙";
+					$scope.age=20;
+					$scope.sex="女";
+					$scope.stylee='比较美';
+		})
+		app.directive("my",function(){
+			return {
+				restrict:"ECMA",//e 代表我们的element   c   class   M   注释  A   属性
+				replace:true,
+				template:"<p>我的名字是{{myTwoController.name}}，我今年{{myTwoController.age}}，我的性别{{myTwoController.sex}}，我的品种{{myTwoController.stylee}}</p>",
+				controllerAs:"myTwoController",
+				controller:function(){
+					this.name="小秦鑫";
+					this.age=37;
+					this.sex="小男人";
+					this.stylee='小野马';
+				}
+			}
+		})
+	</script>
+</html>

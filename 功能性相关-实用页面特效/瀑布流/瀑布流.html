@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div#content {
+				width: 93%;
+				margin: 0 auto;
+				position: relative;
+			}
+			
+			div.item {
+				position: absolute;
+				width: 200px;
+				margin: 10px;
+				transition: all 0.5s;
+			}
+			
+			
+			.part1 {
+				background-color: yellow;
+				height: 200px;
+			}
+			
+			.part2 {
+				background-color: #006ac1;
+				height: 400px;
+			}
+			
+			.part3 {
+				background-color: blueviolet;
+				height: 300px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="content">
+			<div class="item part1">1</div>
+			<div class="item part2">2</div>
+			<div class="item part3">3</div>
+			<div class="item part1">4</div>
+			<div class="item part1">5</div>
+			<div class="item part2">6</div>
+			<div class="item part2">7</div>
+			<div class="item part3">8</div>
+			<div class="item part1">9</div>
+			<div class="item part2">10</div>
+			<div class="item part2">11</div>
+			<div class="item part2">12</div>
+			<div class="item part3">13</div>
+			<div class="item part3">14</div>
+			<div class="item part1">15</div>
+			<div class="item part2">16</div>
+			<div class="item part3">17</div>
+			<div class="item part1">18</div>
+			<div class="item part1">19</div>
+			<div class="item part2">20</div>
+			<div class="item part2">21</div>
+			<div class="item part3">22</div>
+			<div class="item part1">23</div>
+			<div class="item part2">24</div>
+			<div class="item part2">25</div>
+			<div class="item part2">26</div>
+			<div class="item part3">27</div>
+			<div class="item part3">28</div>
+		</div>
+		<script src="jquery-1.9.1.js"></script>
+		<script>
+			function waterFall() {
+				//用当前浏览器窗口的宽度除以itme的宽度得到当前浏览器窗口需要布置的列数
+				var widthNum = parseInt($(window).width() / $(".item").outerWidth(true)),
+					allHeight = [];		//创建一个数组，长度为列数，里面的值为已布置元素的总高度（最开始为0）
+				
+				//console.log(widthNum)
+				for(var i = 0; i < widthNum; i++) {
+					allHeight.push(0)
+				}
+				//console.log(allHeight)
+				$(".item").each(function() {
+					var indx = 0,
+						minAllHeight = allHeight[0];
+						  
+					// 获取到allHeight中最小的高度
+					for(var j = 0; j < allHeight.length; j++) {
+						if(allHeight[j] < minAllHeight) {
+							minAllHeight = allHeight[j];
+							indx = j;
+						}
+					}
+					//然后将未布置的元素依次布置到高度最小的那一列，就得到了瀑布流布局
+					$(this).css({
+						"left": indx * $(this).outerWidth(true),
+						"top": minAllHeight
+					});
+					allHeight[indx] = minAllHeight + $(this).outerHeight(true);
+				})
+
+			}
+
+			waterFall();
+
+			$(window).on("resize", function() {
+				waterFall()
+			})
+		</script>
+	</body>
+
+</html>

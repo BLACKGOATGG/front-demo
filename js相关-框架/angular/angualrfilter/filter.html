@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js"></script>
+	</head>
+	<body ng-app="myApp" ng-controller="myController">
+		{{num | currency:"$"}} <br />
+		{{data| date:"longDate"}} <br />
+	    {{data| date:"mediumDate"}} <br />
+		{{data| date:"shortDate"}} <br />
+		{{data| date:"mediumTime"}} <br />
+		
+		
+		<!--<ul><li ng-repeat="item in person">
+			{{person|filter : "21"}}
+		</li>
+		</ul><br>-->
+		
+		{{person|filter :fun}}
+		
+		
+		
+		<pre>{{H5|json}}  <!--这是json --></pre>
+		<pre>{{H5}}</pre>
+		
+		
+		{{person| limitTo:4}}
+		{{str| limitTo:4}}
+		{{str| lowercase}}<br />
+		{{str| uppercase}}
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		{{person| orderBy:['age']}}
+		
+		<br/><br/><br/>
+		{{person| orderBy:['age','name']}}
+		<br/><br/><br/>
+	   {{num|number:19}}
+	</body>
+	<script>
+		var  app=angular.module("myApp",[]);
+		app.controller("myController",function($scope){
+			$scope.num=100;
+			$scope.data=new Date();
+			$scope.person=[ 
+				{name:"tainqingxiang",age:29},
+				{name:"zzhenghao",age:21},
+				{name:"zaaojinzhuang",age:21},
+				{name:"qinxin",age:19},
+				{name:"yuanyufei",age:23},
+				{name:"jiangfeng",age:28}
+			]
+			$scope.fun=function(e){
+				return e.age>20;
+			}
+			$scope.H5={name:"徐业辉",age:"80"};
+			$scope.str="jintinaowmeuhalfZZSCSAFDSAF";
+			
+		})
+	</script>
+</html>

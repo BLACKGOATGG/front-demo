@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		/*function f1() {
+			var n = 999;
+
+			function f2() {
+				alert(n);
+			}
+			return f2;
+		}
+		var result = f1();
+		result(); // 999
+		console.log(result) //函数f2的函数体*/
+
+		/*function chengfa(s){
+			return function(x){
+				return function(l){
+					return s+x+l
+				}
+			}
+		}
+		alert(chengfa(3)(4)(5))*/
+
+		var name = "window";
+		var p = {
+			name: 'Perter',
+			getName: function() {
+				// 利用变量保存的方式保证其访问的是p对象
+				var self = this;
+				return function() {
+					return self.name;
+				}
+			}
+		}
+
+		var getName = p.getName();
+		var _name = getName();
+		console.log(_name);
+	</script>
+
+</html>

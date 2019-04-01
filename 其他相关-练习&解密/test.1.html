@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#p{
+			margin:0 auto;
+			width:20px;		/* 使文字垂直排列 */
+			text-align: center;
+			line-height:20px;
+			border:1px solid #333;
+		}
+	</style>
+</head>
+<body>
+	<p id="p">阿萨德发撒撒旦</p>
+	<div id="box">
+		
+	</div>
+
+	<div id="tree">
+		<div id="leaf"></div>
+	</div>
+	
+
+	<script src="js/heihei.js"></script>
+	<script>
+		
+		/*var y=1;
+		if (function f(){}) {
+			console.log(typeof f)
+			y+=typeof f
+		}
+		console.log(y)*/
+		/*console.log(1+)*/
+
+		/*var box;
+		alert(typeof box)*/		//undefined
+
+		/*var a="abc";
+		(function(b){
+			var c="xxx";
+			(function(d){
+				var e="yyy";
+				console.log(a+"--"+b+"--"+c+"--"+d+"--"+e)
+			})(5)
+		})(7)*/
+
+
+		/*var three=["dadsa","dasdas","asdadas","asdasdas","asdasd","asdasd"];
+		  three[3];
+		console.log(three)*/
+
+
+		/*var a=1;
+		console.log(a++);	//先打印出1，打印出以后才会执行a++
+		console.log(a)		//所以第二步才会打印出2
+		*/
+		
+		
+		/*for (var i = 1; i <=10; i++) {
+			for(var x=10;x>=i;x--){
+				document.write("* ")
+			}
+			document.write("<br/>")
+		}*/
+		
+		/*var num = 13;
+		var num1 = -num+1;
+		var stemp = 2;
+		var str = "";
+		for(var i=num1;i<num;i+=stemp){
+			var space = Math.abs(i);
+			for(var j=0;j<=space/2;j++){
+					str+=" ";
+			}
+			while(space<num){
+				str+="*";
+				space++
+			}
+			str+="</br>";
+		}
+		document.write(str)*/
+	
+
+		//var s="a s d a sd  a   s";
+		//p.innerHTML=trim(s,1);	//trim函数用来去除字符串前后的空格，中间的它不管
+		//p.innerHTML=s
+		
+		
+		//数的阶乘
+		function fn(num){
+			console.log(num)
+			if (num==1) {
+				return 1
+			};
+			return num*fn(num-1)
+		};
+		console.log(fn(5))			
+		/*
+		return 5* 24 ==>120
+			return 4 * 6 ==>24
+				return 3 * 2 ==>6
+					return 2 * 1 ==>2 
+						return 1
+
+		*/
+		
+		//乘法
+		/*function chengfa(a){
+			return function(b){
+				return function(c){
+					return a*b*c
+				}
+			}
+		}
+		console.log(chengfa(3)(4)(5))*/
+
+
+		//合并两个数组，并删除它的第二个值
+		/*var arr1=[1,2,3,4];
+		var arr2=[5,6,7,8];
+		var arr3=arr1.concat(arr2);
+		arr3.splice(1,1)
+		console.log(arr3);*/
+
+		
+		//用js实现随机选取10–100之间的10个数字，存入一个数组，并排序。
+		/*function randomNub(aArray, len, min, max) {
+            if (len >= (max - min)) {
+               return '超过' + min + '-' + max + '之间的个数范围' + (max - min - 1) + '个的总数';
+            }
+            if (aArray.length >= len) {
+                aArray.sort((a, b)=> {return a - b});
+                return aArray;
+            }
+            var nowNub = parseInt(Math.random() * (max - min - 1)) + (min + 1);
+            for (var j = 0; j < aArray.length; j++) {
+                if (nowNub == aArray[j]) {
+                    randomNub(aArray, len, min, max);
+                    return;
+                }
+            }
+            aArray.push(nowNub);
+            randomNub(aArray, len, min, max);
+            return aArray;
+        }
+		var arr=[];
+		//console.log(arr.length)	//当前是0
+		console.log(randomNub(arr,10,10,100));*/
+		
+		
+		//var p=document.getElementById("p");
+		//console.log(html(p));
+		
+		
+		var arr=[3,2,45,74,8,56,8,2]
+		//console.log(systemSort(arr,2))
+		//console.log(bubbleSort(arr))
+		
+		
+		var str='ajajajajajajajajjaj23ajaja..';
+		//console.log(replaceAll(str,'a','s'))
+		//console.log(checkPwd(str))
+	</script>
+
+</body>
+</html>

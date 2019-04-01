@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style type="text/css">
+			html {
+			  -moz-osx-font-smoothing: grayscale;
+			  -webkit-font-smoothing: antialiased;
+			  text-rendering: optimizeLegibility;
+			}
+			body:before {
+		          content: "";
+		          position: fixed;
+		          top: -10px;
+		          left: 0;
+		          width: 100%;
+		          height: 10px;
+
+		          -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+		          -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+		          box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+
+		          z-index: 100;
+			}
+			
+			/* 雪碧图测试 */
+			.div1,
+			.div2,
+			.div3,
+			.div4 {
+				margin: 30px;
+				background: url(img/icons.png) no-repeat;
+				background-color: #ccc;
+			}
+			
+			.div1 {
+				width: 37px;
+				height: 32px;
+				background-position: -141px -78px;
+			}
+			
+			.div2 {
+				width: 40px;
+				height: 36px;
+				background-position: -139px -142px;
+			}
+			
+			.div3 {
+				width: 36px;
+				height: 40px;
+				background-position: -140px -203px;
+			}
+			
+			.div4 {
+				width: 39px;
+				height: 39px;
+				background-position: -140px -265px;
+			}
+			
+			/* 将正常图片展现为黑白色彩 */
+			.imgg{
+				filter: grayscale(100%);
+			}
+			
+			/* 为每个li（除了最后一个）末尾添加， */
+			ul > li:not(:last-child)::after {
+			  content: ",";
+			}
+
+			/* h2{
+			  position: relative;
+			} */
+			/* 虚化文字 */
+			h2 {
+			   color: transparent;
+			   text-shadow: 0 0 5px rgba(0,0,0,0.5);
+			}
+			/* h2::after {
+			  content: attr(data-text);
+			  z-index: 10;
+			  color: #e3e3e3;
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), color-stop(50%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+			} */
+			
+		</style>
+
+	</head>
+
+	<body>
+		<div id="box">
+			<div class="div1"></div>
+			<div class="div2"></div>
+			<div class="div3"></div>
+			<div class="div4"></div>
+		</div>
+		<img src="img/god.JPEG" alt="" class="imgg">
+		<ul>
+			<li>kg接口急哦论坛fig将很快就会</li>
+			<li>kg接口急哦论坛fig将很快就会</li>
+			<li>kg接口急哦论坛fig将很快就会</li>
+			<li>kg接口急哦论坛fig将很快就会</li>
+		</ul>
+		<h2 data-text>kg接口急哦论坛fig将很快就会</h2>
+	</body>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		/*
+		//检查以下代码的不正确的地方并改正
+		 $(function user(name){
+				this.name=name
+			};
+			var j=user("tom");
+			$("#box").html(j.name);
+		)*/
+
+		/*
+		//1.$()不对
+		2.将构造函数实例化的之后没有用new关键字
+		 $(function(){
+			function user(name){
+				this.name=name;
+			}
+			var j=new user("tom");
+			$("#box").html(j.name)
+		})*/
+
+		function point(){
+			this.x=20;
+			this.getx=function(){
+				//console.log(this.x)
+				return this.x
+			}
+		}
+		var a=new point();
+		var f=a.getx;
+		console.log(typeof f)
+		console.log(f.call(a))
+
+		/* 
+		//定义一个值为object的变量1,然后将变量1复制给变量2,此时变量1全等与变量2; 
+		var obj1={
+			name:"xiaoming"
+		}
+		var obj2=obj1;
+		console.log(obj2==obj1)	//true
+		console.log(obj2===obj1)	//true
+	
+		//定义一个值为object的变量1,然后在定义一个值与变量1完全相同的变量2,此时变量1不等于变量2,因为javascript中对象类型的数据类型的实际保存位置在堆中,栈中实际所保存的是一个指针,它指向的位置就是对象类型实际保存在堆中的位置.例1中,obj1就是那个指针,将obj1赋值给obj2,其实就是把obj2也变成指向obj1所指向储存在堆中那个对象的指针,两者实际上都指向同一个对象,这也就是为什么改变obj2对象中的属性obj1也会改变的原因,数组类型数据同理
+		var obj3={
+			name:"xiaoming"
+		}
+		var obj4={
+			name:"xiaoming"
+		};
+		console.log(obj3==obj4)	//false
+		console.log(obj3===obj4)	//false
+		var arr1=[1,2,3,4,5,6];
+		var arr2=arr1;
+		console.log(arr2===arr1)	//true
+		var arr3=[1,2,3,4,5,6];
++		console.log(arr3==arr4)		//false*/
+
+		//p.before(div)
+		var num1 = 88;
+		var num2 = 99;
+		var num1_2 = num1.toString(2);
+		var num2_2 = num2.toString(2);
+		console.log(88|99)
+		var num3 = num1_2 | num2_2;
+		var num3_10 = num3.toString(10);
+		console.log(num1_2)
+		console.log(num2_2)
+		console.log(num3)
+		console.log(num3_10)
+	</script>
+
+</html>

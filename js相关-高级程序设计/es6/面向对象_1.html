@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    </style>
+    <script>
+        
+
+        function person(name,age){
+        	this.name=name;
+        	this.age=age;
+        }
+        person.prototype.showname=function(){
+        	return  this.name;
+        }
+        person.prototype.showage=function(){
+        	return  this.age;
+        }
+        
+        function wok(name,age){
+        	person.apply(this,arguments)
+        }
+        var p1=new person("matianyu",21);
+         console.log(p1.showage());
+        var w1=new wok("xuexiaoming",22);
+         console.log(w1.name);
+    </script>
+</head>
+<body>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

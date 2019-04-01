@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/angular.js"></script>
+		<script src="js/jquery-1.9.1.js"></script>
+	</head>
+	<body ng-controller="mycontroller">
+		<table border="1" cellpadding="10px" cellspacing="0px">
+			<tr>
+				<td>全选 <input type="checkbox" value="false"  ng-model="all" ng-click="alll()" id="checkQ"/></td>
+				<td>商品</td>
+				<td>单价</td>
+				<td>数量</td>
+				<td>小计</td>
+				<td>操作</td>
+			</tr>
+			<tr ng-repeat="item in  arr ">
+				<td><input type="checkbox" ng-model="item.is" ng-checked="all"  class="checkDan" ng-click="checkall()"/></td>
+				<td><img ng-src="{{item.picture}}" style="width: 50px;height: 50px;vertical-align: middle;" />{{item.name  }}</td>
+				<td>{{item.price}} </td>
+				<td><button ng-click="jian($index)">-</button> {{item.num}} 
+					<button ng-click="jia($index)">+</button></td>
+				<td style="color: red;">{{item.price*item.num}}</td>
+				<td><button ng-click="del($index)">删除</button></td>
+			</tr>
+		</table>
+		<div style="width: 60%;">
+			<div style="float: left;">
+				<input type="checkbox" ng-click="alll()" ng-model="all"/> 全选
+			    <span ng-click="del2()">删除</span>
+			    <span ng-click="tij()">提交</span>
+			</div> 
+			<div style="float: right;">    已选商品{{gs}}件     合计￥{{summ}}元   结算</div>
+		</div>
+	</body>
+	<script>
+		var app=angular.module("myapp",[]);
+		app.controller("mycontroller",function($scope,$http,$filter){
+			$http.get("js/js.json").then(function success(data){
+				$scope.arr=data.data.arrayy;
+				$scope.arr=$filter("orderBy")($scope.arr,"price");
+				
+			})/*全选*/
+			$scope.gs=0;
+			$scope.summ=0;
+			
+			$scope.alll=function(){
+				var checkDan=document.getElementsByClassName("checkDan");
+				var hj=0;
+				for (var i =0;i<checkDan.length;i++) {
+					if(checkDan[i].checked==true){
+						hj+=1;
+					}
+				}
+				$scope.gs=hj;		
+			}
+			$scope.checkall=function(){
+				var checkDan=document.getElementsByClassName("checkDan");
+				var hj=0;
+				for (var i =0;i<checkDan.length;i++){
+					if(checkDan[i].checked==true){
+						hj+=1;
+					}
+				}
+				$scope.gs=hj;
+				var checkQ=document.getElementById("checkQ");
+				if(hj==checkDan.length){
+					checkQ.checked=true;
+				}
+				else{
+					checkQ.checked=false;
+				}
+			}
+			/*数量加减*/
+			$scope.jian=function(index){
+				 if($scope.arr[index].num>0){
+				 	$scope.arr[index].num=$scope.arr[index].num-1;
+				 }
+			}
+			$scope.jia=function($index){//定义形参
+				 	$scope.arr[$index].num=$scope.arr[$index].num+1; 
+			}
+		/*	删除*/
+		    $scope.del=function(index){
+		    	$scope.arr.splice(index,1);
+		    }
+		    $scope.del2=function(){
+		    	if($scope.all){
+					$scope.arr=[];
+					$scope.all=false;
+		    	}
+		    	else{
+		    		if($scope.arr){
+		    			for(var i =0;i<$scope.arr.length;i++){
+								if($scope.arr[i].is==true){
+									$scope.arr.splice(i,1);
+									i--;
+								}
+							}
+		    		}
+		    	}
+				
+           }
+		   $scope.sum=function(){
+		   	    $scope.summ=0;
+		    	var checkDan=document.getElementsByClassName("checkDan");
+				if(checkDan.length){
+					for (var i =0;i<checkDan.length;i++) {
+						if(checkDan[i].checked==true){
+							$scope.summ+=Number($scope.arr[i].price*$scope.arr[i].num);
+						}
+					}
+					return   $scope.summ;
+				}
+		   }
+		    $scope.$watch("sum()",function(oldval,newval){
+		    	
+		    })
+		    
+		    $scope.tij=function(){
+		    	$scope.mi=0;
+		    	angular.forEach($scope.arr, function(data,index){
+				    if(data.is==true){
+		    			$scope.mi+=1;
+		    		}
+				});
+				if($scope.mi>0){
+		    		alert("提交");
+		    	}
+		    	else{
+		    		alert('失败');
+		    	}
+				
+				
+		    }
+		})
+		
+	</script>
+</html>

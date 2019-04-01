@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* 
+        张旭鑫大佬的解释：test3，test4，test5，
+    */
+    // 柯里化
+    // 把接受多个参数的函数变换成接受一个单一参数的函数，并且返回（接受余下参数而且返回结果的）新函数的技术。
+
+    // 举个栗子
+    // 正常写法，需要传递两个参数给add
+    let add = (a, b) => a + b
+    console.log(add(1, 2))
+    // add(1)=>NAN（缺少一个参数）
+
+    // 柯里化写法，将参数变换成一个，延迟函数参数的传入
+    let add2 = a => b => a + b
+    console.log(add2(1)(2))
+    // add2(1) => function(b) {return a+ b}
+
+    /* 
+    柯里化特点:
+        1. 延迟参数传递，参数复用
+        2. 代码短小，优雅，函数化，有点不好理解
+    */
+</script>
+
+</html>

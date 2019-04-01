@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 高阶函数
+  // 一个函数可以接收另一个函数作为参数，这种函数称为高阶函数。
+
+  // 举个栗子：
+  function add(x, y, f) {
+    return f(x) + f(y)
+  }
+  console.log(add(5, 6, Math.abs)); //=>11
+  // 接收了函数f，并且把x,y参数传到函数f中
+
+  // es6写法
+  let add2 = (x, y, f) => f(x) + f(y)
+  console.log(add2(-1, 5, Math.abs)); //=>6
+  
+</script>
+
+</html>

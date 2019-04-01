@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    </style>
+    <script>
+         class Arrat{
+         	constructor(cont){
+         		this.att=[...cont]
+         	}
+         	pus(n){
+         		this.att.push(n);
+         	}
+         	shif(p){
+         		this.att.unshift(p);
+         	}
+         }
+         
+         var arr=new Arrat([1,2,5,3,4]);
+         console.log(arr.att);
+         arr.pus(9);
+         console.log(arr.att);
+         arr.shif(4);
+         arr.shif(5);
+         arr.shif(7);
+         console.log(arr.att);
+    </script>
+</head>
+<body>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

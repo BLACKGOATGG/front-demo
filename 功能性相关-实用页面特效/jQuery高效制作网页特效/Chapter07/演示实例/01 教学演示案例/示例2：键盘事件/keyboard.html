@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<title>键盘事件</title>
+<style type="text/css">
+	*{margin: 0; padding: 0; font-family:"微软雅黑";}
+fieldset {
+	width: 300px;
+	margin: 10px auto;
+}
+dl{clear: both;}
+dt,dd{
+	display:inline-block;
+	height: 35px;
+	line-height: 35px;;
+}
+dt{ width: 80px; text-align: right;}
+	input[type="submit"]{width: 60px; text-align: center; line-height: 25px;}
+</style>
+</head>
+<body>
+<fieldset>
+	<legend>会员登录</legend>
+	<dl>
+	    <dt>用户名：</dt>
+	    <dd><input id="userName" type="text" /></dd>
+	</dl>
+	<dl>
+	    <dt>密码：</dt>
+	    <dd><input id="password" type="password" /></dd>
+	</dl>
+	<dl>
+	    <dt></dt>
+	    <dd><input type="submit" value="登 录" /> </dd>
+	</dl>
+	<span id="events"></span>
+</fieldset>
+<script src="js/jquery-1.12.4.js" ></script>
+<script>
+	$(document).ready(function () {
+		$("[type=password]").keyup(function () {
+			$("#events").append("keyup");
+		}).keydown(function (e) {
+			$("#events").append(" keydown");
+		}).keypress(function () {
+			$("#events").append(" keypress");
+		});
+
+		$(document).keydown(function (event) {
+			if (event.keyCode == "13") {//按回车键
+				alert("确认要提交么？");
+			}
+		});
+	});
+</script>
+</body>
+</html>

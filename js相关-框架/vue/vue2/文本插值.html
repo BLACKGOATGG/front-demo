@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第一个vue</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<div v-html="msh"></div>
+		</div>
+	</body>
+	<script>
+		var vu=new Vue({
+			el:"#box",//element 
+			data:{
+				msg:"今天老师喝红牛了",
+				msh:"个别同学今天没有喝",
+			}
+		})
+	</script>
+</html>

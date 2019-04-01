@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-router.js"></script>
+	</head>
+
+	<body>
+		<div id="box">
+			<ul>
+				<li><a v-link="{path:'/home1'}">home1</a></li>
+				<li><a v-link="{path:'/home2'}">home2</a></li>
+				<li><a v-link="{path:'/home3'}">home3</a></li>
+			</ul>
+			<div>
+				<router-view></router-view>
+			</div>
+		</div>
+		
+		<script>
+			var App=Vue.extend();
+			var Home1=Vue.extend({
+				template:"<h2>这是home1</h2>"
+			});
+			var Home2=Vue.extend({
+				template:"<h2>这是home2</h2>"
+			});
+			
+			
+			var router=new VueRouter();
+			router.map({
+				"home1":{
+					component:Home1
+				},
+				"home2":{
+					component:Home2
+				}
+			})
+			
+			router.start(App,"#box");
+			
+			router.redirect({
+				"":"home1",
+				"home3":"home2"
+			})
+		</script>
+	</body>
+
+</html>

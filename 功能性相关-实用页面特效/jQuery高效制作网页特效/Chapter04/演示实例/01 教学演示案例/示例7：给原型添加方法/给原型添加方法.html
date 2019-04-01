@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>给原型添加方法</title>
+</head>
+<body>
+<script>
+    function Humans(){
+        this.foot=2;
+    }
+    Humans.prototype.getFoot=function(){
+        return this.foot;
+    }
+    function Man(){
+        this.head=1;
+    }
+    //继承了Humans
+    Man.prototype=new Humans();
+    //添加新方法
+    Man.prototype.getHead=function(){
+        return this.head;
+    }
+    //重写父类型中的方法
+    Man.prototype.getFoot=function(){
+        return false;
+    }
+    var man1=new Man();
+    alert(man1.getFoot());    //false
+</script>
+</body>
+</html>

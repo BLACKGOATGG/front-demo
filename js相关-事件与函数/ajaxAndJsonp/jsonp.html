@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.9.1.js" ></script>
+	</head>
+	<body>
+	</body>
+	<script>
+			/*$.ajax({							   	
+				url:'http://manual.51yip.com/test1.php',
+				data:{name:"jsonp"},
+				dataType:"jsonp",
+				jsonp:"callback",
+				jsonpCallback:"getdata",
+			})
+			function  getdata(data){
+				console.log(data);
+			}*/
+			var JSONP=document.createElement("script");
+ 			JSONP.type="text/javascript"; 		     
+ 			JSONP.src="http://manual.51yip.com/test1.php?name=jsonp&callback=getdata1";
+ 			document.getElementsByTagName("head")[0].appendChild(JSONP);
+ 			function  getdata1(data){
+				console.log(data);
+			}
+
+	</script>
+</html>

@@ -1,0 +1,106 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+}
+
+body {
+	min-width: 810px;
+	height: 100%;
+	position: relative;
+}
+
+nav {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 19px 0 5px;
+}
+
+nav a {
+	color: #333;
+	display: inline-block;
+	font-size: 13px;
+	line-height: 24px;
+	margin-left: 20px;
+}
+
+nav a:hover {
+	color: #00c;
+}
+
+nav a.mnav {
+	font-weight: 700;
+}
+
+nav a.dl,
+nav a.sz {}
+
+nav a.gd {
+	width: 60px;
+	height: 23px;
+	color: #fff;
+	background: #38f;
+	text-align: center;
+	text-decoration: none;
+	margin-right: 10px;
+}
+
+.logobox {
+	box-sizing: initial;
+	width: 641px;
+	height: 132px;
+	margin: 0 auto;
+	padding-top: 180px;
+	text-align: center;
+}
+
+.logobox .logo {
+	width: 270px;
+	height: 129px;
+}
+
+.sousuobox {
+	width: 641px;
+	margin: 22px auto 0;
+	text-align: left;
+}
+
+.sousuobox #ss_text {
+	width: 540px;
+	height: 36px;
+	padding-left: 10px;
+}
+
+.sousuobox #ss_btn {
+	width: 100px;
+	height: 36px;
+	color: #fff;
+	font-size: 15px;
+	letter-spacing: 1px;
+	background: #3385ff;
+	border: none;
+	vertical-align: middle;
+}
+
+.mainbox {
+	width: 641px;
+	margin: 0 auto;
+}
+
+.mainbox>ul {
+	width: 540px;
+}
+
+.mainbox>ul>li {
+	width: 540px;
+	height: 36px;
+	line-height: 36px;
+	padding-left: 10px;
+	cursor: pointer;
+}
+
+.gray {
+	background: #ccc;
+}

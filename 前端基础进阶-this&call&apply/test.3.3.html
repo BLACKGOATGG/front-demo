@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* 因为call/apply的存在，这让JavaScript变得十分灵活。因此就让call/apply拥有了很多有用处的场景。 */
+
+    // 3.实现继承
+    // 定义父级的构造函数
+    var Person = function (name, age) {
+        this.name = name;
+        this.age = age;
+        this.gender = ['man', 'woman'];
+    }
+
+    // 定义子类的构造函数
+    var Student = function (name, age, high) {
+        // use call
+        Person.call(this, name, age);
+        this.high = high;
+    }
+    Student.prototype.message = function () {
+        console.log(
+            'name:' + this.name + 
+            ', age:' + this.age + 
+            ', high:' + this.high + 
+            ', gender:' + this.gender[0] + 
+            ';'
+        );
+    }
+
+    new Student('xiaom', 12, '150cm').message();
+    
+    /* 
+    // 在Student的构造函数中，借助call方法，将父级的构造函数执行了一次，
+    // 相当于将Person中的代码，在Sudent中复制了一份，其中的this指向为从Student中new出来的实例对象。
+
+    // call方法保证了this的指向正确，因此就相当于实现了继承。
+    // Student的构造函数等同于下。
+
+    var Student = function(name, age, high) {
+        this.name = name;
+        this.age  = age;
+        this.gender = ['man', 'woman'];
+        // Person.call(this, name, age); 这一句话，相当于上面三句话，因此实现了继承
+        this.high = high;
+    } */
+
+</script>
+
+</html>

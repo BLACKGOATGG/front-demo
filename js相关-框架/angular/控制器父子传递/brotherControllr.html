@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="resourse/js/angular.js"></script>
+		<title></title>
+	</head>
+	<body ng-app="MyApp">
+		<div ng-controller="parents">
+			<div ng-controller="children1">
+				<ul>
+					<li>{{obj.name}}</li>
+					<li>{{obj.age}}</li>
+					<li>{{obj.sex}}</li>
+				</ul>
+			</div>
+			<div ng-controller="children2">
+				<ul>
+					<li>{{obj.name}}</li>
+					<li>{{obj.age}}</li>
+					<li>{{obj.sex}}</li>
+				</ul>
+				<button ng-click="person()">我要进行点击</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		var app=angular.module("MyApp",[])
+		.controller("parents",function($scope){
+			$scope.$on("postPerson",function(e,obj){
+				$scope.$broadcast("postPerson4",obj);
+			})
+		})
+		.controller("children1",function($scope){
+			$scope.$on("postPerson4",function(e,obj){
+				$scope.obj=obj;
+			})
+		})
+		.controller("children2",function($scope){
+			$scope.obj={name:"李钰瑶",age:21,sex:"女"};
+			$scope.person=function(){
+				$scope.$emit("postPerson",$scope.obj);
+			}
+		})
+	</script>
+</html>

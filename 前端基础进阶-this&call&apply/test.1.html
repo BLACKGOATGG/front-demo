@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 使用call，apply显示指定this
+    // JavaScript内部提供了一种机制，让我们可以自行手动设置this的指向。它们就是call与apply。
+    // 所有的函数都具有着两个方法。它们除了参数略有不同，其功能完全一样。它们的第一个参数都为this将要指向的对象。
+
+    // 如下例子所示。fn并非属于对象obj的方法，但是通过call，我们将fn内部的this绑定为obj，因此就可以使用this.a访问obj的a属性了。
+    // 这就是call/apply的用法。
+    var a =10;
+    function fn() {
+        console.log(this.a);
+    }
+    var obj = {
+        a: 20
+    }
+
+    fn();
+    fn.call(obj);
+</script>
+
+</html>

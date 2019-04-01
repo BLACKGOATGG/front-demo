@@ -1,0 +1,33 @@
+{
+	"data":[
+		{
+       "nums":1,
+       "check":false,
+       "name":"小米6",
+       "price":2300,       
+       "num":1
+       },
+       {
+       "nums":2,
+       "check":false,
+       "name":"iphone7",
+       "price":5500,
+       "num":1
+       },
+       {
+       "nums":3,
+       "check":false,
+       "name":"vivo",
+       "price":1999,
+    	"num":1
+       },
+       {
+       "nums":4,       
+       "check":false,
+       "name":"oppo",
+       "price":2100,
+       "num":1
+       }
+       
+    ]
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>访问节点</title>
+    <link rel="stylesheet" href="css/newStyle.css">
+</head>
+<body>
+<section id="news"><header>京东快报<a href="#">更多 > </a></header><ul>
+    <li><a href="#">志玲姐姐：墨镜300减30</a></li><li><a href="#">京东无锡馆正式启动</a></li><li><a href="#">99元抢平板！品牌配件199-100</a></li><li><a href="#">节能领跑京东先行</a></li><li><a href="#">高洁丝实力撩货，领券五折</a></li></ul></section>
+<script>
+    var obj=document.getElementById("news");
+    var str=obj.lastChild.firstChild.nextSibling.nextSibling.innerHTML;
+    ////var str=obj.lastChild.lastChild.previousSibling.previousSibling.innerHTML;
+    var str=obj.lastElementChild.firstElementChild.innerHTML||obj.lastChild.firstChild.innerHTML;
+    alert(str);
+</script>
+</body>
+</html>

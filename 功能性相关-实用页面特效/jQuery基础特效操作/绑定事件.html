@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>绑定事件</title>
+		<script src="jquery-1.9.1.js"></script>
+	</head>
+	<body>
+		<input type="text"  value="input" placeholder="" />
+	</body>
+	<script>
+		$("input").bind('click change', function(pl){
+			console.log(pl);
+			alert("hello");
+		})
+		/*$("input").click(function(){
+			
+		})
+		$("input").one('change', function(){
+			alert("hello");
+		})
+		$('input').unbind('click');*/
+	</script>
+</html>

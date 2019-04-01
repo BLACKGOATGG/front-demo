@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="resourse/js/angular.js"></script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="onetro">
+		    <div ng-controller="twotro">
+		        <h2>R2-D2</h2>
+		        <p>Droid Location: {{location}}</p>
+		         <button ng-click="recallAddDroids()">Recall All Droids</button>
+		    </div>
+		    <div ng-controller="threetro">
+		        <h2>C-3PO</h2>
+		        <p>Droid Location: {{location}}</p>
+		       
+		    </div>
+		</div>
+	</body>
+
+  
+<script>  
+  angular.module('myApp', [])  
+  .controller('onetro', function($scope) { 
+    $scope.$on('requestDroidRecall', function(e) {
+        $scope.$broadcast('executeDroidRecall');
+    });
+  })  
+  .controller('twotro', function($scope) {  
+    $scope.location = "Owen Farm";
+    $scope.recallAddDroids = function() {
+        $scope.$emit('requestDroidRecall');
+    }
+    
+  })
+  .controller('threetro', function($scope) { 
+  	$scope.location = "asdasd"
+    $scope.$on('executeDroidRecall', function() { 
+        $scope.location = "Sandcrawler"
+    });
+  }) 
+</script>  
+</html>

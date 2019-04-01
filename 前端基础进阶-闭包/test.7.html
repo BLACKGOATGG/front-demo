@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // demo01
+    /* var fn;
+    function foo() {
+        var a = 2;
+        function baz() {
+            console.log(a);
+        }
+        fn = baz;
+    }
+    function bar() {
+        fn();
+    }
+
+    foo();
+    bar(); // 2 */
+
+    /* 
+    1、我们可以看到，在chrome工具的理解中，由于在foo内部声明的baz函数在调用时访问了它的变量a，因此foo成为了闭包。
+
+    2、这好像和我们学习到的知识不太一样。我们来看看在《你不知道的js》这本书中的例子中的理解。
+    书中的注释可以明显的看出，作者认为fn为闭包。即baz，这和chrome工具中明显是不一样的。
+
+    3、而在备受大家推崇的《JavaScript高级编程》一书中，是这样定义闭包。
+    闭包是指有权访问另一个函数作用域中的变量的函数
+
+    4、闭包是一个特殊对象，它由执行上下文(代号A)与在该执行上下文中创建的函数(代号B)共同组成。
+    当B执行时，如果访问了A中变量对象中的值，那么闭包就会产生。
+
+    5、那么在大多数理解中，包括许多著名的书籍，文章里都以函数B的名字代指这里生成的闭包。
+    而在chrome中，则以执行上下文A的函数名代指闭包。
+     */
+
+
+    // demo02
+    /* var fn;
+    var m = 20;
+    function foo() {
+        var a = 2;
+
+        function baz(a) {
+            console.log(a);
+        }
+        fn = baz;
+    }
+    function bar() {
+        fn(m);
+    }
+
+    foo();
+    bar(); // 20 */
+    /* 
+    这个例子在demo01的基础上，我在baz函数中传入一个参数，并打印出来。
+    在调用时，我将全局的变量m传入。输出结果变为20。在使用断点调试看看作用域链。
+
+    是不是结果有点意外，闭包没了，作用域链中没有包含foo了。
+    我靠，跟我们理解的好像又有点不一样。所以通过这个对比，我们可以确定闭包的形成需要两个条件。
+
+    1、在函数内部创建新的函数；
+    2、新的函数在执行时，访问了函数的变量对象； 
+
+    还有更有意思的。我们继续来看看一个例子。
+    */
+
+
+    // demo03
+    /* function foo() {
+        var a = 2;
+
+        return function bar() {
+            var b = 9;
+
+            return function fn() {
+                console.log(a);
+            }
+        }
+    }
+
+    var bar = foo();
+    var fn = bar();
+    fn(); */
+    /* 
+    // 在这个例子中，fn只访问了foo中的a变量，因此它的闭包只有foo。
+    // 修改一下demo03，我们在fn中也访问bar中b变量试试看。
+    */
+
+
+    // demo04
+    /* function foo() {
+        var a = 2;
+
+        return function bar() {
+            var b = 9;
+
+            return function fn() {
+                console.log(a, b);
+            }
+        }
+    }
+
+    var bar = foo();
+    var fn = bar();
+    fn(); */
+    /* 
+    // 这个时候，闭包变成了两个。分别是bar，foo。
+    // 我们知道，闭包在模块中的应用非常重要。
+
+    // 因此，我们来一个模块的例子，也用断点工具来观察一下。
+    */
+
+
+    // demo05       ?
+    /* (function () {
+        var a = 10;
+        var b = 20;
+        var test = {
+            m: 20,
+            add: function (x) {
+                return a + x;
+            },
+            sum: function () {
+                return a + b + this.m;
+            },
+            mark: function (k, j) {
+                return k + j;
+            }
+        }
+        window.test = test;
+    })();
+
+    test.add(100);
+    test.sum();
+    test.mark();
+
+    var _mark = test.mark;
+    _mark(); */
+    /* 
+    // 注意：这里的this指向显示为Object或者Window，大写开头，他们表示的是实例的构造函数，实际上this是指向的具体实例
+    // test.mark能形成闭包，跟下面的补充例子（demo07）情况是一样的。
+
+    // 我们还可以结合点断调试的方式，来理解那些困扰我们很久的this指向。随时观察this的指向，在实际开发调试中非常有用。
+    */
+
+
+    // demo06
+    /* var a = 10;
+    var obj = {
+        a: 20
+    }
+
+    function fn () {
+        console.log(this.a);
+    }
+    fn();   //10    
+    fn.call(obj); // 20 */
+
+
+    // demo07
+    function foo() {
+        var a = 10;
+        function fn1() {
+            return a;
+        }
+        function fn2() {
+            return 10;
+        }
+        fn2();
+    }
+    foo();
+    /* 
+    这个例子，和其他例子不太一样。
+    虽然fn2并没有访问到foo的变量，但是foo执行时仍然变成了闭包。
+    而当我将fn1的声明去掉时，闭包便不会出现了。
+
+    那么结合这个特殊的例子，我们可以这样这样定义闭包:
+    闭包是指这样的作用域(foo)，它包含有一个函数(fn1)，这个函数(fn1)可以调用被这个作用域所封闭的变量(a)、函数、或者闭包等内容。
+    通常我们通过闭包所对应的函数来获得对闭包的访问。
+
+    更多的例子，大家可以自行尝试，总之，学会了使用断点调试之后，我们就能够很轻松的了解一段代码的执行过程了。
+    这对快速定位错误，快速了解他人的代码都有非常巨大的帮助。大家一定要动手实践，把它给学会。
+
+    最后，根据以上的摸索情况，再次总结一下闭包：
+    1、闭包是在函数被调用执行的时候才被确认创建的。
+    2、闭包的形成，与作用域链的访问顺序有直接关系。
+    3、只有内部函数访问了上层作用域链中的变量对象时，才会形成闭包，因此，我们可以利用闭包来访问函数内部的变量。
+    */
+</script>
+
+</html>

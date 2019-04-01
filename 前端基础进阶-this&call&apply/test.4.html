@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* 
+    四、构造函数与原型方法上的this
+        在封装对象的时候，我们几乎都会用到this，
+        但是，只有少数人搞明白了在这个过程中的this指向，就算我们理解了原型，也不一定理解了this。
+        所以这一部分，我认为将会为这篇文章最重要最核心的部分。
+        理解了这里，将会对你学习JS面向对象产生巨大的帮助。
+    */
+    function Person(name, age) {
+        // 这里的this指向了谁?
+        this.name = name;
+        this.age = age;
+    }
+
+    Person.prototype.getName = function () {
+        // 这里的this又指向了谁？
+        return this.name;
+    }
+
+    console.log(Person)
+    console.log(Person.prototype)
+
+    // 上面的2个this，是同一个吗，他们是否指向了原型对象？
+    var p1 = new Person('Nick', 20);
+    p1.getName();
+
+    /* 我们已经知道，this，是在函数调用过程中确定，因此，搞明白new的过程中到底发生了什么就变得十分重要。
+
+    通过new操作符调用构造函数，会经历以下4个阶段。
+    1.创建一个新的对象；
+    2.将构造函数的this指向这个新对象；
+    3.指向构造函数的代码，为这个对象添加属性，方法等；
+    4.返回新对象。
+
+    因此，当new操作符调用构造函数时，this其实指向的是这个新创建的对象，最后又将新的对象返回出来，被实例对象p1接收。
+    因此，我们可以说，这个时候，构造函数的this，指向了新的实例对象，p1。
+
+    而原型方法上的this就好理解多了
+    根据上边对函数中this的定义，p1.getName()中的getName为调用者，他被p1所拥有，因此getName中的this，也是指向了p1。
+    */
+
+</script>
+
+</html>

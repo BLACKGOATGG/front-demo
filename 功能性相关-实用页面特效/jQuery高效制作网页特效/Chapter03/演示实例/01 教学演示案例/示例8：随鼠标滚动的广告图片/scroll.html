@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+<title>随鼠标滚动的广告图片</title>
+<style type="text/css">
+#main{text-align:center; width:1014px; margin: 0 auto;}
+#adver{
+	position:absolute;
+	left:10px;
+	top:30px;
+	z-index:2;
+}
+</style>
+
+</head>
+<body>
+<div id="adver"><img src="images/adv.jpg"/></div>
+<div id="main"><img src="images/main1.jpg"/><img src="images/main2.jpg"/><img src="images/main3.jpg"/></div>
+
+<script>
+	var adverTop; //层距页面顶端距离
+	var adverLeft;
+	var adverObj; //层对象
+	function inix(){
+		adverObj=document.getElementById("adver"); //获得层对象
+		if(adverObj.currentStyle){
+			adverTop=parseInt(adverObj.currentStyle.top);
+			adverLeft=parseInt(adverObj.currentStyle.left);
+		}
+		else{
+			adverTop=parseInt(document.defaultView.getComputedStyle(adverObj,null).top);
+			adverLeft=parseInt(document.defaultView.getComputedStyle(adverObj,null).left);
+		}
+	}
+	function move(){
+        var sTop=parseInt(document.documentElement.scrollTop||document.body.scrollTop);
+        var sLeft=parseInt(document.documentElement.scrollLeft||document.body.scrollLeft);
+		adverObj.style.top=adverTop+sTop+"px";
+		adverObj.style.left=adverLeft+sLeft+"px";
+	}
+	window.onload=inix;
+	window.onscroll=move;
+</script>
+</body>
+</html>

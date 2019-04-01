@@ -1,0 +1,42 @@
+@charset "utf-8";
+// 这是less
+/*!这是强调注释*/
+
+@color:yellow;
+
+//声明混合宏不一样
+// 在sass 我们声明混合宏 用@mixin color(参数可选){}   调用 @include color(参数可选);
+// 在sass里面继承 。className    调用  @extend .className   
+//            %name             @extend %name 
+
+//less 继承和混合宏都是同一个方法  类   .class
+
+
+//body{
+// background-color:@color;
+// >div{
+//     color:@color;
+// }
+// &:hover{
+//     background:blue;
+// }
+//}
+
+//声明一个混合宏 或者叫声明一个类
+.border{
+    border:1px solid #000;
+}
+
+.side(@side:right){
+    float:@side;
+}
+
+div{
+    width:200px+200px;
+    height: 200px;
+    //调用这个类   不用特殊的指令   
+    .border;
+    .side();
+}
+
+

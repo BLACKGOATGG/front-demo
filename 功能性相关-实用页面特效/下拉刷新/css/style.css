@@ -1,0 +1,11 @@
+@charset "utf-8";
+/*!这是强调注释*/
+.border {
+  border: 1px solid #000;
+}
+div {
+  width: 400px;
+  height: 200px;
+  border: 1px solid #000;
+  float: right;
+}

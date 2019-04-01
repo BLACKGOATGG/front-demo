@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		
+	<script src="resourse/js/jquery-1.9.1.js"></script>
+	<script src="resourse/js/angular.js"></script>
+	<script src="resourse/js/angular-route1.4.5.js"></script>
+		<title></title>
+	</head>
+	<body ng-app="Myapp" ng-controller="myController">
+		<a href="#/a">aaaaaaaaaaaaaaaa</a>
+		<a href="#/b">bbbbbbbbbbbbbbbbb</a>
+		<a href="#/c">ccccccccccccccccc</a>
+		<a href="#/d">ddddddddddddddddd</a>
+		<div ng-view></div>
+	</body>
+	<script>
+		var app=angular.module("Myapp",["ngRoute"]);
+		app.controller("myController",function($scope){
+			
+		})
+	
+	  app.config(["$routeProvider",function ($routeProvider){
+	  	  $routeProvider.when("/a",{
+					  	  	template:"我是A页面"
+					  	  })
+	  	  .when("/b",{
+					  	  	template:"我是b页面"
+					  	  })
+	  	  .when("/c",{
+					  	  	template:"我是c页面"
+					  	  })
+	  	  .when("/d",{
+					  	  	template:"我是d页面"
+					  	  })
+	  	  .otherwise({redirectTo:'/a'})
+	  }])
+	</script>
+</html>

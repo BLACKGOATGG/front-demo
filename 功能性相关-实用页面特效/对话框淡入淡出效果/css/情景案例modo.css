@@ -1,0 +1,129 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.box {
+	width: 100%;
+	height: 700px;
+	margin: 50px auto;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
+
+.box-l,.box-r {
+	position: absolute;
+}
+.box-l {
+	left: 20%;
+	top: 22%;
+}
+.box-r {
+	right: 20%;
+	top: 22%;
+}
+.box-l .page_l {
+	text-align: right;
+}
+.box-r .page_r {
+	text-align: left;
+}
+.page_l,.page_r {
+	position: relative;
+	margin-bottom: 50px;
+	color: #000;
+	opacity: .4;
+}
+.page_l:hover,.page_r:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.box .page_span1{
+	display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 300;
+}
+.box .page_span2{
+	font-size: 24px;
+    font-weight: 300;
+} 
+.box .page_vipimg{
+	position: absolute;
+    bottom: 3px;
+    right: -19px;
+    width: 30px;
+    height: 17px;
+} 
+    
+
+
+
+
+
+.box-c {
+	width: 400px;
+	height: 700px;
+	margin: 0 auto;
+	background: url(../img/phone_new.75a12d8.png) 0 0 no-repeat;
+	background-size: contain;
+	position: relative;
+}
+.pages{
+	width: 312px;
+    height: 400px;
+    margin: 125px 42px 0;
+	position: absolute;
+	top: 0;
+	opacity: 0;
+} 
+.p1,.p2{
+	opacity: 0;
+}
+.p2{
+	max-width: 70%;
+	float: right;
+	line-height: 20px;
+	padding: 8px 8px ;
+	margin-bottom: 30px;
+    border-radius: 5px;
+    text-align: left;
+    background-color: #333;
+    color: #fff;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 1px;
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
+	transition: all .2s;
+}
+.p1{
+	max-width: 95%;
+	float: left;
+	text-align: left; 
+    margin-bottom: 30px;
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
+	transition: all .2s;
+}
+.p1 img{
+	vertical-align: top;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.p1 p{
+	width: 225px;
+	line-height: 20px;
+	padding: 8px 8px;
+    border-radius: 5px;
+    background-color: #FEE600;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-align: justify;
+    display: inline-block;
+} 

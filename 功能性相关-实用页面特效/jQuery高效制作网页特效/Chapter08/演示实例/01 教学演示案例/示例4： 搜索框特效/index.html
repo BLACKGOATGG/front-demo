@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+<title>搜索框特效</title>
+<style type="text/css" >
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+input{
+	float: left;
+}
+#searchtxt{
+	width:222px;
+	height:38px;
+	line-height:38px;
+	padding-left:30px;
+	border:none;
+	background:  url(images/bg.jpg) no-repeat;
+}
+.search_btn{
+	width:90px;
+	height:38px;
+	line-height:38px; 
+	border:none;
+	background: url(images/btn.jpg) no-repeat;
+	margin-left:-4px;
+	cursor:pointer;
+}
+
+</style>
+
+</head>
+<body> 
+  <input name="" type="text" class="search_txt" value="电风扇" id="searchtxt" />
+  <input type="button" class="search_btn" />
+
+  <script  src="js/jquery-1.12.4.js" ></script>
+  <script>
+	  $(document).ready(function(){
+		  $("#searchtxt").focus(function(){         // 搜索框获得鼠标焦点
+			  var txt_value =  $(this).val();   // 得到当前文本框的值
+			  if(txt_value=="电风扇"){
+				  $(this).val("");              // 如果符合条件，则清空文本框内容
+			  }
+		  });
+		  $("#searchtxt").blur(function(){		  // 搜索框失去鼠标焦点
+			  var txt_value =  $(this).val();   // 得到当前文本框的值
+			  if(txt_value==""){
+				  $(this).val("电风扇");    // 如果符合条件，则设置内容
+			  }
+		  });
+	  });
+
+  </script>
+</body>
+</html>

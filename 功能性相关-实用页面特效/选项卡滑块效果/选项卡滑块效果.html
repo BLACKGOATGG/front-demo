@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			box-sizing: border-box;
+		}
+		#box{	/* 大盒子 */
+			width: 200px;
+			margin: 150px auto;
+		}
+		#box #huakuai{		/* 滑块 */
+			width: 220px;
+			height: 90px;
+			margin-top: -10px;
+			margin-left: -10px;
+			background: url(company_nav_Mask.png) no-repeat;
+			background-size: 100% 100%;
+			position: absolute;
+			z-index: 888;
+		}
+		#box ul{
+			width: 100%;
+			background: #666;
+			position: relative;
+		}
+		#box ul li{			/* 列表项 */
+			width: 100%;
+			height: 70px;
+			position: relative;
+			border: 1px solid black;
+		}
+		#box ul li a{		/* 列表项里的文字 */
+			display: block;
+			width: 100%;
+			height: 70px;
+			text-align: center;
+			line-height: 70px;
+			color: #fff;
+			text-decoration: none;
+			position: absolute;		/* 利用具有定位属性的元素的z-index属性实现元素分层的效果 */
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li class="li_active"><a href="#">选项卡1</a></li>
+			<li><a href="#">选项卡2</a></li>
+			<li><a href="#">选项卡3</a></li>
+			<li><a href="#">选项卡4</a></li>
+			<li><a href="#">选项卡5</a></li>
+			<li><a href="#">选项卡6</a></li>
+			<li><a href="#">选项卡7</a></li>
+		</ul>
+		<div id="huakuai"></div>
+	</div>
+	
+</body>
+	<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+	<script>
+		$("li").on("click",function(){
+			$(this).addClass("li_active").siblings().removeClass("li_active");	//给当前点击的li添加li_active类名并删除其他所有的li_active
+			var thisTop=$(".li_active").offset().top;
+			$("#huakuai").animate({"top":thisTop},250,function(){	//执行动画
+				console.log("成功");
+			});
+		})
+		function move(){
+			var thisTop=$(".li_active").offset().top;	//获取具有li_active类名的元素距离离他最近的具有定位属性的父元素的顶部的距离
+			$("#huakuai").css("top",thisTop);	//将获取到的值赋值给滑块的top属性
+		}
+		move()
+		
+	</script>
+</html>

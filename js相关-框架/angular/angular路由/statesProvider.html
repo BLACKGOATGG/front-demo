@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="resourse/js/angular.js"></script>
+		<script src="resourse/js/angular-ui-route.js"></script>
+		<title></title>
+	</head>
+	<body ng-app="MyApp" ng-controller="myController">
+		 <h1>AngularJS Home Page (Ui-router Demonstration)</h1>
+		<div ui-view=""> </div>
+		<div style="width: 80px;">
+			lakjshdlaslakjshdlaslakjshdlaslakjshdlaslakjshdlaslakjshdlaslakjshdlaslakjshdlas
+		</div>
+	</body>
+	<script>
+		var app=angular.module("MyApp",["ui.router"]);
+		app.controller("myController",function ($scope){
+			
+		})
+		app.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+			$stateProvider.state("mainpage",{
+				url:"/main",
+				templateUrl:"main.html"
+			}).state("mainpage.page1",{
+				url:"/page1",
+				templateUrl:"template/page1.html"
+			})
+			.state("mainpage.page2",{
+				url:"/page2",
+				templateUrl:"template/page2.html"
+			})
+			.state("mainpage.page3",{
+				url:"/page3",
+				templateUrl:"template/page3.html"
+			})
+			$urlRouterProvider.when("","/main");
+		}])
+	</script>
+</html>

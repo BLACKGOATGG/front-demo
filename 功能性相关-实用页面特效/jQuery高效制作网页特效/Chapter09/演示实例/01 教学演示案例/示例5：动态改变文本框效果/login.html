@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>休闲网登录页面</title>
+	<link href="css/register.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="header" class="main">
+        <div id="headerLeft">
+            <img src="images/logo.gif" /></div>
+        <div id="headerRight">注册 | 登录 | 帮助</div>
+    </div>
+	<div class="register">
+		<form action="success.html" id="myform" method="post" name="myform" >
+			<ul>
+				<li class="bold">登录休闲网</li>
+				<li><span>Email：</span><input type="text" class="inputs" value="请输入正确的电子邮箱" /></li>
+				<li><span>密码：</span><input type="password" class="inputs" /></li>
+				<li><input name="btn" id="btn" type="submit" value="登录" class="rb1"  /></li>
+			</ul>
+		</form>
+	</div>
+    <div id="footer" class="main"><a href="#">关于我们</a> | <a href="#">诚聘英才</a> |<a href="#"> 联系方式</a>  | <a href="#">帮助中心</a></div>
+	<script  src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#myform").submit(function () {
+				var mail = $("#myform :text").val();
+				if (mail == "") {//检测Email是否为空
+					alert("Email不能为空");
+					$("#myform :text").focus();
+					return false;
+				}
+				if (mail.indexOf("@") == -1 || mail.indexOf(".") == -1) {
+					alert("Email格式不正确\n必须包含符号@和.");
+					$("#myform :text").select();
+					return false;
+				}
+				return true;
+			});
+		})
+
+		$("#myform :text").focus(function(){
+			if ($(this).val() == "请输入正确的电子邮箱") {
+				$(this).val("");
+				$(this).css("border", "1px solid #ff0000");
+			}
+		});
+	</script>
+
+</body>
+</html>

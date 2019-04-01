@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jQuery.zoom 插件实现图片内部放大以及鼠标跟随效果</title>
+	<style type="text/css">
+		* { border:0; margin:0; padding:0; }
+		p { position:absolute; top:3px; right:28px; color:#555; font:bold 13px/1 sans-serif;}
+		.lanren{ width: 900px; margin-left: auto; margin-right: auto; }
+		h1{ font-size: 16px; color: #A2A2A2; line-height: 60px; }
+		body{ background-color: #2D2D2D; }
+		.zoom {
+			display:inline-block;
+			position: relative;
+		}
+		.zoom:after {
+			content:'';
+			display:block; 
+			width:33px; 
+			height:33px; 
+			position:absolute; 
+			top:0;
+			right:0;
+			background:url('images/icon.png');
+		}
+		.zoom img {
+			display: block;
+		}
+		.zoom img::selection { background-color: transparent; }
+		#ex2 img:hover { cursor: url('images/grab.cur'), default; }
+		#ex2 img:active { cursor: url('images/grabbed.cur'), default; }
+	</style>
+</head>
+<body>
+
+	<!-- 代码部分begin -->
+	<div class="lanren">
+		<h1>图片内部缩放和平移jQuery插件</h1>
+		<div class="lanren-content">
+			<span class='zoom' id='ex1'>
+				<img src='images/design.jpg' width='555' height='320' alt='web design'/>
+				<p>Hover</p>
+			</span>
+			<span class='zoom' id='ex2'>
+				<img src='images/women.jpg' width='290' height='320' alt='women'/>
+				<p>Grab</p>
+			</span>
+			<span class='zoom' id='ex3'>
+				<img src='images/horse.jpg' width='555' height='320' alt='horse'/>
+				<p>Click to activate</p>
+			</span>
+			<span class='zoom' id='ex4'>
+				<img src='images/women2.jpg' width='290' height='320' alt='women2'/>
+				<p>Click to toggle</p>
+			</span>
+		</div>
+	</div>
+	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src='js/jquery.zoom.js'></script>
+	<script>
+		$(document).ready(function(){
+			$('#ex1').zoom();
+			$('#ex2').zoom({ on:'grab' });
+			$('#ex3').zoom({ on:'click' });			 
+			$('#ex4').zoom({ on:'toggle' });
+		});
+	</script>
+	<!-- 代码部分end -->
+	
+</body>
+</html>

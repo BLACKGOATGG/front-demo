@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.9.1.js"></script>
+	    <style>
+	    	#aa{
+	    		width: 1500px;
+	    		height: 100px;
+	    		border: 1px solid red;
+	    	}
+	    	#outer{
+	    		width: 300px;
+	    		height: 300px;
+	    		border: 1px solid blue;
+	    		overflow: auto;
+	    	}
+	    	body{
+	    		overflow: auto;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div id="outer">
+			<div id="aa">
+				<a href="www.baidu.com">www.baidu.com</a>
+			</div>
+		</div>
+		<form id="form" action="www.baidu.com">
+		  <input id="target" type="text" value="Hello there">
+		  <input type="submit"  value="提交"/>
+		</form>
+	</body>
+	<script>
+		/*$( "#outer" ).mouseenter(function() {
+		  console.log("我是进去enter")
+		}).mouseleave(function(){
+			 console.log("我是出去的leave")
+		}).mouseover(function(){
+			console.log("mouseover")
+		})*/
+		window.onresize=function(){
+			console.log("窗口大小发生变化");
+		}
+		$('body').scroll(function(){
+			
+		})
+		$( "#outer" ).scroll(function() {
+		 console.log("滚动条发生变化");
+		});
+		$( "#target" ).select(function() {
+			  alert( "Handler for .select() called." );
+			});
+		$("#form").submit(function(){
+			if(confirm('是否确定？')){
+				alert("我要去提交了")
+			}
+			else{
+				return  false;
+			}
+		})
+		$( window ).unload(function() {
+			    localStorage.obj="tianchangding";
+			});
+			var a=10;
+	</script>
+</html>

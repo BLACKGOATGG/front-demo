@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<script src="angular.js"></script>
+		<script src="jquery-1.9.1.js"></script>
+		<title></title>
+		<style>
+			.show{
+				display: none;
+			}
+			.aDiv{
+				display: block;
+				
+			}
+		</style>
+	</head>
+	<body ng-app="MyApp">
+		<a href="#a">aaaaaaaaaaaaaaaaa</a>
+		<a href="#b">bbbbbbbbbbbbv</a>
+		<a href="#c">ccccccccccc</a>
+		<a href="#d">dddddddddd</a>
+		<a href="#e">eeeeeeeeeee</a>
+		<div>
+			<div class="aDiv show">aDiv</div>
+			<div class="bDiv show">bDiv</div>
+			<div class="cDiv show">cDiv</div>
+			<div class="dDiv show">dDiv</div>
+			<div class="eDiv show">eDiv</div>
+		</div>
+		<div ng-controller="myController1">
+			myController1
+			<div ng-bind="name"></div>
+			<div>{{name | uppercase}}</div>
+			<input type="text" ng-model="age" />
+			<div>{{arrar | reversep}}</div>
+			<div>{{guohongyueName}}</div>
+		</div>
+		<div ng-controller="myController2">
+			myController2
+			<div>{{sex}}</div>
+			<div>{{guohongName}}</div>
+		</div>
+	</body>
+	<script>
+		var app=angular.module("MyApp",[]);
+		app.controller("myController1",function ($scope,$rootScope,factory){
+			$scope.name="guohuan",
+			$scope.age=12,
+			$scope.arrar="jintianwomendouhengaoxing",
+			$rootScope.sex="女",
+			$scope.guohongyueName=factory.name,
+			factory.name="xifanxia"
+		})
+		app.controller("myController2",function ($scope,$rootScope,factory){
+			$scope.name="刘洪利",
+			$scope.age=13
+			$scope.guohongName=factory.name
+		})
+		/*自定义过滤器*/
+		app.filter("reversep",function (){
+			return function (arrar){
+				   var arr=arrar.split("").reverse().join("");
+				   return arr;
+			}
+		})
+		/*服务创建*/
+		app.constant("factory",{
+			name:"郭红跃",
+			age:20,
+			sex:"女",
+			idCard:231087576236
+		})
+		onhashchange=function(){
+			console.log(location.hash);
+			var hash=location.hash;
+			$(".show").css("display","none");
+			switch(hash){
+				  case '#a':{
+				  	$(".aDiv").css("display","block");
+				  	
+				  	break;
+				  }
+				  case '#b':{
+				  	$(".bDiv").css("display","block");
+				  	break;
+				  }
+				  case '#c':{
+				  	$(".cDiv").css("display","block");
+				  	console.log('我是chash值');
+				  	break;
+				  }
+				  case '#d':{
+				  	$(".dDiv").css("display","block");
+				  	console.log('我是dhash值');
+				  	break;
+				  }
+				  case '#e':{
+				  	$(".eDiv").css("display","block");
+				  	console.log('我是ehash值');
+				  	break;
+				  }
+			}
+		}
+	</script>
+</html>

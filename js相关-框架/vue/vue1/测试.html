@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="val in arr">{{val}}</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		window.onload = function() {
+			new Vue({
+				el: "#app",
+				data: {
+					arr: [1, 20, 31, 65, 20]
+				},
+				methods:{
+					add:function(){
+						this.$http({
+							
+						})
+					}
+				}
+			})
+		}
+	</script>
+
+</html>

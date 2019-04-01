@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="resourse/js/angular.js"></script>
+	</head>
+	<body ng-app="MyApp">
+		<div ng-controller="myController1">
+			<div>{{name}}</div>
+			<button ng-click="clik('今天我们学习了控制器之间的传递')">我的点击</button>
+			<div ng-controller="myController2">
+				<div>{{name}}</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var app=angular.module("MyApp",[])
+		.controller("myController1",function($scope){
+			$scope.name="郭佳良",
+			$scope.clik=function(name){
+				console.log(name);
+				var obj={name:"宋胜尧"}
+				$scope.$broadcast("shangban",name);
+			}
+		})
+		.controller("myController2",function($scope){
+			    $scope.$on("shangban",function (e,obj){
+			    	console.log(e)
+			    	$scope.name=obj;
+			    })
+		})
+		
+	</script>
+</html>

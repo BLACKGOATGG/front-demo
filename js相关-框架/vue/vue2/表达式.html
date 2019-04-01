@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第一个vue</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<!--<div id="app">
+		    <pre><a v-bind:href="url">菜鸟教程</a></pre>
+		</div>-->
+    <div id="app">
+	    <p>{{ message }}</p>
+	    <button v-on:click="reverseMessage()">反转字符串</button>
+	</div>
+	</body>
+	
+    
+
+<script>
+	var p=new Vue({
+			  el: '#app',
+			  data: {
+			    message: 'Runoob!'
+			  },
+			  methods: {//代表事件 
+				     reverseMessage() {
+				       this.message = this.message.split('').reverse().join('');
+				       console.log(this.message);
+				    }
+			  }
+	})
+console.log(p);
+
+</script>
+</html>

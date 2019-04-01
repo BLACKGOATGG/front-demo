@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    setTimeout(function () {
+        console.log('5==>',a);
+    }, 0);
+
+    var a = 10;
+
+    console.log('1==>',b);
+    console.log('2==>',fn);
+
+    var b = 20;
+    function fn() {
+        setTimeout(function () {
+            console.log('6==>','setTImeout 10ms.');
+        }, 10);
+    }
+
+    fn.toString = function () {
+        return 30;
+    }
+    console.log('3==>',fn.toString);
+
+    console.log('4==>',fn);
+
+    setTimeout(function () {
+        console.log('7==>','setTimeout 20ms.');
+    }, 20);
+
+    fn();
+</script>
+
+</html>

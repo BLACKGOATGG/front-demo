@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+        }
+    </style>
+    <!--引入-->
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/插件1.js"></script>
+    <script src="js/随机颜色的插件.js"></script>
+</head>
+<body>
+    <div id="box">111</div>
+    <script>
+        //用插件
+        $("#box").color("#fff");
+        $("#box").border("31px solid #ccc");
+        $("#box").randColor();
+    </script>
+</body>
+</html>

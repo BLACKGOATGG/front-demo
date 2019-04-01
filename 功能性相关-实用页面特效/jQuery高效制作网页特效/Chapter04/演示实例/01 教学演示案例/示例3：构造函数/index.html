@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>构造函数</title>
+</head>
+<body>
+<script>
+    function Flower(name,genera,area,uses){
+        this.name=name;
+        this.genera=genera;
+        this.area=area;
+        this.uses=uses;
+        this.showName=function(){
+            alert(this.name);
+        }
+    }
+    var flower1=new Flower("长春花","夹竹桃科 长春花属","非洲、亚热带、热带以及中国大陆的华东、西南、中南等地","观赏或用药等");
+    flower1.showName();
+    var flower2=new Flower("牡丹","芍药科 芍药属","中国","观赏、食用或药用");
+    flower2.showName();
+    var flower3=new Flower("曼陀罗花","茄科 曼陀罗属","印度、中国北部","观赏或药用");
+    flower3.showName();
+    //alert(flower1.constructor==Flower);
+    //alert(flower2.constructor==Flower);
+   // alert(flower2.constructor==Flower);
+    alert(flower1 instanceof Object);
+    alert(flower1 instanceof Flower);
+    alert(flower2 instanceof Object);
+    alert(flower2 instanceof Flower);
+    alert(flower3 instanceof Object);
+    alert(flower3 instanceof Flower);
+</script>
+</body>
+</html>

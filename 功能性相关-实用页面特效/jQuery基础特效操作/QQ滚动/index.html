@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<script src="zepto.min.js"></script>
+	<style>
+		html,body,ul {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		ul {
+			overflow: hidden;
+		}
+		ul>li {
+			position: relative;
+			top: 0;
+			left: 0;
+			width: 120%;
+			list-style: none;
+			height: 50px;
+			line-height: 50px;
+			border-bottom: 1px solid #ddd;
+			text-align: center;
+		}
+		ul>li:first-child {
+			border-top: 1px solid #ddd;
+		}
+		.remove {
+			display: inline-block;
+			width: 15%;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			float: right;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li class='message'>hello<span class='remove'>删除</span></li>
+		<li class='message'>world<span class='remove'>删除</span></li>
+		<li class='message'>aaaaa<span class='remove'>删除</span></li>
+	</ul>
+	
+	<script>
+		$(document).delegate('.message', 'touchend', function(){
+			if($(this).css('left') == '0px'){
+				$(this).animate({left: '-20%'},1000);
+			}else {
+				$(this).animate({left: 0}, 1000);
+			}
+		});
+		
+		$(document).delegate('.remove', 'click', function(){
+			$(this).parent().remove();
+		});
+	</script>
+</body>
+</html>

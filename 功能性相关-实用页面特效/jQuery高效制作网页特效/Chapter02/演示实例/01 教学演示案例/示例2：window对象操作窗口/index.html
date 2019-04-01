@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>window对象操作窗口</title>
+    <style type="text/css">
+        body,ul,li,div,p,h1,h2{margin: 0;padding: 0;}
+        .content{width: 746px; margin: 0 auto;}
+        .logo{margin: 10px 0;}
+        .logo span{
+            display: inline-block;
+            float: right;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            font-family: "微软雅黑";
+            background: #ff0000;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body onload="open_adv();">
+<div class="content">
+    <div class="logo">
+        <img src="images/dd_logo.jpg"><span onclick="close_plan();">关闭</span>
+    </div>
+    <img src="images/shopping.jpg"/>
+</div>
+<script type="text/javascript">
+    /*弹出窗口*/
+    function open_adv(){
+        window.open("adv.html");
+    }
+    /*关闭窗口*/
+    function close_plan(){
+        window.close();
+    }
+</script>
+</body>
+</html>
