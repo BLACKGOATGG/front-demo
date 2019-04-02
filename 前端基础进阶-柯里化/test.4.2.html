@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 在简单的场景下， 我们可以不用借助柯里化通用式来转化得到柯里化函数， 我们可以凭借眼力自己封装。
+    // 例如有一个简单的加法函数， 他能够将自身的三个参数加起来并返回计算结果。
+    function add(a, b, c) {
+        return a + b + c;
+    }
+
+    // 那么add函数的柯里化函数_add则可以如下：
+    function _add(a) {
+        return function (b) {
+            return function (c) {
+                return a + b + c;
+            }
+        }
+    }
+
+    // 因此下面的运算方式是等价的。
+    console.log(add(1, 2, 3));
+    console.log(_add(1)(2)(3));
+
+    // 当然，柯里化通用式具备更加强大的能力，我们靠眼力自己封装的柯里化函数则自由度偏低。
+    // 因此我们仍然需要知道自己如何去封装这样一个柯里化的通用式。
+
+    // 首先通过_add可以看出，柯里化函数的运行过程其实是一个参数的收集过程，我们将每一次传入的参数收集起来，并在最里层里面处理。
+    // 因此我们在实现createCurry时，可以借助这个思路来进行封装。
+
+    // 封装如下:
+
+    // 简单实现，参数只能从右到左传递
+    function createCurry(func, args) {
+
+        var arity = func.length;
+        var args = args || [];
+
+        return function () {
+            var _args = [].slice.call(arguments);
+            [].push.apply(_args, args);
+
+            // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
+            if (_args.length < arity) {
+                return createCurry.call(this, func, _args);
+            }
+
+            // 参数收集完毕，则执行func
+            return func.apply(this, _args);
+        }
+    }
+    /* 
+    尽管我已经做了足够详细的注解，但是我想理解起来也并不是那么容易，因此建议大家用点耐心多阅读几遍。
+    这个createCurry函数的封装借助闭包与递归，实现了一个参数收集，并在收集完毕之后执行所有参数的一个过程。
+
+    因此聪明的读者可能已经发现，把函数经过createCurry转化为一个柯里化函数，最后执行的结果，不是正好相当于执行函数自身吗？
+    柯里化是不是把简单的问题复杂化了？
+
+    如果你能够提出这样的问题，那么说明你确实已经对柯里化有了一定的了解。
+    柯里化确实是把简答的问题复杂化了，但是复杂化的同时，我们在使用函数时拥有了更加多的自由度。
+    而这里对于函数参数的自由处理，正是柯里化的核心所在。
+    */
+</script>
+
+</html>

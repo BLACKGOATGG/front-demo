@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function createCurry(func, args) {
+        var arity = func.length;
+        var args = args || [];
+
+        return function () {
+            var _args = [].slice.call(arguments);
+            [].unshift.apply(_args, args);
+
+            if (_args.length < arity) {
+                return createCurry.call(this, func, _args);
+            }
+
+            return func.apply(this, _args);
+        }
+    }
+    // 我们继续来思考一个例子。这个例子与map有关。
+
+    // 在高阶函数的章节中，我们分析了封装map方法的思考过程。
+    // 由于我们没有办法确认一个数组在遍历时会执行什么操作，因此我们只能将调用for循环的这个统一逻辑封装起来，
+    // 而具体的操作则通过参数传入的形式让使用者自定义。这就是map函数。
+
+    // 但是，这是针对了所有的情况我们才会这样想。
+
+    // 实践中我们常常会发现，在我们的某个项目中，针对于某一个数组的操作其实是固定的，
+    // 也就是说，同样的操作，可能会在项目的不同地方调用很多次。
+
+    // 于是，这个时候，我们就可以在map函数的基础上，进行二次封装，以简化我们在项目中的使用。
+    // 假如这个在我们项目中会调用多次的操作是将数组的每一项都转化为百分比 1--> 100% 。
+
+    // 普通思维下我们可以这样来封装。
+    /* 
+    function getNewArray(array) {
+        return array.map(function (item) {
+            return item * 100 + '%'
+        })
+    }
+
+    getNewArray([1, 2, 3, 0.12]); // ['100%', '200%', '300%', '12%']; 
+    */
+
+    // 而如果借助柯里化来二次封装这样的逻辑，则会如下实现：
+    function _map(func, array) {
+        return array.map(func);
+    }
+
+    var _getNewArray = createCurry(_map);
+
+    var getNewArray = _getNewArray(function (item) {
+        return item * 100 + '%'
+    })
+
+    getNewArray([1, 2, 3, 0.12]); // ['100%', '200%', '300%', '12%'];
+    getNewArray([0.01, 1]); // ['1%', '100%']
+
+
+    // 如果我们的项目中的固定操作是希望对数组进行一个过滤，找出数组中的所有Number类型的数据。
+    // 借助柯里化思维我们可以这样做。
+
+    function _filter(func, array) {
+        return array.filter(func);
+    }
+
+    var _find = createCurry(_filter);
+
+    var findNumber = _find(function (item) {
+        if (typeof item == 'number') {
+            return item;
+        }
+    })
+
+    findNumber([1, 2, 3, '2', '3', 4]); // [1, 2, 3, 4]
+
+    // 当我们继续封装另外的过滤操作时就会变得非常简单
+    // 找出数字为20的子项
+    var find20 = _find(function (item, i) {
+        if (typeof item === 20) {
+            return i;
+        }
+    })
+    find20([1, 2, 3, 30, 20, 100]); // 4
+
+    // 找出数组中大于100的所有数据
+    var findGreater100 = _find(function (item) {
+        if (item > 100) {
+            return item;
+        }
+    })
+    findGreater100([1, 2, 101, 300, 2, 122]); // [101, 300, 122]
+
+    // 我采用了与check例子不一样的思维方向来想大家展示我们在使用柯里化时的想法。
+    // 目的是想告诉大家，柯里化能够帮助我们应对更多更复杂的场景。
+
+    /* 
+    我采用了与check例子不一样的思维方向来想大家展示我们在使用柯里化时的想法。
+    目的是想告诉大家，柯里化能够帮助我们应对更多更复杂的场景。
+
+    当然不得不承认，这些例子都太简单了，简单到如果使用柯里化的思维来处理他们显得有一点多此一举，而且变得难以理解。
+    因此我想读者朋友们也很难从这些例子中感受到柯里化的魅力。
+    不过没关系，如果我们能够通过这些例子掌握到柯里化的思维，那就是最好的结果了。
+    在未来你的实践中，如果你发现用普通的思维封装一些逻辑慢慢变得困难，不妨想一想在这里学到的柯里化思维，应用起来，
+    柯里化足够强大的自由度一定能给你一个惊喜。
+
+    当然也并不建议在任何情况下以炫技为目的的去使用柯里化，
+    在柯里化的实现中，我们知道柯里化虽然具有了更多的自由度，但同时柯里化通用式里调用了arguments对象，使用了递归与闭包，
+    因此柯里化的自由度是以牺牲了一定的性能为代价换来的。只有在情况变得复杂时，才是柯里化大显身手的时候。 
+    */
+</script>
+
+</html>
