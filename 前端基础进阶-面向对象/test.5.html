@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="./599584-f4ca22c5db668eaf.png" height="1000" alt="">
+    <script>
+        // 五、原型链
+        // 原型对象其实也是普通的对象。几乎所有的对象都可能是原型对象，也可能是实例对象，而且还可以同时是原型对象与实例对象。
+        // 这样的一个对象，正是构成原型链的一个节点。因此理解了原型，那么原型链并不是一个多么复杂的概念。
+
+        // 我们知道所有的函数都有一个叫做toString的方法。那么这个方法到底是在哪里的呢？
+
+        // 先随意声明一个函数：
+        function add() {}
+
+        // 那么我们可以用如下的图来表示这个函数的原型链。
+
+        // 其中add是Function对象的实例。而Function的原型对象同时又是Object原型的实例。这样就构成了一条原型链。
+        // 原型链的访问，其实跟作用域链有很大的相似之处，他们都是一次单向的查找过程。
+        // 因此实例对象能够通过原型链，访问到处于原型链上对象的所有属性与方法。
+        // 这也是foo最终能够访问到处于Object原型对象上的toString方法的原因。
+
+        // 基于原型链的特性，我们可以很轻松的实现继承。
+    </script>
+</body>
+
+</html>
