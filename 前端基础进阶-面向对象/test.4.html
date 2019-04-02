@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="./599584-2fc7dad23d112791.png" height="1000" alt="">
+    <script>
+        // 四、原型
+        /* 
+        虽然构造函数解决了判断实例类型的问题，但是，说到底，还是一个对象的复制过程。跟工厂模式颇有相似之处。
+        也就是说，当我们声明了100个person对象，那么就有100个getName方法被重新生成。
+
+        这里的每一个getName方法实现的功能其实是一模一样的，但是由于分别属于不同的实例，就不得不一直不停的为getName分配空间。
+        这就是工厂模式存在的第二个麻烦。
+
+        显然这是不合理的。我们期望的是，既然都是实现同一个功能，那么能不能就让每一个实例对象都访问同一个方法？
+        当然能，这就是原型对象要帮我们解决的问题了。
+
+        我们创建的每一个函数，都可以有一个prototype属性，该属性指向一个对象。这个对象，就是我们这里说的原型。
+
+        当我们在创建对象时，可以根据自己的需求，选择性的将一些属性和方法通过prototype属性，挂载在原型对象上。
+        而每一个new出来的实例，都有一个__proto__属性，该属性指向构造函数的原型对象，通过这个属性，让实例对象也能够访问原型对象上的方法。
+        因此，当所有的实例都能够通过__proto__访问到原型对象时，原型对象的方法与属性就变成了共有方法与属性。
+
+        我们通过一个简单的例子与图示，来了解构造函数，实例与原型三者之间的关系。
+        */
+
+        // 声明构造函数
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        // 通过prototye属性，将方法挂载到原型对象上
+        Person.prototype.getName = function() {
+            return this.name;
+        }
+
+        var p1 = new Person('tim', 10);
+        var p2 = new Person('jak', 22);
+        console.log(p1.getName === p2.getName); // true
+
+        /* 
+        由于每个函数都可以是构造函数，每个对象都可以是原型对象，
+        因此如果在理解原型之初就想的太多太复杂的话，反而会阻碍你的理解，
+        这里我们要学会先简化它们。就单纯的剖析这三者的关系。
+
+        通过图示我们可以看出，构造函数的prototype与所有实例对象的__proto__都指向原型对象。
+        而原型对象的constructor指向构造函数。
+
+        除此之外，还可以从图中看出，实例对象实际上对前面我们所说的中间对象的复制，而中间对象中的属性与方法都在构造函数中添加。
+        于是根据构造函数与原型的特性，我们就可以将在构造函数中，通过this声明的属性与方法称为私有变量与方法，它们被当前被某一个实例对象所独有。
+        而通过原型声明的属性与方法，我们可以称之为共有属性与方法，它们可以被所有的实例对象访问。 
+        */
+
+
+        // 当我们访问实例对象中的属性或者方法时，会优先访问实例对象自身的属性和方法。
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.getName = function() {
+                console.log('this is constructor.');
+            }
+        }
+
+        Person.prototype.getName = function() {
+            return this.name;
+        }
+
+        var p1 = new Person('tim', 10);
+        p1.getName(); // this is constructor.
+
+        // 在这个例子中，我们同时在原型与构造函数中都声明了一个getName函数，运行代码的结果表示原型中的访问并没有被访问。
+
+
+        // 我们还可以通过in来判断，一个对象是否拥有某一个属性/方法，无论是该属性/方法存在与实例对象还是原型对象。
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Person.prototype.getName = function() {
+            return this.name;
+        }
+
+        var p1 = new Person('tim', 10);
+        console.log('name' in p1); // true
+
+
+        // in的这种特性最常用的场景之一，就是判断当前页面是否在移动端打开。
+        // 很多人喜欢用浏览器UA的方式来判断，但并不是很好的方式
+        var isMobile = 'ontouchstart' in document;
+        console.log(isMobile)
+
+
+
+        /* 更简单的原型写法
+        根据前面例子的写法，如果我们要在原型上添加更多的方法，可以这样写：
+
+        function Person() {}
+
+        Person.prototype.getName = function() {}
+        Person.prototype.getAge = function() {}
+        Person.prototype.sayHello = function() {}
+        ... ...
+
+
+        除此之外，我还可以使用更为简单的写法。
+
+        function Person() {}
+
+        Person.prototype = {
+            constructor: Person,
+            getName: function() {},
+            getAge: function() {},
+            sayHello: function() {}
+        }
+
+        这种字面量的写法看上去简单很多，但是有一个需要特别注意的地方。
+        Person.prototype = {}实际上是重新创建了一个{}对象并赋值给Person.prototype，这里的{}并不是最初的那个原型对象。
+        因此它里面并不包含constructor属性。
+        为了保证正确性，我们必须在新创建的{}对象中显示的设置constructor的指向。
+        即上面的constructor: Person。
+        */
+    </script>
+</body>
+
+</html>
