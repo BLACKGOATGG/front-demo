@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ========================Object.getOwnPropertyDescriptor==================
+        // 读取属性的特性值
+        // 我们可以使用Object.getOwnPropertyDescriptor方法读取某一个属性的特性值。
+
+        var person = {}
+
+        Object.defineProperty(person, 'name', {
+            configurable: false,
+            writable: false,
+            value: 'alex'
+        })
+
+        var descripter = Object.getOwnPropertyDescriptor(person, 'name');
+
+        console.log(descripter);  // 返回结果如下
+
+        /* 
+        descripter = {
+            configurable: false,
+            enumerable: false,
+            writable: false,
+            value: 'alex'
+        } 
+        */
+    </script>
+</body>
+
+</html>

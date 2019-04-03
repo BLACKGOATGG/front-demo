@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 八、属性类型
+        // 在上面的继承实现中，使用了一个大家可能不太熟悉的方法defineProperties。
+        // 并且在定义getGrade时使用了一个很奇怪的方式。
+
+        /* 
+        getGrade: {
+            value: function() {
+                return this.grade
+            }
+        } 
+        */
+
+        // 这其实是对象中的属性类型。
+        // 在我们平常的使用中，给对象添加一个属性时，直接使用object.param的方式就可以了，或者直接在对象中挂载。
+        /* 
+        var person = {
+            name: 'TOM'
+        }
+        */
+
+        /* 
+        在ECMAScript5中，对每个属性都添加了几个属性类型，来描述这些属性的特点。他们分别是：
+
+            configurable: 表示该属性是否能被delete删除。当其值为false时，其他的特性也不能被改变。默认值为true
+
+            enumerable: 是否能枚举。也就是是否能被for-in遍历。默认值为true
+
+            writable: 是否能修改值。默认为true
+
+            value: 该属性的具体值是多少。默认为undefined
+
+            get: 当我们通过person.name访问name的值时，get将被调用。该方法可以自定义返回的具体值时多少。
+            get默认值为undefined
+
+            set: 当我们通过person.name = 'Jake'设置name的值时，set方法将被调用。该方法可以自定义设置值的具体方式。
+            set默认值为undefined
+
+            需要注意的是，不能同时设置value、writable 与 get、set的值。
+
+        我们可以通过Object.defineProperty方法来修改这些属性类型。
+
+        */
+        // 下面我们用一些简单的例子来演示一下这些属性类型的具体表现。
+    </script>
+</body>
+
+</html>

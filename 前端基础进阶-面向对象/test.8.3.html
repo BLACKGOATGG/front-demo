@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ========================Object.defineProperties==================
+        // Object.defineProperty只能设置一个属性的属性特性。
+        // 当我们想要同时设置多个属性的特性时，需要使用我们之前提到过的Object.defineProperties
+
+        var person = {}
+
+        Object.defineProperties(person, {
+            name: {
+                value: 'Jake',
+                configurable: true
+            },
+            age: {
+                get: function() {
+                    return this.value || 22
+                },
+                set: function(value) {
+                    this.value = value
+                }
+            }
+        })
+
+        // person.name   // Jake
+        // person.age    // 22
+    </script>
+</body>
+
+</html>
