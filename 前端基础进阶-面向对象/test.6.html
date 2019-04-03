@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="./img/599584-c77eb714f66b8185.png" height="1000" alt="">
+    <script>
+        // 六、继承
+        // 我们常常结合构造函数与原型来创建一个对象。因为构造函数与原型的不同特性，分别解决了我们不同的困扰。
+        // 因此当我们想要实现继承时，就必须得根据构造函数与原型的不同而采取不同的策略。
+
+        // 我们声明一个Person对象，该对象将作为父级，而子级cPerson将要继承Person的所有属性与方法。
+
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Person.prototype.getName = function() {
+            return this.name;
+        }
+
+        // 首先我们来看构造函数的继承。在上面我们已经理解了构造函数的本质，它其实是在new内部实现的一个复制过程。
+        // 而我们在继承时想要的，就是想父级构造函数中的操作在子级的构造函数中重现一遍即可。我们可以通过call方法来达到目的。
+
+        // 构造函数的继承
+        function cPerson(name, age, job) {
+            Person.call(this, name, age);
+            this.job = job;
+        }
+
+        // 而原型的继承，则只需要将子级的原型对象设置为父级的一个实例，加入到原型链中即可。
+
+        // 继承原型
+        cPerson.prototype = new Person(name, age);
+
+        // 添加更多方法
+        cPerson.prototype.getLive = function() {}
+
+        // 当然关于继承还有更好的方式。
+
+    </script>
+</body>
+
+</html>
