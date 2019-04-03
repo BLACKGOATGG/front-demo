@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 七、更好的继承
+        // 假设原型链的终点Object.prototype为原型链的E(end)端，原型链的起点为S(start)端。
+
+        // 通过前面原型链的学习我们知道，处于S端的对象，可以通过S -> E的单向查找，访问到原型链上的所有方法与属性。
+        // 因此这给继承提供了理论基础。
+        // 我们只需要在S端添加新的对象，那么新对象就能够通过原型链访问到父级的方法与属性。
+        // 因此想要实现继承，是一件非常简单的事情。
+
+        // 因为封装一个对象由构造函数与原型共同组成，因此继承也会分别有构造函数的继承与原型的继承。
+        // 假设我们已经封装好了一个父类对象Person。如下。
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Person.prototype.getName = function() {
+            return this.name;
+        }
+
+        Person.prototype.getAge = function() {
+            return this.age;
+        }
+
+
+        // 构造函数的继承比较简单，我们可以借助call/apply来实现。
+        // 假设我们要通过继承封装一个Student的子类对象。那么构造函数可以如下实现。
+
+        function Student(name, age, grade) {
+            // 通过call方法还原Person构造函数中的所有处理逻辑
+            Person.call(this, name, age);
+            this.grade = grade;
+        }
+
+        // 上面通过call方法继承等价于下面
+        /* var Student = function(name, age, grade) {
+            this.name = name;
+            this.age = age;
+            this.grade = grade;
+        } */
+
+
+        // 原型的继承则稍微需要一点思考。
+        // 首先我们应该考虑，如何将子类对象的原型加入到原型链中？
+        // 我们只需要让子类对象的原型，成为父类对象的一个实例，然后通过__proto__就可以访问父类对象的原型。
+        // 这样就继承了父类原型中的方法与属性了。
+
+        // 因此我们可以先封装一个方法，该方法根据父类对象的原型创建一个实例，该实例将会作为子类对象的原型。
+
+        function create(proto, options) {
+            // 创建一个空对象
+            var tmp = {};
+
+            // 让这个新的空对象成为父类对象的实例
+            tmp.__proto__ = proto;
+
+            // 传入的方法都挂载到新对象上，新的对象将作为子类对象的原型
+            Object.defineProperties(tmp, options);
+            return tmp;
+        }
+
+        // 简单封装了create对象之后，我们就可以使用该方法来实现原型的继承了。
+        // 原型继承
+        Student.prototype = create(Person.prototype, {
+            // 不要忘了重新指定构造函数
+            constructor: {
+                value: Student
+            },
+            getGrade: {
+                value: function() {
+                    return this.grade
+                }
+            }
+        })
+        // 那么我们来验证一下我们这里实现的继承是否正确。
+        var s1 = new Student('ming', 22, 5);
+
+        console.log(s1.getName());  // ming
+        console.log(s1.getAge());   // 22
+        console.log(s1.getGrade()); // 5
+
+        // 全部都能正常访问，没问题。
+        // 在ECMAScript5中直接提供了一个Object.create方法来完成我们上面自己封装的create的功能。
+        // 因此我们可以直接使用Object.create()方法
+        /* Student.prototype = Object.create(Person.prototype, {
+            // 不要忘了重新指定构造函数
+            constructor: {
+                value: Student
+            },
+            getGrade: {
+                value: function() {
+                    return this.grade
+                }
+            }
+        }) */
+
+    </script>
+</body>
+
+</html>
