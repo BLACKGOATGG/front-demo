@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 如果浏览器已经支持了原生的Promise对象，那么我们就知道，浏览器的js引擎里已经有了Promise队列，
+        // 这样就可以利用Promise将任务放在它的队列中去。
+
+        function want() {
+            console.log('这是你想要执行的代码');
+        }
+
+        function fn(want) {
+            console.log('这里表示执行了一大堆各种代码');
+
+            // 返回Promise对象
+            return new Promise(function(resolve, reject) {
+                if (typeof want == 'function') {
+                    resolve(want);
+                } else {
+                    reject('TypeError: '+ want +'不是一个函数')
+                }
+            })
+        }
+
+        fn(want).then(function(want) {
+            want();
+        }).catch(function(err) {
+            console.log(err);
+        })
+
+        fn('1234').then(function(want) {
+            want();
+        },function(err) {
+            console.log(err);
+        })
+        
+        // 结果：
+        // 这里表示执行了一大堆各种代码
+        // 这里表示执行了一大堆各种代码
+        // 这是你想要执行的代码
+        // TypeError: 1234不是一个函数
+
+        // 看上去变得更加复杂了。可是代码变得更加健壮，处理了错误输入的情况。
+
+
+    </script>
+</body>
+
+</html>

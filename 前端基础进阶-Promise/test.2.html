@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 从前面几篇文中的知识我们可以知道，
+        // 当我们想要确保某代码在谁谁之后执行时，
+        // 我们可以利用函数调用栈，将我们想要执行的代码放入回调函数中。
+
+
+        // 一个简单的封装
+        /* function want() {
+            console.log('这是你想要执行的代码');
+        }
+
+        function fn(want) {
+            console.log('这里表示执行了一大堆各种代码');
+
+            // 其他代码执行完毕，最后执行回调函数
+            want && want();
+        }
+
+        fn(want); */
+
+        // 利用回调函数封装，是我们在初学JavaScript时常常会使用的技能。
+
+
+        // 确保我们想要的代码压后执行，除了利用函数调用栈的执行顺序之外，我们还可以利用上一篇文章所述的队列机制。
+
+        function want() {
+            console.log('这是你想要执行的代码');
+        }
+
+        function fn(want) {
+            // 将想要执行的代码放入队列中，根据事件循环的机制，我们就不用非得将它放到最后面了，由你自由选择
+            want && want();
+            want && setTimeout(want, 0);
+            console.log('这里表示执行了一大堆各种代码');
+            want && want();
+        }
+
+        fn(want);
+
+
+    </script>
+</body>
+
+</html>
