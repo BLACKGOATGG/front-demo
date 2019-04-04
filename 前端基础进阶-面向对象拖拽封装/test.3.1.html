@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="target" style="width: 100px;height: 100px;background-color: black;"></div>
+    <div id="target2" style="width: 100px;height: 100px;background-color: red;"></div>
+
+    <script>
+        // 9、封装拖拽对象
+        /* 在前面一章我给大家分享了面向对象如何实现，基于那些基础知识，我们来将上面实现的拖拽封装为一个拖拽对象。
+        我们的目标是，只要我们声明一个拖拽实例，那么传入的目标元素将自动具备可以被拖拽的功能。
+
+        在实际开发中，一个对象我们常常会单独放在一个js文件中，这个js文件将单独作为一个模块，利用各种模块的方式组织起来使用。
+        当然这里没有复杂的模块交互，因为这个例子，我们只需要一个模块即可。
+
+        为了避免变量污染，我们需要将模块放置于一个函数自执行方式模拟的块级作用域中。
+
+        ;
+        (function() {
+            ...
+        })();
+
+        在普通的模块组织中，我们只是单纯的将许多js文件压缩成为一个js文件，
+        因此此处的第一个分号则是为了防止上一个模块的结尾不用分号导致报错。必不可少。
+        当然在通过require或者ES6模块等方式就不会出现这样的情况。
+
+        我们知道，
+        在封装一个对象的时候，我们可以将属性与方法放置于构造函数或者原型中，
+        而在增加了自执行函数之后，我们又可以将属性和方法防止与模块的内部作用域。
+        这是闭包的知识。 
+
+
+        那么我们面临的挑战就在于，如何合理的处理属性与方法的位置。
+
+        当然，每一个对象的情况都不一样，不能一概而论，我们需要清晰的知道这三种位置的特性才能做出最适合的决定。
+
+            构造函数中： 属性与方法为当前实例单独拥有，只能被当前实例访问，并且每声明一个实例，其中的方法都会被重新创建一次。
+            原型中： 属性与方法为所有实例共同拥有，可以被所有实例访问，新声明实例不会重复创建方法。
+            模块作用域中：属性和方法不能被任何实例访问，但是能被内部方法访问，新声明的实例，不会重复创建相同的方法。
+
+
+        对于方法的判断比较简单。
+
+        因为在构造函数中的方法总会在声明一个新的实例时被重复创建，因此我们声明的方法都尽量避免出现在构造函数中。
+        而如果你的方法中需要用到构造函数中的变量，或者想要公开，那就需要放在原型中。
+        如果方法需要私有不被外界访问，那么就放置在模块作用域中。
+
+        对于属性放置于什么位置有的时候很难做出正确的判断，
+        因此我很难给出一个准确的定义告诉你什么属性一定要放在什么位置，这需要在实际开发中不断的总结经验。
+        但是总的来说，仍然要结合这三个位置的特性来做出最合适的判断。
+
+        如果属性值只能被实例单独拥有，比如person对象的name，只能属于某一个person实例，
+        又比如这里拖拽对象中，某一个元素的初始位置，也仅仅只是这个元素的当前位置，这个属性，则适合放在构造函数中。
+        而如果一个属性仅仅供内部方法访问，这个属性就适合放在模块作用域中。
+
+        关于面向对象，上面的几点思考我认为是这篇文章最值得认真思考的精华。
+        如果在封装时没有思考清楚，很可能会遇到很多你意想不到的bug，所以建议大家结合自己的开发经验，多多思考，总结出自己的观点。
+
+        根据这些思考，大家可以自己尝试封装一下。
+        然后与我的做一些对比，看看我们的想法有什么不同，在下面例子的注释中，我将自己的想法表达出来。
+        */
+       ;
+       (function(){
+
+            var transform = getTransform();
+
+            function Drag(selector){
+                this.elem = document.getElementById(selector);
+                // 声明2个变量用来保存鼠标初始位置的x，y坐标
+                this.startX = 0;
+                this.startY = 0;
+                // 声明2个变量用来保存目标元素初始位置的x，y坐标
+                this.sourceX = 0;
+                this.sourceY = 0;
+                this.init();
+            }
+
+            Drag.prototype = {
+                constructor: Drag,
+                // 初始化
+                init: function(){
+                    this.setDrag();
+                },
+                // 获取当前元素的属性
+                getStyle: function (property) {
+                    return document.defaultView.getComputedStyle ? 
+                        document.defaultView.getComputedStyle(this.elem, false)[property] : this.elem.currentStyle[property];
+                },
+                // 获取当前元素的位置
+                getPosition: function () {
+                    var pos = {x: 0, y: 0};
+                    if(transform) {
+                        var transformValue = this.getStyle(transform);
+                        if(transformValue == 'none') {
+                            this.elem.style[transform] = 'translate(0, 0)';
+                            return pos;
+
+                        } else {
+                            var temp = transformValue.match(/-?\d+/g);
+                            return pos = {
+                                x: parseInt(temp[4].trim()),
+                                y: parseInt(temp[5].trim())
+                            }
+                            
+                        }
+
+                    } else {
+                        if(this.getStyle('position') == 'static') {
+                            this.elem.style.position = 'relative';
+                            return pos;
+
+                        } else {
+                            var x = parseInt(this.getStyle('left') ? this.getStyle('left') : 0);
+                            var y = parseInt(this.getStyle('top') ? this.getStyle('top') : 0);
+                            return pos = {
+                                x: x,
+                                y: y
+                            }
+
+                        }
+
+                    }
+                },
+                // 设置当前元素的位置
+                setPosition: function (pos) {
+                    if(transform) {
+                        this.elem.style[transform] = 'translate('+ pos.x +'px, '+ pos.y +'px)';
+                    } else {
+                        this.elem.style.left = pos.x + 'px';
+                        this.elem.style.top = pos.y + 'px';
+                    }
+                    return this.elem;
+                },
+                // 绑定事件
+                setDrag: function(){
+                    var self = this;
+                    self.elem.addEventListener('mousedown', start, false);
+                    // 绑定在mousedown上的回调，event为传入的事件对象
+                    function start(event) {
+                        // 获取鼠标初始位置
+                        self.startX = event.pageX;
+                        self.startY = event.pageY;
+
+                        // 获取元素初始位置
+                        var pos = self.getPosition();
+
+                        self.sourceX = pos.x;
+                        self.sourceY = pos.y;
+
+                        // 绑定
+                        document.addEventListener('mousemove', move, false);
+                        document.addEventListener('mouseup', end, false);
+                    }
+
+                    // 绑定在mousemove上的回调，event为传入的事件对象
+                    function move(event) {
+                        // 获取鼠标当前位置
+                        var currentX = event.pageX;
+                        var currentY = event.pageY;
+
+                        // 计算差值
+                        var distanceX = currentX - self.startX;
+                        var distanceY = currentY - self.startY;
+
+                        // 计算并设置元素当前位置
+                        self.setPosition({
+                            x: (self.sourceX + distanceX).toFixed(),
+                            y: (self.sourceY + distanceY).toFixed()
+                        })
+                    }
+                    
+                    // 绑定在mouseup上的回调，event为传入的事件对象
+                    function end(event) {
+                        document.removeEventListener('mousemove', move, false);
+                        document.removeEventListener('mouseup', end, false);
+                    }
+
+                }
+            }
+
+
+            // 获取当前浏览器支持的transform兼容写法
+            function getTransform() {
+                var transform = '',
+                    divStyle = document.createElement('div').style,
+                    transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'],
+                    i = 0,
+                    len = transformArr.length;
+
+                for(; i < len; i++)  {
+                    if(transformArr[i] in divStyle) {
+                        return transform = transformArr[i];
+                    }
+                }
+
+                return transform;
+            }
+
+            window.Drag = Drag;
+
+       })()
+
+       new Drag('target');
+       new Drag('target2');
+    </script>
+</body>
+</html>
