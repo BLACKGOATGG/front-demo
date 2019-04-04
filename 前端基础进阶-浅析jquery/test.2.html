@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="./img/599584-181a154ebc9ec559.png" alt="" >
+    <script src="./js/jquery.js"></script>
+    <script>
+        //对象封装分析
+
+        // 在上面的实现中，
+        // 代码首先在jQuery构造函数中声明了一个fn属性，
+        // 并将其指向了原型jQuery.prototype。
+        // 并在原型中添加了init方法。
+
+        jQuery.fn = jQuery.prototype = {
+            init: {}
+        }
+        // 之后又将init的原型，指向了jQuery.prototype。
+
+        jQuery.fn.init.prototype = jQuery.fn;
+        // 而在构造函数jQuery中，返回了init的实例对象。
+
+        var jQuery = function(selector) {
+
+            // 在jQuery中直接返回new过的实例，这里的init是jQuery的真正构造函数
+            return new jQuery.fn.init(selector)
+        }
+
+        // 最后对外暴露入口时，将字符$与jQuery对等起来。
+        ROOT.jQuery = ROOT.$ = jQuery;
+
+        // 因此当我们直接使用$('#test')创建一个对象时，
+        // 实际上是创建了一个init的实例，
+        // 这里的正真构造函数是原型中的init方法。
+
+        // 注意：许多对jQuery内部实现不太了解的盆友，在使用jQuery时常常会毫无节制使用$()，比如对于同一个元素的不同操作：
+
+        var width = parseInt($('#test').css('width'));
+        if(width > 20) {
+            $('#test').css('backgroundColor', 'red');
+        }
+
+        // 通过我们上面的一系列分析，我们知道每当我们执行$()时，就会重新生成一个init的实例对象，
+        // 因此当我们这样没有节制的使用jQuery时是非常不正确的，虽然看上去方便了一些，但是对于内存的消耗是非常大的。
+        // 正确的做法是既然是同一个对象，那么就用一个变量保存起来后续使用即可。
+
+        var $test = $('#test');
+        var width = parseInt($test.css('width'));
+        if(width > 20) {
+            $test.css('backgroundColor', 'red');
+        }
+
+    </script>
+</body>
+
+</html>

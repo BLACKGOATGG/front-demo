@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="./img/599584-181a154ebc9ec559.png" alt="" >
+    <script src="./js/jquery.js"></script>
+    <script>
+        /* 
+        早几年学习前端，大家都非常热衷于研究jQuery源码。
+        我还记得当初从jQuery源码中学到一星半点应用技巧的时候常会有一种发自内心的惊叹，
+        “原来JavaScript居然可以这样用！”
+
+        虽然随着前端的发展，另外几种前端框架的崛起，jQuery慢慢变得不再是必须。
+        因此大家对于jQuery的热情低了很多。但是许多从jQuery中学到的技巧用在实际开发中仍然非常好用。
+        简单的了解它也有助于我们更加深入的理解JavaScript。
+
+        这篇文章的主要目的就是跟大家分享一下，jquery对象是如何封装的。
+        算是对于大家进一步学习jQuery源码的一个抛砖引玉。 
+        */
+
+        // 使用jQuery对象时，我们这样写：
+
+        // 声明一个jQuery对象
+        $('.target')
+
+        // 获取元素的css属性
+        $('.target').css('width')
+
+        // 获取元素的位置信息
+        $('.target').offset()
+
+        // 在使用之初可能会有许多疑问，比如$是怎么回事？为什么不用new就可以直接声明一个对象等等。
+        // 后来了解之后，才知道原来这正是jQuery对象创建的巧妙之处。
+
+
+        // 在上面的代码中，我封装了一个简化版的jQuery对象。它向大家简单展示了jQuery的整体框架情况。
+        // 如果了解了整体框架，那么大家去读jQuery源码，就会变得非常轻松。
+
+        // 我们在代码中可以看到，jQuery自身对于原型的处理使用了一些巧妙的语法，
+        // 比如jQuery.fn = jQuery.prototype，jQuery.fn.init.prototype = jQuery.fn;等，
+        // 这几句正式jQuery对象的关键所在，下面我用图给大家展示一下这中间的逻辑是怎么回事。
+        // <img src="599584-181a154ebc9ec559" alt="" >
+
+    </script>
+</body>
+
+</html>

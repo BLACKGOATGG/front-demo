@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="./img/599584-181a154ebc9ec559.png" alt="" >
+    <div id="target" style="width: 100px;height: 100px;background-color: black;"></div>
+    <div id="target2" style="width: 100px;height: 100px;background-color: red;"></div>
+
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery.becomeDrag-v0.0.1.js"></script>
+    <script>
+        // jQuery插件的实现
+
+        // 我在初级阶段的时候，觉得要自己编写一个jQuery插件是一件高大上的事情，可望不可即。
+        // 但是通过对于上面的理解，我就知道扩展jQuery插件其实是一件我们自己也可以完成的事情。
+
+        // 在前面我跟大家分享了jQuery如何实现，以及他们的方法如何扩展，并且前一篇文章分享了拖拽对象的具体实现。
+        // 所以建议大家暂时不要阅读下去，自己动手尝试将拖拽扩展成为jQuery的一个实例方法，那么这就是一个jQuery插件了。
+
+        // 具体也没有什么可多说的了，大家看了代码就可以明白一切。
+
+        // Drag对象简化代码，完整源码可在上一篇文章中查看
+        /* ;
+        (function() {
+
+            // 构造
+            function Drag(selector) {}
+
+
+            // 原型
+            Drag.prototype = {
+                constructor: Drag,
+
+                init: function() {
+                    // 初始时需要做些什么事情
+                    this.setDrag();
+                },
+
+                // 稍作改造，仅用于获取当前元素的属性，类似于getName
+                getStyle: function(property) {},
+
+                // 用来获取当前元素的位置信息，注意与之前的不同之处
+                getPosition: function() {},
+
+                // 用来设置当前元素的位置
+                setPostion: function(pos) {},
+
+                // 该方法用来绑定事件
+                setDrag: function() {}
+            }
+
+            // 一种对外暴露的方式
+            window.Drag = Drag;
+        })();*/
+
+        // 通过扩展方法将拖拽扩展为jQuery的一个实例方法
+        /*  (function ($) {
+            $.fn.extend({
+                becomeDrag: function () {
+                new Drag(this[0]);
+                return this;   // 注意：为了保证jQuery所有的方法都能够链式访问，每一个方法的最后都需要返回this，即返回jQuery实例
+                }
+            })
+        })(jQuery);*/
+        
+        /* =========================================== */
+        // bug：小波大佬的原例是挂载成为jq的实例方法，但是我自己这里挂载成为一个工具方法
+        // 原因，因为我写的组件获取元素的方法仅支持传入字符串查询对应id的元素来获取元素，现已修正
+        $('#target').becomeDrag()
+        $.becomeDrag('target2')
+
+    </script>
+</body>
+
+</html>
