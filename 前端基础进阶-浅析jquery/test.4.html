@@ -73,7 +73,8 @@
         /* =========================================== */
         // bug：小波大佬的原例是挂载成为jq的实例方法，但是我自己这里挂载成为一个工具方法
         // 原因，因为我写的组件获取元素的方法仅支持传入字符串查询对应id的元素来获取元素，现已修正
-        $('#target').becomeDrag()
+        // $('#target').becomeDrag()    //现已修正后事件绑定方法出错=》this.elem.addEventListener，大概是因为获取元素的方法不同，的到的元素对象部分属性和方法不同
+        $.becomeDrag('target')
         $.becomeDrag('target2')
 
     </script>

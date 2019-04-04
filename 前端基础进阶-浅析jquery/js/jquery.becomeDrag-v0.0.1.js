@@ -1,9 +1,10 @@
 ;
 (function () {
-
+    // 这是一个私有属性，不需要被实例访问
     var transform = getTransform();
 
     function Drag(selector) {
+        // 放在构造函数中的属性，都是属于每一个实例单独拥有
         this.elem = typeof selector == 'Object' ? selector : document.getElementById(selector);
         // 声明2个变量用来保存鼠标初始位置的x，y坐标
         this.startX = 0;
@@ -11,21 +12,25 @@
         // 声明2个变量用来保存目标元素初始位置的x，y坐标
         this.sourceX = 0;
         this.sourceY = 0;
+
         this.init();
     }
 
+    // 原型
     Drag.prototype = {
         constructor: Drag,
         // 初始化
         init: function () {
+            // 初始时需要做些什么事情
             this.setDrag();
         },
-        // 获取当前元素的属性
+        // 获取当前元素的属性 稍作改造，仅用于获取当前元素的属性，类似于getName
         getStyle: function (property) {
-            return document.defaultView.getComputedStyle ?
-                document.defaultView.getComputedStyle(this.elem, false)[property] : this.elem.currentStyle[property];
+            return document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(
+                this.elem, false)[property] : this.elem.currentStyle[property];
         },
-        // 获取当前元素的位置
+
+        // 获取当前元素的位置信息，注意与之前的不同之处
         getPosition: function () {
             var pos = {
                 x: 0,
@@ -35,11 +40,10 @@
                 var transformValue = this.getStyle(transform);
                 if (transformValue == 'none') {
                     this.elem.style[transform] = 'translate(0, 0)';
-                    return pos;
 
                 } else {
                     var temp = transformValue.match(/-?\d+/g);
-                    return pos = {
+                    pos = {
                         x: parseInt(temp[4].trim()),
                         y: parseInt(temp[5].trim())
                     }
@@ -49,19 +53,17 @@
             } else {
                 if (this.getStyle('position') == 'static') {
                     this.elem.style.position = 'relative';
-                    return pos;
 
                 } else {
-                    var x = parseInt(this.getStyle('left') ? this.getStyle('left') : 0);
-                    var y = parseInt(this.getStyle('top') ? this.getStyle('top') : 0);
-                    return pos = {
-                        x: x,
-                        y: y
+                    pos = {
+                        x: parseInt(this.getStyle('left') ? this.getStyle('left') : 0),
+                        y: parseInt(this.getStyle('top') ? this.getStyle('top') : 0)
                     }
-
+                    
                 }
-
             }
+
+            return pos;
         },
         // 设置当前元素的位置
         setPosition: function (pos) {
@@ -71,7 +73,6 @@
                 this.elem.style.left = pos.x + 'px';
                 this.elem.style.top = pos.y + 'px';
             }
-            return this.elem;
         },
         // 绑定事件
         setDrag: function () {
@@ -121,7 +122,7 @@
     }
 
 
-    // 获取当前浏览器支持的transform兼容写法
+    // 私有方法，仅仅用来获取transform的兼容写法
     function getTransform() {
         var transform = '',
             divStyle = document.createElement('div').style,
@@ -138,9 +139,9 @@
         return transform;
     }
 
+    // 一种对外暴露的方式
     window.Drag = Drag;
-
-})()
+})();
 
 // 优先引入jquery,通过自调用的匿名函数调用报错，匿名函数接受参数在函数内部访问不到，在外部可以，而在test.4可以函数内部正常访问，
 /*  (function ($) {
