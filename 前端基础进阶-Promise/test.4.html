@@ -52,18 +52,22 @@
 
         // then方法的执行结果也会返回一个Promise对象。
         // 因此我们可以进行then的链式执行，这也是解决回调地狱的主要方式。
-
+        var self ;
         function fn(num) {
             var p = new Promise(function (resolve, reject) {
+                    console.log(this)
+                    
                     if (typeof num == 'number') {
-                        resolve(1);
+                        resolve({resolve, reject});
                     } else {
                         reject('失败');
                     }
                 })
                 .then(function (res) {
                     console.log('参数是一个number值1', res);
-                    throw new Error("提示文字")
+                    console.log(this)
+                    console.log(res.reject.call(this,"one then err"))
+                    // throw new Error("提示文字")
                     return res + 1
                 }, function (err) {
                     console.log('err', err);
@@ -111,7 +115,7 @@
         }
 
         // fn(1234);    // 1,2,3,4,5,6,7,8,9
-        var p = fn('haha');
+        var p = fn(123);
         p.then(function (res) {
             console.log('第2次then，res', res)
         }, function (err) {
