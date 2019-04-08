@@ -1,0 +1,93 @@
+/* for img-center */
+/* 
+每一张图片都有一个包裹的div，这些div的宽高，就是我们期望图片能保持的宽高。
+
+当图片宽度值过大时，我们期望图片的高度为100%，并且左右居中。
+当图片高度值过大时，我们期望图片的宽度为100%，并且上下居中。
+
+根据这一点，我们来看看具体怎么实现。 
+*/
+.img-center {
+    width: 200px;
+    height: 150px;
+    margin: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.img-center img {
+    display: block;
+    position: absolute;
+}
+
+.img-center img.aspectFill-x {
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.img-center img.aspectFill-y {
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
+/* for dialog */
+.dialog-dropback {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dialog-dropback .container {
+    position: absolute;
+    width: 300px;
+    background-color: #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog-dropback .head {
+    padding: 15px;
+    text-align: center;
+}
+
+.dialog-dropback .content {
+    padding: 0px 15px 15px;
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.8;
+}
+
+button {
+    border: none;
+    background: none;
+    outline: none;
+}
+.dialog-dropback .footer {
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+}
+.dialog-dropback .footer button {
+    flex: 1;
+    height: 50px;
+    font-size: 15px;
+}
+
+.cancel {
+    border-right: 1px solid #e5e5e5;
+}
+
+
+button.aspect {
+    width: 200px;
+    height: 60px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+}
