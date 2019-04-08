@@ -21,117 +21,14 @@
         这三种状态不受外界影响，而且状态只能从pending改变为resolved或者rejected，并且不可逆。
         在Promise对象的构造函数中，将一个函数作为第一个参数。
         而这个函数，就是用来处理Promise的状态变化。
+        */
 
         new Promise(function(resolve, reject) {
             if(true) { resolve() };
             if(false) { reject() };
         })
-        上面的resolve和reject都为一个函数，他们的作用分别是将状态修改为resolved和rejected。
+        // 上面的resolve和reject都为一个函数，他们的作用分别是将状态修改为resolved和rejected。 
 
-        */
-
-        // 二、 Promise对象中的then方法，可以接收构造函数中处理的状态变化，并分别对应执行。
-        // then方法有2个参数，第一个函数接收resolved状态的执行，第二个参数接收reject状态的执行。
-        /* function fn(num) {
-            return new Promise(function(resolve, reject) {
-                if (typeof num == 'number') {
-                    resolve();
-                } else {
-                    reject();
-                }
-            }).then(function() {
-                console.log('参数是一个number值');
-            }, function() {
-                console.log('参数不是一个number值');
-            })
-        }
-
-        fn('hahha');
-        fn(1234); */
-
-
-        // then方法的执行结果也会返回一个Promise对象。
-        // 因此我们可以进行then的链式执行，这也是解决回调地狱的主要方式。
-        var self ;
-        function fn(num) {
-            var p = new Promise(function (resolve, reject) {
-                    console.log(this)
-                    
-                    if (typeof num == 'number') {
-                        resolve({resolve, reject});
-                    } else {
-                        reject('失败');
-                    }
-                })
-                .then(function (res) {
-                    console.log('参数是一个number值1', res);
-                    console.log(this)
-                    console.log(res.reject.call(this,"one then err"))
-                    // throw new Error("提示文字")
-                    return res + 1
-                }, function (err) {
-                    console.log('err', err);
-                    throw new Error("提示文字")
-                })
-            return p
-
-            // .then(function() {
-            //     console.log('参数是一个number值3');
-            // })
-            // .then(null, function() {
-            //     console.log('参数不是一个number值1');
-            // })
-            // .then(null, function() {
-            //     console.log('参数不是一个number值2');
-            // })
-            // .then(null, function() {
-            //     console.log('参数不是一个number值3');
-            // })
-            // .then(function() {
-            //     console.log('参数是一个number值4');
-            // })
-            // .then(function() {
-            //     console.log('参数是一个number值5');
-            // })
-            // .then(function() {
-            //     console.log('参数是一个number值6');
-            // })
-            // .then(function() {
-            //     console.log('参数是一个number值7');
-            // })
-            // .then(null, function() {
-            //     console.log('参数不是一个number值4');
-            // })
-            // .then(null, function() {
-            //     console.log('参数不是一个number值5');
-            // })
-            // .then(function() {
-            //     console.log('参数是一个number值8');
-            // })
-            // .then(function() {
-            //     console.log('参数是一个number值9');
-            // })
-
-        }
-
-        // fn(1234);    // 1,2,3,4,5,6,7,8,9
-        var p = fn(123);
-        p.then(function (res) {
-            console.log('第2次then，res', res)
-        }, function (err) {
-            console.log('第2次then，err', err)
-        }).then((res) => {
-            console.log('第3次then，res', res)
-        }, (err) => {
-            console.log('第3次then，err', err)
-
-        })
-        console.log(p);
-
-
-        // fn('hahha')  // not1,4,5,6,7,8,9
-
-        // then(null, function() {}) 就等同于catch(function() {})
     </script>
 </body>
 
