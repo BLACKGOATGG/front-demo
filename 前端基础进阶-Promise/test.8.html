@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 四、Promise.all
+
+        // 当有一个ajax请求，它的参数需要另外2个甚至更多请求都有返回结果之后才能确定，
+        // 那么这个时候，就需要用到Promise.all来帮助我们应对这个场景。
+
+        // Promise.all接收一个Promise对象组成的数组作为参数，
+        // 当这个数组所有的Promise对象状态都变成resolved或者rejected的时候，它才会去调用then方法。
+
+        var url = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-02-26/2017-06-10';
+        var url1 = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-03-26/2017-06-10';
+        var url2 = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-04-26/2017-06-10';
+
+        function getJSON(url) {
+            return new Promise(function(resolve, reject) {
+                var XHR = new XMLHttpRequest();
+                XHR.open('GET', url, true);
+                XHR.send();
+
+                XHR.onreadystatechange = function() {
+                    if (XHR.readyState == 4) {
+                        if (XHR.status == 200) {
+                            try {
+                                var response = JSON.parse(XHR.responseText);
+                                resolve(response);
+                            } catch (e) {
+                                reject(e);
+                            }
+                        } else {
+                            reject(new Error(XHR.statusText));
+                        }
+                    }
+                }
+            })
+        }
+
+        function renderAll() {
+            return Promise.all([
+                getJSON(url), 
+                getJSON(url1),
+                getJSON(url2),
+            ]);
+        }
+
+        renderAll().then(function(value) {
+            console.log(value);
+        })
+
+        
+        const isTypeOf = ( val ) => {
+            const type = toString.call(val);
+            switch(type){
+                case "[object Error]": 
+                    return "error";
+                case "[object Array]": 
+                    return "array";
+                case "[object RegExp]": 
+                    return "regExp";
+                case "[object Number]": 
+                    return "number";
+                case "[object Object]": 
+                    return "object";
+                case "[object String]": 
+                    return "string";
+                case "[object Boolean]": 
+                    return "boolean";
+                case "[object Function]": 
+                    return "function";
+                case "[object Undefined]": 
+                    return "undefined";
+                default : 
+                    return "null";
+            }
+        };
+        /**
+         * == 将数组值映射到指定key对象下 ==
+         * @param {*} keys 
+         */
+        const mapKeyVal = ( ...keys ) => {
+            return ( arr ) => {
+                return keys.reduce(( obj, key, index ) => {
+                    switch( isTypeOf( key ) ){
+                        case "function" :
+                            key( obj, arr[index] ); break;
+                        default :
+                            obj[key] = arr[index] || { };  break;
+                    }            
+                    return obj;
+                }, { });
+            }
+        }
+
+        var deta = Promise.all([
+                getJSON(url), 
+                getJSON(url1),
+                getJSON(url2),
+            ]).then(mapKeyVal([
+                "data1","data2","data3"
+            ]));
+        console.log(deta)
+    </script>
+</body>
+
+</html>

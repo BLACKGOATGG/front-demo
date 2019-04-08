@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log(1)
+        // OK，了解了这些基础知识之后，我们再回过头，利用Promise的知识，对最开始的ajax的例子进行一个简单的封装。看看会是什么样子。
+
+        var url = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-02-26/2017-06-10';
+
+        // 封装一个get请求的方法
+        function getJSON(url) {
+            console.log(2)
+            return new Promise(function(resolve, reject) {
+                console.log(3)
+                var XHR = new XMLHttpRequest();
+                XHR.open('GET', url, true);
+                XHR.send();
+
+                XHR.onreadystatechange = function() {
+                    console.log(4)
+                    if (XHR.readyState == 4) {
+                        if (XHR.status == 200) {
+                            console.log(5)
+                            try {
+                                console.log(5.1)
+                                var response = JSON.parse(XHR.responseText);
+                                resolve(response);
+                            } catch (e) {
+                                console.log(5.2)
+                                reject(e);
+                            }
+                        } else {
+                            reject(new Error(XHR.statusText));
+                        }
+                    }
+                }
+            })
+        }
+
+        getJSON(url).then(res => {
+            console.log(5.11)
+            console.log(res)
+        },err => {
+            console.log(5.21)
+            console.log(err)
+        });
+
+        // 为了健壮性，处理了很多可能出现的异常，
+        // 总之，就是正确的返回结果，就resolve一下，错误的返回结果，就reject一下。
+        // 并且利用上面的参数传递的方式，将正确结果或者错误信息通过他们的参数传递出来。
+
+        // 现在所有的库几乎都将ajax请求利用Promise进行了封装，
+        // 因此我们在使用jQuery等库中的ajax请求时，都可以利用Promise来让我们的代码更加优雅和简单。
+        // 这也是Promise最常用的一个场景，因此我们一定要非常非常熟悉它，这样才能在应用的时候更加灵活。
+    </script>
+</body>
+
+</html>

@@ -10,9 +10,122 @@
 
 <body>
     <script>
+        setTimeout(function(){
+            console.log("setTimeout")
+        },0)
         // 三、Promise中的数据传递
+        var fn = function (num) {
+            return new Promise(function (resolve, reject) {
+                console.log("new Promise fn")
+                if (typeof num == 'number') {
+                    resolve(num);
+                } else {
+                    reject('TypeError');
+                }
+            })
+        }
+
+        fn(2).then(function (num) {
+                console.log('first: ' + num);
+                return num + 1;
+            })
+            .then(function (num) {
+                console.log('second: ' + num);
+                return num + 1;
+            })
+            .then(function (num) {
+                console.log('third: ' + num);
+                return num + 1;
+            });
+
+        /* 
+        // 输出结果
+        first: 2
+        second: 3
+        third: 4 
+        */
+        var fn2 = function (num) {
+            return new Promise(function (resolve, reject) {
+                console.log("new Promise fn2")
+                if (typeof num == 'number') {
+                    resolve(num);
+                }else{
+                    reject('TypeError');
+                }
+            })
+        }
+
+        fn2(10).then(function(num){
+            console.log('one: ' + num);
+            return num + 1;
+        },function(err){
+            console.log(err);
+        }).then(function(num){
+            console.log('two: ' + num);
+            return num + 1;
+        },function(err){
+            console.log(err);
+        }).then(function(num){
+            console.log('three: ' + num);
+            return num + 1;
+        },function(err){
+            console.log(err);
+        })
+
+        fn2('11').then(function(num){
+            console.log('one: ' + num);
+            return num + 1;
+        },function(err){
+            console.log(err);
+        }).then(function(num){
+            console.log('two: ' + num);
+            return num + 1;
+        },function(err){
+            console.log(err);
+        }).then(function(num){
+            console.log('three: ' + num);
+            return num + 1;
+        },function(err){
+            console.log(err);
+        })
+
+        /*
+        // 输出结果
+        test.6.html:19      new Promise fn
+        test.6.html:49      new Promise fn2
+        test.6.html:49      new Promise fn2
+        test.6.html:29      first: 2
+        test.6.html:59      one: 10
+        test.6.html:79      TypeError
+        test.6.html:33      second: 3
+        test.6.html:64      two: 11
+        test.6.html:81      two: undefined
+        test.6.html:37      third: 4
+        test.6.html:69      three: 12
+        test.6.html:86      three: NaN
+        test.6.html:14      setTimeout
 
 
+        // 由此可以看出promise和timeout执行机制：
+        new Promise fn(2)->
+        new Promise fn2(10)->
+        new Promise fn2('11')->
+        
+        fn(2).then->
+        fn2(10).then->
+        fn2('11').then->
+
+        fn(2).then.then->
+        fn2(10).then.then->
+        fn2('11').then.then->
+
+        fn(2).then.then.then->
+        fn2(10).then.then.then->
+        fn2('11').then.then.then->
+
+        setTimeout(fun,0)->
+
+        */
     </script>
 </body>
 
