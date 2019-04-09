@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // OK，到这里，事件循环我想我已经表述得很清楚了，能不能理解就看读者老爷们有没有耐心了。我估计很多人会理解不了循环结束的节点。
+
+        // 当然，这些顺序都是v8的一些实现。我们也可以根据上面的规则，来尝试实现一下事件循环的机制。
+
+        // 用数组模拟一个队列
+        var tasks = [];
+
+        // 模拟一个事件分发器
+        var addFn1 = function(task) {
+            tasks.push(task);
+        }
+
+        // 执行所有的任务
+        var flush = function() {
+            tasks.map(function(task) {
+                task();
+            })
+        }
+
+        // 最后利用setTimeout/或者其他你认为合适的方式丢入事件循环中
+        setTimeout(function() {
+            flush();
+        })
+
+        // 当然，也可以不用丢进事件循环，而是我们自己手动在适当的时机去执行对应的某一个方法
+        var dispatch = function(name) {
+            tasks.map(function(item) {
+                if(item.name == name) {
+                    item.handler();
+                }
+            })
+        }
+
+        // 当然，我们把任务丢进去的时候，多保存一个name即可。
+        // 这时候，task的格式就如下
+        demoTask =  {
+            name: 'demo',
+            handler: function() {}
+        }
+
+        // 于是，一个订阅-通知的设计模式就这样轻松的被实现了
+        // 这样，我们就模拟了一个任务队列。我们还可以定义另外一个队列，利用上面的各种方式来规定他们的优先级。
+
+        // 需要注意的是，这里的执行顺序，或者执行的优先级在不同的场景里由于实现的不同会导致不同的结果，
+        // 包括node的不同版本，不同浏览器等都有不同的结果。
+    </script>
+</body>
+
+</html>

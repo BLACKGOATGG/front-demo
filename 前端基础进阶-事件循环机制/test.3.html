@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        这个例子看上去有点复杂，乱七八糟的代码一大堆，不过不用担心，我们一步一步来分析一下。<br />
+        第一步：宏任务script首先执行。全局入栈。glob1输出。
+    </p>
+    <img src="./img/599584-5ae0b593167e499b.png" alt="">
+    <br />
+
+    <p>
+        第二步，执行过程遇到setTimeout。setTimeout作为任务分发器，将任务分发到对应的宏任务队列中。<br />
+        <br />
+        setTimeout(function() {<br />
+            console.log('timeout1');<br />
+            process.nextTick(function() {<br />
+                console.log('timeout1_nextTick');<br />
+            })<br />
+            new Promise(function(resolve) {<br />
+                console.log('timeout1_promise');<br />
+                resolve();<br />
+            }).then(function() {<br />
+                console.log('timeout1_then')<br />
+            })<br />
+        })
+    </p>
+    <img src="./img/599584-afded6f26c106326.png" alt="">
+    <br />
+
+    <p>
+    第三步：执行过程遇到setImmediate。<br />
+    setImmediate也是一个宏任务分发器，将任务分发到对应的任务队列中。<br />
+    setImmediate的任务队列会在setTimeout队列的后面执行。<br />
+    <br />
+    setImmediate(function() {<br />
+        console.log('immediate1');<br />
+        process.nextTick(function() {<br />
+            console.log('immediate1_nextTick');<br />
+        })<br />
+        new Promise(function(resolve) {<br />
+            console.log('immediate1_promise');<br />
+            resolve();<br />
+        }).then(function() {<br />
+            console.log('immediate1_then')<br />
+        })<br />
+    })
+    </p>
+    <img src="./img/599584-c22a5e6567ec25d3.png" alt="">
+    <br />
+
+    <p>
+    第四步：执行遇到nextTick，process.nextTick是一个微任务分发器，它会将任务分发到对应的微任务队列中去。<br />
+    <br />
+    process.nextTick(function() {<br />
+        console.log('glob1_nextTick');<br />
+    })
+    </p>
+    <img src="./img/599584-8d16de95f6a12b25.png" alt="">
+    <br />
+
+    <p>
+    第五步：执行遇到Promise。Promise的then方法会将任务分发到对应的微任务队列中，但是它构造函数中的方法会直接执行。<br />
+    因此，glob1_promise会第二个输出。<br />
+    <br />
+    new Promise(function(resolve) {<br />
+        console.log('glob1_promise');<br />
+        resolve();<br />
+    }).then(function() {<br />
+        console.log('glob1_then')<br />
+    })
+    </p>
+    <img src="./img/599584-792877853f338494.png" alt="">
+    <img src="./img/599584-b5c548ec48521c87.png" alt="">
+    <br />
+
+    <p>
+    第六步：执行遇到第二个setTimeout。<br />
+    <br />
+    setTimeout(function() {<br />
+        console.log('timeout2');<br />
+        process.nextTick(function() {<br />
+            console.log('timeout2_nextTick');<br />
+        })<br />
+        new Promise(function(resolve) {<br />
+            console.log('timeout2_promise');<br />
+            resolve();<br />
+        }).then(function() {<br />
+            console.log('timeout2_then')<br />
+        })<br />
+    })
+    </p>
+    <img src="./img/599584-0392b96fd8fd2281.png" alt="">
+    <br />
+
+    <p>
+    第七步：先后遇到nextTick与Promise<br />
+    <br />
+    process.nextTick(function() {<br />
+        console.log('glob2_nextTick');<br />
+    })<br />
+    new Promise(function(resolve) {<br />
+        console.log('glob2_promise');<br />
+        resolve();<br />
+    }).then(function() {<br />
+        console.log('glob2_then')<br />
+    })
+    </p>
+    <img src="./img/599584-7001e3438df47eb0.png" alt="">
+    <br />
+
+    <p>
+    第八步：再次遇到setImmediate。<br /> 
+    <br /> 
+    setImmediate(function() {<br /> 
+        console.log('immediate2');<br /> 
+        process.nextTick(function() {<br /> 
+            console.log('immediate2_nextTick');<br /> 
+        })<br /> 
+        new Promise(function(resolve) {<br /> 
+            console.log('immediate2_promise');<br /> 
+            resolve();<br /> 
+        }).then(function() {<br /> 
+            console.log('immediate2_then')<br /> 
+        })<br /> 
+    })
+    </p>
+    <img src="./img/599584-eb6742e93ff577cd.png" alt="">
+    <br /> 
+
+    <p>
+    这个时候，script中的代码就执行完毕了，执行过程中，遇到不同的任务分发器，就将任务分发到各自对应的队列中去。<br /> 
+    接下来，将会执行所有的微任务队列中的任务。<br /> 
+    <br /> 
+    其中，nextTick队列会比Promie先执行。nextTick中的可执行任务执行完毕之后，才会开始执行Promise队列中的任务。<br /> 
+    <br /> 
+    当所有可执行的微任务执行完毕之后，这一轮循环就表示结束了。下一轮循环继续从宏任务队列开始执行。<br /> 
+    <br /> 
+    这个时候，script已经执行完毕，所以就从setTimeout队列开始执行。<br /> 
+    </p>
+    <img src="./img/599584-48cfccebbff92e97.png" alt="">
+    <br /> 
+
+    <p>
+    setTimeout任务的执行，也依然是借助函数调用栈来完成，并且遇到任务分发器的时候也会将任务分发到对应的队列中去。<br /> 
+    <br /> 
+    只有当setTimeout中所有的任务执行完毕之后，才会再次开始执行微任务队列。并且清空所有的可执行微任务。<br /> 
+    <br /> 
+    setTiemout队列产生的微任务执行完毕之后，循环则回过头来开始执行setImmediate队列。<br /> 
+    仍然是先将setImmediate队列中的任务执行完毕，再执行所产生的微任务。<br /> 
+    <br /> 
+    当setImmediate队列执行产生的微任务全部执行之后，第二轮循环也就结束了。<br /> 
+    <br /> 
+    大家需要注意这里的循环结束的时间节点。<br /> 
+    <br /> <br /> 
+    当我们在执行setTimeout任务中遇到setTimeout时，它仍然会将对应的任务分发到setTimeout队列中去，<br /> 
+    但是该任务就得等到下一轮事件循环执行了。<br /> 
+    例子中没有涉及到这么复杂的嵌套，大家可以动手添加或者修改他们的位置来感受一下循环的变化。<br /> 
+    </p>
+
+    <br /> 
+
+
+
+
+
+    <script>
+        
+    </script>
+</body>
+
+</html>
