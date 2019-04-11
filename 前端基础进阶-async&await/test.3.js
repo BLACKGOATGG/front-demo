@@ -9,24 +9,42 @@ function fn() {
 
 // 然后利用async/await来完成代码
 const foo = async () => {
-  const t = await fn();
+  const t = await fn();   // 代码同步执行t函数执行完后执行t2再执行t3
   console.log(t);
-  console.log('next code');
+  console.log('next code1');
+
+  const t2 = await fn();
+  console.log(t2);
+  console.log('next code2');
+
+  const t3 = await fn();
+  console.log(t3);
+  console.log('next code3');
+
 }
 
 foo();
+console.log('next code');
 
 // result:
-// 30
 // next code
+// --1000ms after--
+// 30
+// next code1
+// --1000ms after--
+// 30
+// next code2
+// --1000ms after--
+// 30
+// next code3
 
 
 // 运行这个例子我们可以看出，当在async函数中，运行遇到await时，就会等待await后面的函数运行完毕，而不会直接执行next code。
 
 const foo2 = () => {
   return fn().then(t => {
-      console.log(t);
-      console.log('next code2');    
+      console.log(t,4);
+      console.log('next code4');    
   })
 }
 
