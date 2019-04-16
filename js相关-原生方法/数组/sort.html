@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // sort 方法 
+        var numberArray = [6,3,2,4,1,5];
+        console.log('排序前数组',numberArray)  
+        numberArray.sort(function(a,b){
+            console.log(`当前循环参数：a=${a}, b=${b}; a-b=${a-b}`);
+            console.log(`当前循环后原数组：${numberArray}`) 
+            console.log('========================================') 
+            return a-b
+        })  
+        console.log('排序后数组',numberArray)  
+    </script>
+</body>
+</html>
