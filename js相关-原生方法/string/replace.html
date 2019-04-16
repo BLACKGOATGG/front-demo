@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 为了保证页面输出安全，我们经常需要对一些特殊的字符进行转义
+        function escapeHtml(str) {
+            return str.replace(/[<>&'"]/g, function (match) {
+                switch (match) {
+                    case '<':
+                        return '&lt;';
+                    case '>':
+                        return '&gt;';
+                    case '&':
+                        return '&amp;';
+                    case "'":
+                        return '&quot;';
+                    case '"':
+                        return '&quot;';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
