@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function f1(){
+            var tmp = 1;
+            this.x = 3;
+            console.log(tmp);    //A
+            console.log(this.x);     //B
+        }
+        var obj = new f1(); //1
+        console.log(obj.x);     //2
+        console.log(f1());        //3    
+
+        /* 
+        代码（1），这里实例话化了 f1这个类。相当于执行了 f1函数。
+        所以这个时候 A 会输出 1， 而 B 这个时候的 this 代表的是 实例化的当前对象 obj B 输出 3。 
+
+        代码（2）毋庸置疑会输出 3， 
+        重点 代码（3）首先这里将不再是一个类，它只是一个函数。
+        这里的this 指向的其实就是window对象，那么this.x 就是一个全局变量 相当于在外部 的一个全局变量。
+        所以 B 输出 3。
+        
+        最后代码由于f没有返回值那么一个函数如果没返回值的话，将会返回 underfined ，
+        所以答案是 ： 1， 3， 3， 1， 3， underfined 。
+        */
+    </script>
+</body>
+</html>
